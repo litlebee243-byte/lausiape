@@ -1,21 +1,17 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v6.0 - FIXED
+# VERSION: CYBER v7.0 - FULLY FIXED
 # ==========================================
 
 import os
-import re
-import json
-import string
-import random
 import hashlib
 import qrcode
 from io import BytesIO
 import base64
 import datetime
 import time
-from flask import Flask, render_template_string, request, redirect, url_for, session, jsonify
+from flask import Flask, render_template_string, request, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = 'nexus-cyber-secret-key-2024'
@@ -97,7 +93,6 @@ HOME_PAGE = """
             overflow-x: hidden;
         }
         
-        /* ===== CYBER BACKGROUND ===== */
         .cyber-bg {
             position: fixed;
             top: 0;
@@ -159,7 +154,6 @@ HOME_PAGE = """
             100% { transform: translateY(100%); }
         }
         
-        /* ===== GLASS CYBER ===== */
         .glass-cyber {
             background: rgba(0, 20, 30, 0.6);
             backdrop-filter: blur(20px);
@@ -194,7 +188,6 @@ HOME_PAGE = """
             filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
         }
         
-        /* ===== MENU ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -287,7 +280,6 @@ HOME_PAGE = """
             .menu-item-cyber { padding: 12px 4px; }
         }
         
-        /* ===== TITLE ===== */
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
@@ -323,7 +315,6 @@ HOME_PAGE = """
             50% { opacity: 1; }
         }
         
-        /* ===== ANIMATIONS ===== */
         .fade-cyber {
             animation: fadeCyber 0.8s ease forwards;
         }
@@ -359,7 +350,6 @@ HOME_PAGE = """
             border-radius: 10px;
         }
         
-        /* Particle effect */
         .particle {
             position: fixed;
             width: 2px;
@@ -380,12 +370,9 @@ HOME_PAGE = """
     </style>
 </head>
 <body>
-    <!-- CYBER BACKGROUND -->
     <div class="cyber-bg"></div>
     <div class="cyber-grid"></div>
     <div class="scanline"></div>
-    
-    <!-- PARTICLES -->
     <div id="particles"></div>
 
     <div class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
@@ -455,7 +442,6 @@ HOME_PAGE = """
     </div>
 
     <script>
-        // ===== PARTICLES =====
         function createParticles() {
             const container = document.getElementById('particles');
             for(let i = 0; i < 30; i++) {
@@ -471,16 +457,6 @@ HOME_PAGE = """
             }
         }
         createParticles();
-
-        // ===== GLITCH EFFECT ON MENU =====
-        document.querySelectorAll('.menu-item-cyber').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.animation = 'glitchText 0.3s ease';
-                setTimeout(() => {
-                    this.style.animation = '';
-                }, 300);
-            });
-        });
     </script>
 </body>
 </html>
@@ -760,16 +736,34 @@ PAGE_TEMPLATE = """
             0%, 100% {{ transform: translateY(0px); }}
             50% {{ transform: translateY(-6px); }}
         }}
+        
+        .particle {{
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: particleFloat linear infinite;
+        }}
+        
+        @keyframes particleFloat {{
+            0% {{ transform: translateY(100vh) scale(0); opacity: 0; }}
+            10% {{ opacity: 1; }}
+            90% {{ opacity: 1; }}
+            100% {{ transform: translateY(-10vh) scale(1); opacity: 0; }}
+        }}
     </style>
 </head>
 <body>
     <div class="cyber-bg"></div>
     <div class="cyber-grid"></div>
     <div class="scanline"></div>
+    <div id="particles"></div>
 
     <div class="relative z-10 p-4 md:p-6 min-h-screen">
         <div class="max-w-2xl mx-auto">
-            <!-- BACK BUTTON & HEADER -->
             <div class="flex items-center justify-between mb-6 fade-cyber">
                 <a href="/" class="btn-back">← KEMBALI</a>
                 <div class="text-right float-cyber">
@@ -778,12 +772,10 @@ PAGE_TEMPLATE = """
                 </div>
             </div>
 
-            <!-- KONTEN -->
             <div class="fade-cyber" style="animation-delay: 0.2s;">
                 {content}
             </div>
 
-            <!-- FOOTER -->
             <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.4s;">
                 <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
                     ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
@@ -791,6 +783,24 @@ PAGE_TEMPLATE = """
             </footer>
         </div>
     </div>
+
+    <script>
+        function createParticles() {{
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 20; i++) {{
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                container.appendChild(particle);
+            }}
+        }}
+        createParticles();
+    </script>
 </body>
 </html>
 """
