@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v14.0 - NEON BORDER SPIN FIX
+# VERSION: CYBER v16.0 - WITH SPARKLE BUTTONS
 # ==========================================
 
 import os
@@ -280,7 +280,7 @@ HOME_PAGE = """
             color: rgba(0,255,255,0.3);
         }
         
-        /* ===== MENU DENGAN BORDER SPIN (GARIS MUTER, ISI DIEM) ===== */
+        /* ===== MENU DENGAN EFEK PETIR/SPARKLE ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -295,79 +295,99 @@ HOME_PAGE = """
         }
         
         .menu-item-cyber {
-            background: rgba(0,20,30,0.4);
-            border-radius: 12px;
-            padding: 14px 6px;
-            text-align: center;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            color: rgba(0,255,255,0.5);
-            cursor: pointer;
-            display: block;
             position: relative;
-            border: 2px solid transparent;
+            padding: 5px;
+            border-radius: 14px;
+            background: conic-gradient(
+                from 0deg,
+                #00d4ff,
+                #7b2ffc,
+                #ff0080,
+                #00d4ff
+            );
+            background-size: 300% 300%;
+            animation: petirBerputar 4s linear infinite;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
         }
         
-        /* ===== BORDER SPIN (GARIS MUTER) ===== */
+        @keyframes petirBerputar {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        
+        /* Efek petir muncul perlahan */
         .menu-item-cyber::before {
             content: '';
             position: absolute;
-            inset: -3px;
-            border-radius: 14px;
-            padding: 3px;
-            background: conic-gradient(
-                from 0deg,
-                #00ff88,
-                #00ffff,
-                #a855f7,
-                #ec4899,
-                #00ff88,
-                #00ffff,
-                #a855f7,
-                #ec4899,
-                #00ff88
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: borderSpin 2.5s linear infinite;
+            inset: -4px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.8) 0%, transparent 60%),
+                        radial-gradient(circle at 70% 60%, rgba(123, 47, 252, 0.8) 0%, transparent 60%),
+                        radial-gradient(circle at 50% 80%, rgba(255, 0, 128, 0.7) 0%, transparent 50%);
+            filter: blur(10px);
+            opacity: 0;
+            animation: petirMuncul 3s ease-in-out infinite;
             z-index: 0;
         }
         
-        @keyframes borderSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes petirMuncul {
+            0% { opacity: 0; transform: scale(0.6); filter: blur(15px); }
+            30% { opacity: 0.3; transform: scale(0.8); filter: blur(12px); }
+            60% { opacity: 1; transform: scale(1.1); filter: blur(6px); }
+            80% { opacity: 0.8; transform: scale(1.05); filter: blur(8px); }
+            100% { opacity: 0; transform: scale(0.5); filter: blur(20px); }
         }
         
-        /* ===== ISI MENU (DIEM, GAK IKUT MUTER) ===== */
+        /* Efek percikan kedua */
         .menu-item-cyber::after {
             content: '';
             position: absolute;
-            inset: 2px;
-            background: rgba(0,20,30,0.5);
-            border-radius: 11px;
+            inset: -8px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.6) 0%, transparent 4px),
+                        radial-gradient(circle at 80% 40%, rgba(123, 47, 252, 0.6) 0%, transparent 4px),
+                        radial-gradient(circle at 40% 90%, rgba(255, 0, 128, 0.6) 0%, transparent 4px),
+                        radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.6) 0%, transparent 4px);
+            opacity: 0;
+            animation: percikanMuncul 3.5s ease-in-out infinite 0.5s;
             z-index: 0;
-            transition: background 0.3s ease;
         }
         
-        .menu-item-cyber:hover::after {
-            background: rgba(0,40,60,0.5);
+        @keyframes percikanMuncul {
+            0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+            40% { opacity: 1; transform: scale(1.2) rotate(5deg); }
+            70% { opacity: 0.7; transform: scale(1.1) rotate(0deg); }
+            100% { opacity: 0; transform: scale(0.4) rotate(15deg); }
+        }
+        
+        /* Isi tombol */
+        .menu-item-inner {
+            position: relative;
+            background: rgba(10, 10, 26, 0.85);
+            border-radius: 12px;
+            padding: 14px 6px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+            z-index: 1;
+            backdrop-filter: blur(4px);
+        }
+        
+        .menu-item-cyber:hover .menu-item-inner {
+            background: rgba(10, 10, 26, 0.6);
+            color: #00ffff;
+            transform: scale(1.03);
         }
         
         .menu-item-cyber:hover {
-            transform: translateY(-4px) scale(1.03);
-            color: #00ffff;
-            box-shadow: 0 0 30px rgba(0,255,255,0.1);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.15);
         }
         
         .menu-item-cyber:hover .menu-icon-cyber {
             transform: scale(1.15) rotate(-5deg);
-        }
-        
-        /* ===== ISI HARUS DI ATAS BORDER ===== */
-        .menu-item-cyber * {
-            position: relative;
-            z-index: 1;
         }
         
         .menu-item-cyber.hidden {
@@ -393,7 +413,26 @@ HOME_PAGE = """
         @media (max-width: 640px) {
             .menu-icon-cyber { font-size: 1.4rem; }
             .menu-label-cyber { font-size: 0.5rem; }
-            .menu-item-cyber { padding: 10px 4px; }
+            .menu-item-inner { padding: 10px 4px; }
+        }
+        
+        /* Sparkle kecil di dalam tombol */
+        .sparkle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 2s ease-in-out infinite;
+            opacity: 0;
+            z-index: 2;
+        }
+        
+        @keyframes sparkleAnim {
+            0% { opacity: 0; transform: scale(0) translate(0, 0); }
+            20% { opacity: 1; transform: scale(1.5) translate(var(--tx), var(--ty)); }
+            80% { opacity: 1; transform: scale(1.2) translate(calc(var(--tx) * 0.8), calc(var(--ty) * 0.8)); }
+            100% { opacity: 0; transform: scale(0) translate(calc(var(--tx) * 2), calc(var(--ty) * 2)); }
         }
         
         /* ===== TYPOGRAPHY ===== */
@@ -430,10 +469,10 @@ HOME_PAGE = """
         
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ff88, #a855f7); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00d4ff, #7b2ffc); border-radius: 10px; }
         
         .particle {
-            position: fixed; width: 2px; height: 2px; background: #00ff88; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #00d4ff; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }
@@ -489,7 +528,7 @@ HOME_PAGE = """
                 ENTER NEXUS
             </button>
             <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
-                v14.0 • CYBER EDITION
+                v16.0 • CYBER EDITION
             </p>
         </div>
     </div>
@@ -515,19 +554,69 @@ HOME_PAGE = """
                 <input type="text" id="searchMenu" class="search-cyber" placeholder="🔍 Cari menu..." onkeyup="filterMenu()">
             </div>
 
-            <!-- MENU GRID -->
+            <!-- MENU GRID DENGAN SPARKLE -->
             <nav class="glass-cyber rounded-2xl p-4 md:p-6 fade-cyber" style="animation-delay: 0.15s;">
                 <div class="menu-cyber" id="menuGrid">
-                    <a href="/ucapan" class="menu-item-cyber" data-name="ucapan"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
-                    <a href="/pesan" class="menu-item-cyber" data-name="pesan"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
-                    <a href="/kuis" class="menu-item-cyber" data-name="kuis"><span class="menu-icon-cyber">🧠</span><span class="menu-label-cyber">Kuis</span></a>
-                    <a href="/qr" class="menu-item-cyber" data-name="qr"><span class="menu-icon-cyber">📱</span><span class="menu-label-cyber">QR</span></a>
-                    <a href="/keuangan" class="menu-item-cyber" data-name="keuangan"><span class="menu-icon-cyber">💰</span><span class="menu-label-cyber">Keuangan</span></a>
-                    <a href="/hitung" class="menu-item-cyber" data-name="hitung"><span class="menu-icon-cyber">⏳</span><span class="menu-label-cyber">Hitung</span></a>
-                    <a href="/teks" class="menu-item-cyber" data-name="teks"><span class="menu-icon-cyber">✨</span><span class="menu-label-cyber">Teks</span></a>
-                    <a href="/favorit" class="menu-item-cyber" data-name="favorit"><span class="menu-icon-cyber">⭐</span><span class="menu-label-cyber">Favorit</span></a>
-                    <a href="/ketik" class="menu-item-cyber" data-name="ketik"><span class="menu-icon-cyber">⌨️</span><span class="menu-label-cyber">Ketik</span></a>
-                    <a href="/konversi" class="menu-item-cyber" data-name="konversi"><span class="menu-icon-cyber">🔄</span><span class="menu-label-cyber">Konversi</span></a>
+                    <a href="/ucapan" class="menu-item-cyber" data-name="ucapan">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">🎉</span>
+                            <span class="menu-label-cyber">Ucapan</span>
+                        </div>
+                    </a>
+                    <a href="/pesan" class="menu-item-cyber" data-name="pesan">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">💌</span>
+                            <span class="menu-label-cyber">Pesan</span>
+                        </div>
+                    </a>
+                    <a href="/kuis" class="menu-item-cyber" data-name="kuis">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">🧠</span>
+                            <span class="menu-label-cyber">Kuis</span>
+                        </div>
+                    </a>
+                    <a href="/qr" class="menu-item-cyber" data-name="qr">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">📱</span>
+                            <span class="menu-label-cyber">QR</span>
+                        </div>
+                    </a>
+                    <a href="/keuangan" class="menu-item-cyber" data-name="keuangan">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">💰</span>
+                            <span class="menu-label-cyber">Keuangan</span>
+                        </div>
+                    </a>
+                    <a href="/hitung" class="menu-item-cyber" data-name="hitung">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">⏳</span>
+                            <span class="menu-label-cyber">Hitung</span>
+                        </div>
+                    </a>
+                    <a href="/teks" class="menu-item-cyber" data-name="teks">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">✨</span>
+                            <span class="menu-label-cyber">Teks</span>
+                        </div>
+                    </a>
+                    <a href="/favorit" class="menu-item-cyber" data-name="favorit">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">⭐</span>
+                            <span class="menu-label-cyber">Favorit</span>
+                        </div>
+                    </a>
+                    <a href="/ketik" class="menu-item-cyber" data-name="ketik">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">⌨️</span>
+                            <span class="menu-label-cyber">Ketik</span>
+                        </div>
+                    </a>
+                    <a href="/konversi" class="menu-item-cyber" data-name="konversi">
+                        <div class="menu-item-inner">
+                            <span class="menu-icon-cyber">🔄</span>
+                            <span class="menu-label-cyber">Konversi</span>
+                        </div>
+                    </a>
                 </div>
                 <div id="noResult" class="no-result">✖ MENU TIDAK DITEMUKAN</div>
             </nav>
@@ -585,6 +674,53 @@ HOME_PAGE = """
                 noResult.style.display = 'none';
             }
         }
+
+        // ===== SPARKLE EFFECT ON MENU =====
+        function createSparkle(wrapper) {
+            var sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+
+            var angle = Math.random() * 360;
+            var radius = 30 + Math.random() * 40;
+            var x = 50 + radius * Math.cos(angle);
+            var y = 50 + radius * Math.sin(angle);
+
+            sparkle.style.left = x + '%';
+            sparkle.style.top = y + '%';
+            sparkle.style.setProperty('--tx', (Math.random() * 60 - 30) + 'px');
+            sparkle.style.setProperty('--ty', (Math.random() * 60 - 30) + 'px');
+            sparkle.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
+            sparkle.style.width = (2 + Math.random() * 4) + 'px';
+            sparkle.style.height = sparkle.style.width;
+            
+            var colors = ['#00d4ff', '#7b2ffc', '#ff0080', '#ffdd00', '#00ff88'];
+            sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            sparkle.style.boxShadow = '0 0 10px ' + sparkle.style.background;
+
+            wrapper.appendChild(sparkle);
+            setTimeout(function() { sparkle.remove(); }, 3000);
+        }
+
+        // ===== SPARKLE ON ALL MENU =====
+        var menuItems = document.querySelectorAll('.menu-item-cyber');
+        menuItems.forEach(function(item) {
+            // Sparkle bergelombang
+            setInterval(function() {
+                if (!item.classList.contains('hidden')) {
+                    var count = 1 + Math.floor(Math.random() * 2);
+                    for (var i = 0; i < count; i++) {
+                        setTimeout(function() { createSparkle(item); }, i * 150);
+                    }
+                }
+            }, 1200);
+
+            // Ledakan sparkle saat di-hover
+            item.addEventListener('mouseenter', function() {
+                for (var i = 0; i < 12; i++) {
+                    setTimeout(function() { createSparkle(item); }, i * 40);
+                }
+            });
+        });
 
         // ===== PARTICLES =====
         function createParticles() {
@@ -788,7 +924,7 @@ PAGE_TEMPLATE = """
         
         ::-webkit-scrollbar {{ width: 3px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ff88, #a855f7); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00d4ff, #7b2ffc); border-radius: 10px; }}
         
         .float-cyber {{
             animation: floatCyber 3s ease-in-out infinite;
@@ -799,7 +935,7 @@ PAGE_TEMPLATE = """
         }}
         
         .particle {{
-            position: fixed; width: 2px; height: 2px; background: #00ff88; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #00d4ff; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }}
