@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v16.0 - WITH SPARKLE BUTTONS
+# VERSION: CYBER v17.0 - LIGHT & FAST
 # ==========================================
 
 import os
@@ -133,8 +133,8 @@ HOME_PAGE = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.05) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }
         @keyframes cyberPulse {
@@ -145,8 +145,8 @@ HOME_PAGE = """
         .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background-image: 
-                linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
+                linear-gradient(rgba(0,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.015) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }
@@ -157,7 +157,7 @@ HOME_PAGE = """
         
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.005) 2px, rgba(0,255,255,0.005) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }
@@ -168,10 +168,10 @@ HOME_PAGE = """
         
         /* ===== GLASS CYBER ===== */
         .glass-cyber {
-            background: rgba(0,20,30,0.5);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(0,255,255,0.1);
-            box-shadow: 0 0 30px rgba(0,255,255,0.03);
+            background: rgba(0,20,30,0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,255,255,0.08);
+            box-shadow: 0 0 20px rgba(0,255,255,0.02);
             position: relative; z-index: 1;
         }
         
@@ -184,7 +184,7 @@ HOME_PAGE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: welcomeIn 0.6s ease;
+            animation: welcomeIn 0.5s ease;
         }
         @keyframes welcomeIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -196,73 +196,52 @@ HOME_PAGE = """
         }
         @keyframes floatGlow {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         .welcome-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: 4rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 40px rgba(0,255,255,0.3));
-            letter-spacing: 8px;
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-        @keyframes titleGlow {
-            0% { filter: drop-shadow(0 0 30px rgba(0,255,255,0.2)); }
-            100% { filter: drop-shadow(0 0 60px rgba(0,255,255,0.4)) drop-shadow(0 0 80px rgba(255,0,255,0.2)); }
+            filter: drop-shadow(0 0 30px rgba(0,255,255,0.2));
+            letter-spacing: 6px;
         }
         @media (max-width: 640px) {
-            .welcome-title { font-size: 2.8rem; letter-spacing: 4px; }
+            .welcome-title { font-size: 2.5rem; letter-spacing: 4px; }
         }
         .welcome-sub {
-            color: rgba(0,255,255,0.4);
+            color: rgba(0,255,255,0.3);
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 6px;
-            font-size: 0.8rem;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
         }
         .btn-enter {
             background: linear-gradient(135deg, #00ffff, #0088ff);
-            padding: 14px 48px;
+            padding: 12px 40px;
             border-radius: 10px;
             color: #05050a;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 30px rgba(0,255,255,0.15);
-            letter-spacing: 3px;
+            box-shadow: 0 0 20px rgba(0,255,255,0.1);
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-enter::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }
-        .btn-enter:hover::before {
-            left: 100%;
         }
         .btn-enter:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(0,255,255,0.3);
+            box-shadow: 0 0 40px rgba(0,255,255,0.2);
         }
         
         /* ===== SEARCH BAR ===== */
         .search-cyber {
-            background: rgba(0,20,30,0.4);
-            border: 1px solid rgba(0,255,255,0.1);
+            background: rgba(0,20,30,0.3);
+            border: 1px solid rgba(0,255,255,0.08);
             color: #00ffff;
             border-radius: 10px;
             padding: 10px 16px;
@@ -272,122 +251,75 @@ HOME_PAGE = """
         }
         .search-cyber:focus {
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0,255,255,0.05);
+            box-shadow: 0 0 15px rgba(0,255,255,0.05);
             outline: none;
-            background: rgba(0,20,30,0.6);
+            background: rgba(0,20,30,0.5);
         }
         .search-cyber::placeholder {
-            color: rgba(0,255,255,0.3);
+            color: rgba(0,255,255,0.25);
         }
         
-        /* ===== MENU DENGAN EFEK PETIR/SPARKLE ===== */
+        /* ===== MENU SEDERHANA TAPI KEREN ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 14px;
-            padding: 8px;
+            gap: 10px;
+            padding: 6px;
         }
         @media (max-width: 640px) {
-            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 8px; }
         }
         @media (max-width: 400px) {
-            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 6px; }
         }
         
         .menu-item-cyber {
             position: relative;
-            padding: 5px;
-            border-radius: 14px;
-            background: conic-gradient(
-                from 0deg,
-                #00d4ff,
-                #7b2ffc,
-                #ff0080,
-                #00d4ff
-            );
-            background-size: 300% 300%;
-            animation: petirBerputar 4s linear infinite;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        
-        @keyframes petirBerputar {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 300% 50%; }
-        }
-        
-        /* Efek petir muncul perlahan */
-        .menu-item-cyber::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 18px;
-            background: radial-gradient(circle at 30% 40%, rgba(0, 212, 255, 0.8) 0%, transparent 60%),
-                        radial-gradient(circle at 70% 60%, rgba(123, 47, 252, 0.8) 0%, transparent 60%),
-                        radial-gradient(circle at 50% 80%, rgba(255, 0, 128, 0.7) 0%, transparent 50%);
-            filter: blur(10px);
-            opacity: 0;
-            animation: petirMuncul 3s ease-in-out infinite;
-            z-index: 0;
-        }
-        
-        @keyframes petirMuncul {
-            0% { opacity: 0; transform: scale(0.6); filter: blur(15px); }
-            30% { opacity: 0.3; transform: scale(0.8); filter: blur(12px); }
-            60% { opacity: 1; transform: scale(1.1); filter: blur(6px); }
-            80% { opacity: 0.8; transform: scale(1.05); filter: blur(8px); }
-            100% { opacity: 0; transform: scale(0.5); filter: blur(20px); }
-        }
-        
-        /* Efek percikan kedua */
-        .menu-item-cyber::after {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 18px;
-            background: radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.6) 0%, transparent 4px),
-                        radial-gradient(circle at 80% 40%, rgba(123, 47, 252, 0.6) 0%, transparent 4px),
-                        radial-gradient(circle at 40% 90%, rgba(255, 0, 128, 0.6) 0%, transparent 4px),
-                        radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.6) 0%, transparent 4px);
-            opacity: 0;
-            animation: percikanMuncul 3.5s ease-in-out infinite 0.5s;
-            z-index: 0;
-        }
-        
-        @keyframes percikanMuncul {
-            0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
-            40% { opacity: 1; transform: scale(1.2) rotate(5deg); }
-            70% { opacity: 0.7; transform: scale(1.1) rotate(0deg); }
-            100% { opacity: 0; transform: scale(0.4) rotate(15deg); }
-        }
-        
-        /* Isi tombol */
-        .menu-item-inner {
-            position: relative;
-            background: rgba(10, 10, 26, 0.85);
+            background: rgba(0,20,30,0.3);
+            border: 1px solid rgba(0,255,255,0.06);
             border-radius: 12px;
             padding: 14px 6px;
             text-align: center;
-            color: rgba(255,255,255,0.6);
-            transition: all 0.3s ease;
-            z-index: 1;
-            backdrop-filter: blur(4px);
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: rgba(0,255,255,0.5);
+            cursor: pointer;
+            display: block;
+            overflow: hidden;
         }
         
-        .menu-item-cyber:hover .menu-item-inner {
-            background: rgba(10, 10, 26, 0.6);
-            color: #00ffff;
-            transform: scale(1.03);
+        /* Efek glow border tipis */
+        .menu-item-cyber::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-item-cyber:hover::before {
+            opacity: 1;
         }
         
         .menu-item-cyber:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 0 50px rgba(0, 212, 255, 0.15);
+            transform: translateY(-3px);
+            border-color: rgba(0,255,255,0.2);
+            background: rgba(0,255,255,0.05);
+            box-shadow: 0 0 30px rgba(0,255,255,0.03);
+            color: #00ffff;
         }
         
         .menu-item-cyber:hover .menu-icon-cyber {
-            transform: scale(1.15) rotate(-5deg);
+            transform: scale(1.1);
         }
         
         .menu-item-cyber.hidden {
@@ -395,14 +327,14 @@ HOME_PAGE = """
         }
         
         .menu-icon-cyber {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
             transition: transform 0.25s ease;
         }
         
         .menu-label-cyber {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
@@ -411,52 +343,33 @@ HOME_PAGE = """
         }
         
         @media (max-width: 640px) {
-            .menu-icon-cyber { font-size: 1.4rem; }
-            .menu-label-cyber { font-size: 0.5rem; }
-            .menu-item-inner { padding: 10px 4px; }
-        }
-        
-        /* Sparkle kecil di dalam tombol */
-        .sparkle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: sparkleAnim 2s ease-in-out infinite;
-            opacity: 0;
-            z-index: 2;
-        }
-        
-        @keyframes sparkleAnim {
-            0% { opacity: 0; transform: scale(0) translate(0, 0); }
-            20% { opacity: 1; transform: scale(1.5) translate(var(--tx), var(--ty)); }
-            80% { opacity: 1; transform: scale(1.2) translate(calc(var(--tx) * 0.8), calc(var(--ty) * 0.8)); }
-            100% { opacity: 0; transform: scale(0) translate(calc(var(--tx) * 2), calc(var(--ty) * 2)); }
+            .menu-icon-cyber { font-size: 1.3rem; }
+            .menu-label-cyber { font-size: 0.45rem; }
+            .menu-item-cyber { padding: 10px 4px; }
         }
         
         /* ===== TYPOGRAPHY ===== */
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 30px rgba(0,255,255,0.2));
-            letter-spacing: 6px;
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.15));
+            letter-spacing: 4px;
         }
         @media (max-width: 640px) {
-            .cyber-title { font-size: 2rem; letter-spacing: 3px; }
+            .cyber-title { font-size: 1.8rem; letter-spacing: 2px; }
         }
         
         .fade-cyber {
-            animation: fadeCyber 0.4s ease forwards;
+            animation: fadeCyber 0.3s ease forwards;
         }
         @keyframes fadeCyber {
-            from { opacity: 0; transform: translateY(15px) scale(0.97); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+            from { opacity: 0; transform: translateY(10px); filter: blur(3px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         
         .float-cyber {
@@ -464,15 +377,15 @@ HOME_PAGE = """
         }
         @keyframes floatCyber {
             0%,100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-4px); }
         }
         
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00d4ff, #7b2ffc); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #a855f7); border-radius: 10px; }
         
         .particle {
-            position: fixed; width: 2px; height: 2px; background: #00d4ff; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: rgba(0,255,255,0.3); border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }
@@ -485,12 +398,12 @@ HOME_PAGE = """
         
         .status-dot {
             display: inline-block;
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             background: #00ff88;
             border-radius: 50%;
             animation: blink 1s ease-in-out infinite;
-            margin-right: 4px;
+            margin-right: 3px;
         }
         @keyframes blink {
             0%, 100% { opacity: 1; }
@@ -500,10 +413,10 @@ HOME_PAGE = """
         .no-result {
             color: rgba(0,255,255,0.3);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             letter-spacing: 2px;
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
             display: none;
         }
     </style>
@@ -518,33 +431,25 @@ HOME_PAGE = """
     <!-- WELCOME SCREEN -->
     <div id="welcomeScreen" class="welcome-screen">
         <div class="welcome-content px-6">
-            <div class="text-6xl mb-3">⚡</div>
+            <div class="text-5xl mb-3">⚡</div>
             <h1 class="welcome-title">NEXUS</h1>
-            <p class="welcome-sub mb-5">CYBER UTILITY SUITE</p>
-            <p style="color: rgba(0,255,255,0.2); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.6rem; margin-bottom: 25px;">
-                <span class="status-dot"></span> SYSTEM READY
-            </p>
-            <button onclick="enterNexus()" class="btn-enter">
-                ENTER NEXUS
-            </button>
-            <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
-                v16.0 • CYBER EDITION
-            </p>
+            <p class="welcome-sub mb-4">CYBER UTILITY SUITE</p>
+            <button onclick="enterNexus()" class="btn-enter">ENTER NEXUS</button>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
         <div class="max-w-4xl w-full">
-            <header class="text-center py-5 fade-cyber">
+            <header class="text-center py-4 fade-cyber">
                 <div class="float-cyber">
-                    <div class="text-4xl mb-1">⚡</div>
+                    <div class="text-3xl mb-1">⚡</div>
                     <h1 class="cyber-title">NEXUS</h1>
                 </div>
-                <p style="color: rgba(0,255,255,0.35); font-family: 'Orbitron', sans-serif; letter-spacing: 3px; font-size: 0.65rem;">
+                <p style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 3px; font-size: 0.6rem;">
                     CYBER UTILITY SUITE
                 </p>
-                <p style="color: rgba(0,255,255,0.15); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.5rem; margin-top: 4px;">
+                <p style="color: rgba(0,255,255,0.12); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.45rem; margin-top: 3px;">
                     <span class="status-dot"></span> ONLINE
                 </p>
             </header>
@@ -554,75 +459,25 @@ HOME_PAGE = """
                 <input type="text" id="searchMenu" class="search-cyber" placeholder="🔍 Cari menu..." onkeyup="filterMenu()">
             </div>
 
-            <!-- MENU GRID DENGAN SPARKLE -->
-            <nav class="glass-cyber rounded-2xl p-4 md:p-6 fade-cyber" style="animation-delay: 0.15s;">
+            <!-- MENU GRID -->
+            <nav class="glass-cyber rounded-2xl p-4 md:p-5 fade-cyber" style="animation-delay: 0.15s;">
                 <div class="menu-cyber" id="menuGrid">
-                    <a href="/ucapan" class="menu-item-cyber" data-name="ucapan">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">🎉</span>
-                            <span class="menu-label-cyber">Ucapan</span>
-                        </div>
-                    </a>
-                    <a href="/pesan" class="menu-item-cyber" data-name="pesan">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">💌</span>
-                            <span class="menu-label-cyber">Pesan</span>
-                        </div>
-                    </a>
-                    <a href="/kuis" class="menu-item-cyber" data-name="kuis">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">🧠</span>
-                            <span class="menu-label-cyber">Kuis</span>
-                        </div>
-                    </a>
-                    <a href="/qr" class="menu-item-cyber" data-name="qr">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">📱</span>
-                            <span class="menu-label-cyber">QR</span>
-                        </div>
-                    </a>
-                    <a href="/keuangan" class="menu-item-cyber" data-name="keuangan">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">💰</span>
-                            <span class="menu-label-cyber">Keuangan</span>
-                        </div>
-                    </a>
-                    <a href="/hitung" class="menu-item-cyber" data-name="hitung">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">⏳</span>
-                            <span class="menu-label-cyber">Hitung</span>
-                        </div>
-                    </a>
-                    <a href="/teks" class="menu-item-cyber" data-name="teks">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">✨</span>
-                            <span class="menu-label-cyber">Teks</span>
-                        </div>
-                    </a>
-                    <a href="/favorit" class="menu-item-cyber" data-name="favorit">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">⭐</span>
-                            <span class="menu-label-cyber">Favorit</span>
-                        </div>
-                    </a>
-                    <a href="/ketik" class="menu-item-cyber" data-name="ketik">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">⌨️</span>
-                            <span class="menu-label-cyber">Ketik</span>
-                        </div>
-                    </a>
-                    <a href="/konversi" class="menu-item-cyber" data-name="konversi">
-                        <div class="menu-item-inner">
-                            <span class="menu-icon-cyber">🔄</span>
-                            <span class="menu-label-cyber">Konversi</span>
-                        </div>
-                    </a>
+                    <a href="/ucapan" class="menu-item-cyber" data-name="ucapan"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
+                    <a href="/pesan" class="menu-item-cyber" data-name="pesan"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
+                    <a href="/kuis" class="menu-item-cyber" data-name="kuis"><span class="menu-icon-cyber">🧠</span><span class="menu-label-cyber">Kuis</span></a>
+                    <a href="/qr" class="menu-item-cyber" data-name="qr"><span class="menu-icon-cyber">📱</span><span class="menu-label-cyber">QR</span></a>
+                    <a href="/keuangan" class="menu-item-cyber" data-name="keuangan"><span class="menu-icon-cyber">💰</span><span class="menu-label-cyber">Keuangan</span></a>
+                    <a href="/hitung" class="menu-item-cyber" data-name="hitung"><span class="menu-icon-cyber">⏳</span><span class="menu-label-cyber">Hitung</span></a>
+                    <a href="/teks" class="menu-item-cyber" data-name="teks"><span class="menu-icon-cyber">✨</span><span class="menu-label-cyber">Teks</span></a>
+                    <a href="/favorit" class="menu-item-cyber" data-name="favorit"><span class="menu-icon-cyber">⭐</span><span class="menu-label-cyber">Favorit</span></a>
+                    <a href="/ketik" class="menu-item-cyber" data-name="ketik"><span class="menu-icon-cyber">⌨️</span><span class="menu-label-cyber">Ketik</span></a>
+                    <a href="/konversi" class="menu-item-cyber" data-name="konversi"><span class="menu-icon-cyber">🔄</span><span class="menu-label-cyber">Konversi</span></a>
                 </div>
                 <div id="noResult" class="no-result">✖ MENU TIDAK DITEMUKAN</div>
             </nav>
 
-            <footer class="text-center py-4 mt-5 fade-cyber" style="animation-delay: 0.2s;">
-                <p style="color: rgba(0,255,255,0.06); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
+            <footer class="text-center py-3 mt-4 fade-cyber" style="animation-delay: 0.2s;">
+                <p style="color: rgba(0,255,255,0.04); font-size: 0.4rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
                     ⚡ NEXUS CYBER UTILITY • DATA IN MEMORY ⚡
                 </p>
             </footer>
@@ -635,12 +490,12 @@ HOME_PAGE = """
             var welcome = document.getElementById('welcomeScreen');
             var main = document.getElementById('mainContent');
             welcome.style.opacity = '0';
-            welcome.style.transition = 'opacity 0.5s ease';
+            welcome.style.transition = 'opacity 0.4s ease';
             setTimeout(function() {
                 welcome.style.display = 'none';
                 main.style.display = 'block';
-                main.style.animation = 'fadeCyber 0.5s ease';
-            }, 500);
+                main.style.animation = 'fadeCyber 0.4s ease';
+            }, 400);
             sessionStorage.setItem('nexus_entered', 'true');
         }
 
@@ -675,65 +530,18 @@ HOME_PAGE = """
             }
         }
 
-        // ===== SPARKLE EFFECT ON MENU =====
-        function createSparkle(wrapper) {
-            var sparkle = document.createElement('div');
-            sparkle.className = 'sparkle';
-
-            var angle = Math.random() * 360;
-            var radius = 30 + Math.random() * 40;
-            var x = 50 + radius * Math.cos(angle);
-            var y = 50 + radius * Math.sin(angle);
-
-            sparkle.style.left = x + '%';
-            sparkle.style.top = y + '%';
-            sparkle.style.setProperty('--tx', (Math.random() * 60 - 30) + 'px');
-            sparkle.style.setProperty('--ty', (Math.random() * 60 - 30) + 'px');
-            sparkle.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-            sparkle.style.width = (2 + Math.random() * 4) + 'px';
-            sparkle.style.height = sparkle.style.width;
-            
-            var colors = ['#00d4ff', '#7b2ffc', '#ff0080', '#ffdd00', '#00ff88'];
-            sparkle.style.background = colors[Math.floor(Math.random() * colors.length)];
-            sparkle.style.boxShadow = '0 0 10px ' + sparkle.style.background;
-
-            wrapper.appendChild(sparkle);
-            setTimeout(function() { sparkle.remove(); }, 3000);
-        }
-
-        // ===== SPARKLE ON ALL MENU =====
-        var menuItems = document.querySelectorAll('.menu-item-cyber');
-        menuItems.forEach(function(item) {
-            // Sparkle bergelombang
-            setInterval(function() {
-                if (!item.classList.contains('hidden')) {
-                    var count = 1 + Math.floor(Math.random() * 2);
-                    for (var i = 0; i < count; i++) {
-                        setTimeout(function() { createSparkle(item); }, i * 150);
-                    }
-                }
-            }, 1200);
-
-            // Ledakan sparkle saat di-hover
-            item.addEventListener('mouseenter', function() {
-                for (var i = 0; i < 12; i++) {
-                    setTimeout(function() { createSparkle(item); }, i * 40);
-                }
-            });
-        });
-
-        // ===== PARTICLES =====
+        // ===== PARTICLES (RINGAN) =====
         function createParticles() {
             var container = document.getElementById('particles');
-            for(var i = 0; i < 25; i++) {
+            for(var i = 0; i < 15; i++) {
                 var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 var size = Math.random() * 2 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
-                particle.style.animationDelay = (Math.random() * 8) + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
                 particle.style.opacity = Math.random() * 0.2 + 0.05;
                 container.appendChild(particle);
             }
@@ -768,8 +576,8 @@ PAGE_TEMPLATE = """
         
         .cyber-bg {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.05) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }}
         @keyframes cyberPulse {{
@@ -778,8 +586,8 @@ PAGE_TEMPLATE = """
         }}
         .cyber-grid {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background-image: linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0,255,255,0.015) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.015) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }}
@@ -789,7 +597,7 @@ PAGE_TEMPLATE = """
         }}
         .scanline {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.005) 2px, rgba(0,255,255,0.005) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }}
@@ -799,24 +607,23 @@ PAGE_TEMPLATE = """
         }}
         
         .glass-cyber {{
-            background: rgba(0,20,30,0.5);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(0,255,255,0.1);
-            box-shadow: 0 0 30px rgba(0,255,255,0.03);
+            background: rgba(0,20,30,0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0,255,255,0.08);
+            box-shadow: 0 0 20px rgba(0,255,255,0.02);
             position: relative; z-index: 1;
         }}
         
         .glass-card-cyber {{
-            background: rgba(0,20,30,0.35);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0,255,255,0.06);
-            transition: all 0.25s ease;
+            background: rgba(0,20,30,0.3);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(0,255,255,0.05);
+            transition: all 0.2s ease;
             position: relative; z-index: 1;
         }}
         .glass-card-cyber:hover {{
-            transform: translateY(-3px);
-            border-color: rgba(0,255,255,0.2);
-            box-shadow: 0 0 30px rgba(0,255,255,0.03);
+            transform: translateY(-2px);
+            border-color: rgba(0,255,255,0.15);
         }}
         
         .cyber-text {{
@@ -824,118 +631,107 @@ PAGE_TEMPLATE = """
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0,255,255,0.2));
+            filter: drop-shadow(0 0 15px rgba(0,255,255,0.15));
         }}
         .cyber-value {{
             font-family: 'Orbitron', sans-serif;
             color: #00ffff;
-            text-shadow: 0 0 20px rgba(0,255,255,0.15);
+            text-shadow: 0 0 15px rgba(0,255,255,0.1);
         }}
         
         .btn-cyber {{
             background: linear-gradient(135deg, #00ffff, #0088ff);
             color: #05050a;
             font-weight: 700;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             border: none;
             padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
-            position: relative;
-            overflow: hidden;
         }}
-        .btn-cyber::before {{
-            content: '';
-            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }}
-        .btn-cyber:hover::before {{ left: 100%; }}
         .btn-cyber:hover {{
             transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(0,255,255,0.2);
+            box-shadow: 0 0 20px rgba(0,255,255,0.15);
         }}
         .btn-cyber:active {{ transform: scale(0.95); }}
         
         .btn-back {{
             background: rgba(0,255,255,0.05);
-            border: 1px solid rgba(0,255,255,0.08);
+            border: 1px solid rgba(0,255,255,0.06);
             color: #00ffff;
-            padding: 8px 20px;
+            padding: 6px 16px;
             border-radius: 8px;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
             display: inline-block;
         }}
         .btn-back:hover {{
             background: rgba(0,255,255,0.08);
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0,255,255,0.05);
-            transform: translateX(-3px);
+            transform: translateX(-2px);
         }}
         
         .input-cyber {{
-            background: rgba(0,10,20,0.5);
-            border: 1px solid rgba(0,255,255,0.1);
+            background: rgba(0,10,20,0.4);
+            border: 1px solid rgba(0,255,255,0.08);
             color: #00ffff;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             border-radius: 8px;
             padding: 10px 14px;
             width: 100%;
         }}
         .input-cyber:focus {{
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0,255,255,0.05);
+            box-shadow: 0 0 15px rgba(0,255,255,0.05);
             outline: none;
-            background: rgba(0,10,20,0.7);
+            background: rgba(0,10,20,0.6);
         }}
-        .input-cyber::placeholder {{ color: rgba(0,255,255,0.25); }}
+        .input-cyber::placeholder {{ color: rgba(0,255,255,0.2); }}
         select.input-cyber option {{ background: #0a0a1a; color: #00ffff; }}
         
         .cyber-label {{
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.55rem;
-            letter-spacing: 2px;
-            color: rgba(0,255,255,0.35);
+            font-size: 0.5rem;
+            letter-spacing: 1px;
+            color: rgba(0,255,255,0.3);
             text-transform: uppercase;
         }}
         
         .fade-cyber {{
-            animation: fadeCyber 0.35s ease forwards;
+            animation: fadeCyber 0.3s ease forwards;
         }}
         @keyframes fadeCyber {{
-            from {{ opacity: 0; transform: translateY(12px) scale(0.98); filter: blur(4px); }}
-            to {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }}
+            from {{ opacity: 0; transform: translateY(10px); filter: blur(3px); }}
+            to {{ opacity: 1; transform: translateY(0); filter: blur(0); }}
         }}
         
         .cyber-title-page {{
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
         }}
-        @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1.1rem; }} }}
+        @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1rem; }} }}
         
         ::-webkit-scrollbar {{ width: 3px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00d4ff, #7b2ffc); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #a855f7); border-radius: 10px; }}
         
         .float-cyber {{
             animation: floatCyber 3s ease-in-out infinite;
         }}
         @keyframes floatCyber {{
             0%,100% {{ transform: translateY(0px); }}
-            50% {{ transform: translateY(-4px); }}
+            50% {{ transform: translateY(-3px); }}
         }}
         
         .particle {{
-            position: fixed; width: 2px; height: 2px; background: #00d4ff; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: rgba(0,255,255,0.3); border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }}
@@ -948,12 +744,12 @@ PAGE_TEMPLATE = """
         
         .status-dot {{
             display: inline-block;
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             background: #00ff88;
             border-radius: 50%;
             animation: blink 1s ease-in-out infinite;
-            margin-right: 3px;
+            margin-right: 2px;
         }}
         @keyframes blink {{
             0%, 100% {{ opacity: 1; }}
@@ -981,8 +777,8 @@ PAGE_TEMPLATE = """
                 {content}
             </div>
 
-            <footer class="text-center py-4 mt-5 fade-cyber" style="animation-delay: 0.15s;">
-                <p style="color: rgba(0,255,255,0.05); font-size: 0.4rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
+            <footer class="text-center py-3 mt-4 fade-cyber" style="animation-delay: 0.15s;">
+                <p style="color: rgba(0,255,255,0.03); font-size: 0.35rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
                     ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
                 </p>
             </footer>
@@ -992,15 +788,15 @@ PAGE_TEMPLATE = """
     <script>
         function createParticles() {{
             var container = document.getElementById('particles');
-            for(var i = 0; i < 15; i++) {{
+            for(var i = 0; i < 10; i++) {{
                 var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 var size = Math.random() * 2 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
-                particle.style.animationDelay = (Math.random() * 8) + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
                 particle.style.opacity = Math.random() * 0.2 + 0.05;
                 container.appendChild(particle);
             }}
@@ -1034,7 +830,7 @@ def ucapan():
                 <p class="font-semibold text-cyan-300">Untuk: {{ item.nama }}</p>
                 <p class="text-pink-300">Acara: {{ item.acara }}</p>
                 <p class="text-gray-300 italic">"{{ item.pesan }}"</p>
-                <small style="color: rgba(0,255,255,0.25);">{{ item.waktu }}</small>
+                <small style="color: rgba(0,255,255,0.2);">{{ item.waktu }}</small>
             </div>
             {% endfor %}
         </div>
@@ -1055,7 +851,7 @@ def pesan():
             {% for item in store.pesan %}
             <div class="glass-card-cyber p-4 rounded-xl border border-pink-500/20">
                 <p class="text-gray-300">{{ item.isi }}</p>
-                <small style="color: rgba(0,255,255,0.25);">#{{ item.id }} • {{ item.waktu }}</small>
+                <small style="color: rgba(0,255,255,0.2);">#{{ item.id }} • {{ item.waktu }}</small>
             </div>
             {% endfor %}
         </div>
@@ -1123,7 +919,7 @@ def hitung():
             <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
                 <p class="font-semibold">{{ item.acara }}</p>
                 <p class="text-3xl font-bold text-cyan-300 cyber-value">{{ item.sisa_hari }} hari lagi</p>
-                <small style="color: rgba(0,255,255,0.25);">{{ item.tanggal }}</small>
+                <small style="color: rgba(0,255,255,0.2);">{{ item.tanggal }}</small>
             </div>
             {% endfor %}
         </div>
