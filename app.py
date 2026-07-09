@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v13.0 - RUNNING NEON BORDER FIX
+# VERSION: CYBER v14.0 - NEON BORDER SPIN FIX
 # ==========================================
 
 import os
@@ -280,7 +280,7 @@ HOME_PAGE = """
             color: rgba(0,255,255,0.3);
         }
         
-        /* ===== MENU DENGAN RUNNING NEON BORDER (KAYA LOADING) ===== */
+        /* ===== MENU DENGAN BORDER SPIN (GARIS MUTER, ISI DIEM) ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -295,7 +295,7 @@ HOME_PAGE = """
         }
         
         .menu-item-cyber {
-            background: rgba(0,20,30,0.3);
+            background: rgba(0,20,30,0.4);
             border-radius: 12px;
             padding: 14px 6px;
             text-align: center;
@@ -308,7 +308,7 @@ HOME_PAGE = """
             border: 2px solid transparent;
         }
         
-        /* ===== RUNNING NEON BORDER ===== */
+        /* ===== BORDER SPIN (GARIS MUTER) ===== */
         .menu-item-cyber::before {
             content: '';
             position: absolute;
@@ -317,18 +317,20 @@ HOME_PAGE = """
             padding: 3px;
             background: conic-gradient(
                 from 0deg,
+                #00ff88,
+                #00ffff,
                 #a855f7,
-                #d946ef,
                 #ec4899,
+                #00ff88,
+                #00ffff,
                 #a855f7,
-                #d946ef,
                 #ec4899,
-                #a855f7
+                #00ff88
             );
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            animation: borderSpin 2s linear infinite;
+            animation: borderSpin 2.5s linear infinite;
             z-index: 0;
         }
         
@@ -337,11 +339,12 @@ HOME_PAGE = """
             100% { transform: rotate(360deg); }
         }
         
+        /* ===== ISI MENU (DIEM, GAK IKUT MUTER) ===== */
         .menu-item-cyber::after {
             content: '';
             position: absolute;
             inset: 2px;
-            background: rgba(0,20,30,0.4);
+            background: rgba(0,20,30,0.5);
             border-radius: 11px;
             z-index: 0;
             transition: background 0.3s ease;
@@ -354,13 +357,14 @@ HOME_PAGE = """
         .menu-item-cyber:hover {
             transform: translateY(-4px) scale(1.03);
             color: #00ffff;
-            box-shadow: 0 0 30px rgba(168,85,247,0.15);
+            box-shadow: 0 0 30px rgba(0,255,255,0.1);
         }
         
         .menu-item-cyber:hover .menu-icon-cyber {
             transform: scale(1.15) rotate(-5deg);
         }
         
+        /* ===== ISI HARUS DI ATAS BORDER ===== */
         .menu-item-cyber * {
             position: relative;
             z-index: 1;
@@ -426,10 +430,10 @@ HOME_PAGE = """
         
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #a855f7, #ec4899); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ff88, #a855f7); border-radius: 10px; }
         
         .particle {
-            position: fixed; width: 2px; height: 2px; background: #a855f7; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #00ff88; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }
@@ -485,7 +489,7 @@ HOME_PAGE = """
                 ENTER NEXUS
             </button>
             <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
-                v13.0 • CYBER EDITION
+                v14.0 • CYBER EDITION
             </p>
         </div>
     </div>
@@ -784,7 +788,7 @@ PAGE_TEMPLATE = """
         
         ::-webkit-scrollbar {{ width: 3px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #a855f7, #ec4899); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ff88, #a855f7); border-radius: 10px; }}
         
         .float-cyber {{
             animation: floatCyber 3s ease-in-out infinite;
@@ -795,7 +799,7 @@ PAGE_TEMPLATE = """
         }}
         
         .particle {{
-            position: fixed; width: 2px; height: 2px; background: #a855f7; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #00ff88; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }}
