@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v17.0 - LIGHT & FAST
+# VERSION: CYBER v18.0 - BALANCED EDITION
 # ==========================================
 
 import os
@@ -133,8 +133,8 @@ HOME_PAGE = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }
         @keyframes cyberPulse {
@@ -145,8 +145,8 @@ HOME_PAGE = """
         .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background-image: 
-                linear-gradient(rgba(0,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,255,0.015) 1px, transparent 1px);
+                linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }
@@ -157,7 +157,7 @@ HOME_PAGE = """
         
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.005) 2px, rgba(0,255,255,0.005) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }
@@ -259,7 +259,7 @@ HOME_PAGE = """
             color: rgba(0,255,255,0.25);
         }
         
-        /* ===== MENU SEDERHANA TAPI KEREN ===== */
+        /* ===== MENU DENGAN BORDER GLOW TAPI RINGAN ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -288,7 +288,7 @@ HOME_PAGE = """
             overflow: hidden;
         }
         
-        /* Efek glow border tipis */
+        /* ===== BORDER GRADIENT HALUS (TAPI TETAP ADA) ===== */
         .menu-item-cyber::before {
             content: '';
             position: absolute;
@@ -297,22 +297,21 @@ HOME_PAGE = """
             right: 0;
             bottom: 0;
             border-radius: 12px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2));
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(0,255,255,0.15), rgba(255,0,255,0.15), rgba(0,255,255,0.15));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-            opacity: 0.3;
             transition: opacity 0.3s ease;
         }
         
         .menu-item-cyber:hover::before {
-            opacity: 1;
+            background: linear-gradient(135deg, rgba(0,255,255,0.4), rgba(255,0,255,0.4), rgba(0,255,255,0.4));
         }
         
         .menu-item-cyber:hover {
             transform: translateY(-3px);
-            border-color: rgba(0,255,255,0.2);
+            border-color: rgba(0,255,255,0.15);
             background: rgba(0,255,255,0.05);
             box-shadow: 0 0 30px rgba(0,255,255,0.03);
             color: #00ffff;
@@ -365,7 +364,7 @@ HOME_PAGE = """
         }
         
         .fade-cyber {
-            animation: fadeCyber 0.3s ease forwards;
+            animation: fadeCyber 0.35s ease forwards;
         }
         @keyframes fadeCyber {
             from { opacity: 0; transform: translateY(10px); filter: blur(3px); }
@@ -576,8 +575,8 @@ PAGE_TEMPLATE = """
         
         .cyber-bg {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }}
         @keyframes cyberPulse {{
@@ -586,8 +585,8 @@ PAGE_TEMPLATE = """
         }}
         .cyber-grid {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background-image: linear-gradient(rgba(0,255,255,0.015) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,255,0.015) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }}
@@ -597,7 +596,7 @@ PAGE_TEMPLATE = """
         }}
         .scanline {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.005) 2px, rgba(0,255,255,0.005) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }}
