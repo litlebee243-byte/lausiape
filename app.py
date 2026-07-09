@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v11.0 - WITH SEARCH & RGB NEON
+# VERSION: CYBER v12.0 - RUNNING NEON BORDER
 # ==========================================
 
 import os
@@ -280,23 +280,22 @@ HOME_PAGE = """
             color: rgba(0,255,255,0.3);
         }
         
-        /* ===== MENU DENGAN RGB NEON ROTATING ===== */
+        /* ===== MENU DENGAN RUNNING NEON BORDER ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            gap: 12px;
             padding: 6px;
         }
         @media (max-width: 640px) {
-            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 10px; }
         }
         @media (max-width: 400px) {
-            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 8px; }
         }
         
         .menu-item-cyber {
             background: rgba(0,20,30,0.3);
-            border: 1px solid rgba(0,255,255,0.08);
             border-radius: 12px;
             padding: 14px 6px;
             text-align: center;
@@ -307,9 +306,10 @@ HOME_PAGE = """
             display: block;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0,255,255,0.08);
         }
         
-        /* ===== RGB NEON ROTATING BORDER ===== */
+        /* ===== RUNNING NEON BORDER ===== */
         .menu-item-cyber::before {
             content: '';
             position: absolute;
@@ -318,45 +318,46 @@ HOME_PAGE = """
             right: -2px;
             bottom: -2px;
             background: conic-gradient(
-                #00ffff 0deg,
-                #ff00ff 90deg,
-                #ff0080 180deg,
-                #00ffff 270deg,
-                #00ffff 360deg
+                from 0deg,
+                #00ffff,
+                #ff00ff,
+                #ff0080,
+                #ff00ff,
+                #00ffff,
+                #00ffff
             );
             border-radius: 14px;
             z-index: -1;
-            animation: rgbRotate 3s linear infinite;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            animation: borderRotate 3s linear infinite;
+            background-size: 300% 300%;
         }
         
-        .menu-item-cyber:hover::before {
-            opacity: 1;
+        @keyframes borderRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .menu-item-cyber::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,20,30,0.3);
-            border-radius: 12px;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: rgba(0,20,30,0.6);
+            border-radius: 11px;
             z-index: -1;
+            transition: background 0.3s ease;
         }
         
-        @keyframes rgbRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .menu-item-cyber:hover::after {
+            background: rgba(0,40,60,0.6);
         }
         
         .menu-item-cyber:hover {
             transform: translateY(-4px) scale(1.03);
-            border-color: transparent;
             color: #00ffff;
-            box-shadow: 0 0 40px rgba(0,255,255,0.05);
+            box-shadow: 0 0 30px rgba(0,255,255,0.05);
         }
         
         .menu-item-cyber:hover .menu-icon-cyber {
@@ -451,7 +452,6 @@ HOME_PAGE = """
             50% { opacity: 0.2; }
         }
         
-        /* ===== NO RESULT ===== */
         .no-result {
             color: rgba(0,255,255,0.3);
             font-family: 'Orbitron', sans-serif;
@@ -483,7 +483,7 @@ HOME_PAGE = """
                 ENTER NEXUS
             </button>
             <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
-                v11.0 • CYBER EDITION
+                v12.0 • CYBER EDITION
             </p>
         </div>
     </div>
