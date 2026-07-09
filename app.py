@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v7.0 - FULLY FIXED
+# VERSION: CYBER v8.0 - FULLY FIXED
 # ==========================================
 
 import os
@@ -77,290 +77,150 @@ HOME_PAGE = """
     <title>NEXUS • Cyber Utility Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
-        
-        * { 
-            font-family: 'Rajdhani', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #05050a;
             min-height: 100vh;
             color: #00ffff;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
         }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
         
         .cyber-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
+            top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%);
             animation: cyberPulse 6s ease-in-out infinite alternate;
         }
-        
         @keyframes cyberPulse {
             0% { opacity: 0.6; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.05); }
         }
-        
         .cyber-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridMove 15s linear infinite;
         }
-        
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% { transform: translate(0,0); }
+            100% { transform: translate(50px,50px); }
         }
-        
         .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 255, 0.02) 2px,
-                rgba(0, 255, 255, 0.02) 4px
-            );
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
             pointer-events: none;
             animation: scanMove 8s linear infinite;
         }
-        
         @keyframes scanMove {
             0% { transform: translateY(0); }
             100% { transform: translateY(100%); }
         }
-        
         .glass-cyber {
-            background: rgba(0, 20, 30, 0.6);
+            background: rgba(0,20,30,0.6);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05), inset 0 0 30px rgba(0, 255, 255, 0.02);
-            position: relative;
-            z-index: 1;
+            border: 1px solid rgba(0,255,255,0.15);
+            box-shadow: 0 0 30px rgba(0,255,255,0.05);
+            position: relative; z-index: 1;
         }
-        
         .glass-cyber::before {
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 20%;
-            right: 20%;
-            height: 1px;
+            content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
             background: linear-gradient(90deg, transparent, #00ffff, transparent);
             animation: neonLine 3s ease-in-out infinite;
         }
-        
         @keyframes neonLine {
-            0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
-            50% { opacity: 1; transform: scaleX(1); }
+            0%,100% { opacity: 0.2; }
+            50% { opacity: 1; }
         }
-        
         .cyber-text {
-            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.3));
         }
-        
         .menu-cyber {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            padding: 8px;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 8px;
         }
-        
         @media (max-width: 640px) {
-            .menu-cyber {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-            }
+            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 8px; }
         }
-        
         @media (max-width: 400px) {
-            .menu-cyber {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
+            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 6px; }
         }
-        
         .menu-item-cyber {
-            background: rgba(0, 20, 30, 0.3);
-            border: 1px solid rgba(0, 255, 255, 0.08);
+            background: rgba(0,20,30,0.3);
+            border: 1px solid rgba(0,255,255,0.08);
             border-radius: 12px;
             padding: 16px 8px;
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             text-decoration: none;
-            color: rgba(0, 255, 255, 0.6);
-            position: relative;
-            overflow: hidden;
+            color: rgba(0,255,255,0.6);
             cursor: pointer;
             display: block;
         }
-        
-        .menu-item-cyber::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            transform: scale(0);
-        }
-        
-        .menu-item-cyber:hover::before {
-            opacity: 1;
-            transform: scale(1);
-        }
-        
         .menu-item-cyber:hover {
             transform: translateY(-6px) scale(1.05);
-            border-color: rgba(0, 255, 255, 0.4);
-            background: rgba(0, 255, 255, 0.08);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.1), inset 0 0 40px rgba(0, 255, 255, 0.05);
+            border-color: rgba(0,255,255,0.4);
+            background: rgba(0,255,255,0.08);
+            box-shadow: 0 0 40px rgba(0,255,255,0.1);
             color: #00ffff;
         }
-        
-        .menu-item-cyber:active {
-            transform: scale(0.95);
-        }
-        
-        .menu-icon-cyber {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 4px;
-            transition: transform 0.3s ease;
-        }
-        
-        .menu-item-cyber:hover .menu-icon-cyber {
-            transform: scale(1.2) rotate(-5deg);
-        }
-        
+        .menu-item-cyber:active { transform: scale(0.95); }
+        .menu-icon-cyber { font-size: 2rem; display: block; margin-bottom: 4px; transition: transform 0.3s; }
+        .menu-item-cyber:hover .menu-icon-cyber { transform: scale(1.2) rotate(-5deg); }
         .menu-label-cyber {
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif;
-            display: block;
+            font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif; display: block;
         }
-        
         @media (max-width: 640px) {
             .menu-icon-cyber { font-size: 1.5rem; }
             .menu-label-cyber { font-size: 0.55rem; }
             .menu-item-cyber { padding: 12px 4px; }
         }
-        
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.3));
+            filter: drop-shadow(0 0 40px rgba(0,255,255,0.3));
             letter-spacing: 8px;
             animation: titleGlow 3s ease-in-out infinite;
         }
-        
         @keyframes titleGlow {
-            0%, 100% { filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.3)); }
-            50% { filter: drop-shadow(0 0 80px rgba(0, 255, 255, 0.6)); }
+            0%,100% { filter: drop-shadow(0 0 40px rgba(0,255,255,0.3)); }
+            50% { filter: drop-shadow(0 0 80px rgba(0,255,255,0.6)); }
         }
-        
-        @media (max-width: 640px) {
-            .cyber-title { font-size: 2.5rem; letter-spacing: 4px; }
-        }
-        
-        .cyber-sub {
-            color: rgba(0, 255, 255, 0.4);
-            font-family: 'Orbitron', sans-serif;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
-            animation: subPulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes subPulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-        
+        @media (max-width: 640px) { .cyber-title { font-size: 2.5rem; letter-spacing: 4px; } }
         .fade-cyber {
             animation: fadeCyber 0.8s ease forwards;
         }
-        
         @keyframes fadeCyber {
             from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
-        
         .float-cyber {
             animation: floatCyber 4s ease-in-out infinite;
         }
-        
         @keyframes floatCyber {
-            0%, 100% { transform: translateY(0px); }
+            0%,100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
-        
-        .glitch-text {
-            animation: glitchText 3s infinite;
-        }
-        
-        @keyframes glitchText {
-            2%, 64% { transform: translate(2px, 0) skew(0deg); }
-            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-            62% { transform: translate(0, 0) skew(5deg); }
-        }
-        
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #00ffff, #0088ff);
-            border-radius: 10px;
-        }
-        
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #0088ff); border-radius: 10px; }
         .particle {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: #00ffff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
+            pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }
-        
         @keyframes particleFloat {
             0% { transform: translateY(100vh) scale(0); opacity: 0; }
             10% { opacity: 1; }
@@ -379,63 +239,35 @@ HOME_PAGE = """
         <div class="max-w-4xl w-full">
             <header class="text-center py-8 fade-cyber">
                 <div class="float-cyber">
-                    <div class="text-6xl mb-2 glitch-text">⚡</div>
+                    <div class="text-6xl mb-2">⚡</div>
                     <h1 class="cyber-title">NEXUS</h1>
                 </div>
-                <p class="cyber-sub mt-2">CYBER UTILITY SUITE</p>
-                <p class="text-sm mt-4" style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
-                    <span class="inline-block animate-pulse">●</span> SYSTEM ONLINE <span class="inline-block animate-pulse">●</span>
+                <p style="color: rgba(0,255,255,0.4); font-family: 'Orbitron', sans-serif; letter-spacing: 4px; font-size: 0.8rem;">
+                    CYBER UTILITY SUITE
+                </p>
+                <p style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.7rem; margin-top: 8px;">
+                    SYSTEM ONLINE
                 </p>
             </header>
 
             <nav class="glass-cyber rounded-2xl p-6 md:p-8 fade-cyber" style="animation-delay: 0.3s;">
                 <div class="menu-cyber">
-                    <a href="/ucapan" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">🎉</span>
-                        <span class="menu-label-cyber">Ucapan</span>
-                    </a>
-                    <a href="/pesan" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">💌</span>
-                        <span class="menu-label-cyber">Pesan</span>
-                    </a>
-                    <a href="/kuis" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">🧠</span>
-                        <span class="menu-label-cyber">Kuis</span>
-                    </a>
-                    <a href="/qr" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">📱</span>
-                        <span class="menu-label-cyber">QR</span>
-                    </a>
-                    <a href="/keuangan" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">💰</span>
-                        <span class="menu-label-cyber">Keuangan</span>
-                    </a>
-                    <a href="/hitung" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">⏳</span>
-                        <span class="menu-label-cyber">Hitung</span>
-                    </a>
-                    <a href="/teks" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">✨</span>
-                        <span class="menu-label-cyber">Teks</span>
-                    </a>
-                    <a href="/favorit" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">⭐</span>
-                        <span class="menu-label-cyber">Favorit</span>
-                    </a>
-                    <a href="/ketik" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">⌨️</span>
-                        <span class="menu-label-cyber">Ketik</span>
-                    </a>
-                    <a href="/konversi" class="menu-item-cyber">
-                        <span class="menu-icon-cyber">🔄</span>
-                        <span class="menu-label-cyber">Konversi</span>
-                    </a>
+                    <a href="/ucapan" class="menu-item-cyber"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
+                    <a href="/pesan" class="menu-item-cyber"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
+                    <a href="/kuis" class="menu-item-cyber"><span class="menu-icon-cyber">🧠</span><span class="menu-label-cyber">Kuis</span></a>
+                    <a href="/qr" class="menu-item-cyber"><span class="menu-icon-cyber">📱</span><span class="menu-label-cyber">QR</span></a>
+                    <a href="/keuangan" class="menu-item-cyber"><span class="menu-icon-cyber">💰</span><span class="menu-label-cyber">Keuangan</span></a>
+                    <a href="/hitung" class="menu-item-cyber"><span class="menu-icon-cyber">⏳</span><span class="menu-label-cyber">Hitung</span></a>
+                    <a href="/teks" class="menu-item-cyber"><span class="menu-icon-cyber">✨</span><span class="menu-label-cyber">Teks</span></a>
+                    <a href="/favorit" class="menu-item-cyber"><span class="menu-icon-cyber">⭐</span><span class="menu-label-cyber">Favorit</span></a>
+                    <a href="/ketik" class="menu-item-cyber"><span class="menu-icon-cyber">⌨️</span><span class="menu-label-cyber">Ketik</span></a>
+                    <a href="/konversi" class="menu-item-cyber"><span class="menu-icon-cyber">🔄</span><span class="menu-label-cyber">Konversi</span></a>
                 </div>
             </nav>
 
             <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.6s;">
                 <p style="color: rgba(0,255,255,0.12); font-size: 0.55rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
-                    ⚡ NEXUS CYBER UTILITY • DATA IN MEMORY • MADE WITH ❤️ ⚡
+                    NEXUS CYBER UTILITY • DATA IN MEMORY
                 </p>
             </footer>
         </div>
@@ -443,13 +275,14 @@ HOME_PAGE = """
 
     <script>
         function createParticles() {
-            const container = document.getElementById('particles');
-            for(let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
+            var container = document.getElementById('particles');
+            for(var i = 0; i < 30; i++) {
+                var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = (Math.random() * 3 + 1) + 'px';
-                particle.style.height = particle.style.width;
+                var size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
                 particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
                 particle.style.animationDelay = (Math.random() * 10) + 's';
                 particle.style.opacity = Math.random() * 0.3 + 0.1;
@@ -463,7 +296,7 @@ HOME_PAGE = """
 """
 
 # ==========================================
-# TEMPLATE FULL PAGE UNTUK SETIAP FITUR
+# PAGE TEMPLATE (FULL PAGE PER FITUR)
 # ==========================================
 PAGE_TEMPLATE = """
 <!DOCTYPE html>
@@ -474,145 +307,92 @@ PAGE_TEMPLATE = """
     <title>NEXUS • {title}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
-        
-        * {{ 
-            font-family: 'Rajdhani', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }}
-        
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             background: #05050a;
             min-height: 100vh;
             color: #00ffff;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
         }}
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
         
         .cyber-bg {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 50%);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%);
             animation: cyberPulse 6s ease-in-out infinite alternate;
         }}
-        
         @keyframes cyberPulse {{
             0% {{ opacity: 0.6; transform: scale(1); }}
             100% {{ opacity: 1; transform: scale(1.05); }}
         }}
-        
         .cyber-grid {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
             background-size: 50px 50px;
             animation: gridMove 15s linear infinite;
         }}
-        
         @keyframes gridMove {{
-            0% {{ transform: translate(0, 0); }}
-            100% {{ transform: translate(50px, 50px); }}
+            0% {{ transform: translate(0,0); }}
+            100% {{ transform: translate(50px,50px); }}
         }}
-        
         .scanline {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0, 255, 255, 0.02) 2px,
-                rgba(0, 255, 255, 0.02) 4px
-            );
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
             pointer-events: none;
             animation: scanMove 8s linear infinite;
         }}
-        
         @keyframes scanMove {{
             0% {{ transform: translateY(0); }}
             100% {{ transform: translateY(100%); }}
         }}
-        
         .glass-cyber {{
-            background: rgba(0, 20, 30, 0.6);
+            background: rgba(0,20,30,0.6);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05), inset 0 0 30px rgba(0, 255, 255, 0.02);
-            position: relative;
-            z-index: 1;
+            border: 1px solid rgba(0,255,255,0.15);
+            box-shadow: 0 0 30px rgba(0,255,255,0.05);
+            position: relative; z-index: 1;
         }}
-        
         .glass-cyber::before {{
-            content: '';
-            position: absolute;
-            top: -1px;
-            left: 20%;
-            right: 20%;
-            height: 1px;
+            content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
             background: linear-gradient(90deg, transparent, #00ffff, transparent);
             animation: neonLine 3s ease-in-out infinite;
         }}
-        
         @keyframes neonLine {{
-            0%, 100% {{ opacity: 0.2; }}
+            0%,100% {{ opacity: 0.2; }}
             50% {{ opacity: 1; }}
         }}
-        
         .glass-card-cyber {{
-            background: rgba(0, 20, 30, 0.4);
+            background: rgba(0,20,30,0.4);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            z-index: 1;
+            border: 1px solid rgba(0,255,255,0.08);
+            transition: all 0.3s ease;
+            position: relative; z-index: 1;
         }}
-        
         .glass-card-cyber:hover {{
             transform: translateY(-4px);
-            border-color: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.05);
+            border-color: rgba(0,255,255,0.3);
+            box-shadow: 0 0 40px rgba(0,255,255,0.05);
         }}
-        
         .cyber-text {{
-            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
+            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.3));
         }}
-        
         .cyber-value {{
             font-family: 'Orbitron', sans-serif;
             color: #00ffff;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            text-shadow: 0 0 20px rgba(0,255,255,0.2);
         }}
-        
         .btn-cyber {{
             background: linear-gradient(135deg, #00ffff, #0088ff);
             color: #05050a;
             font-weight: 700;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
             text-transform: uppercase;
             letter-spacing: 2px;
             border: none;
@@ -621,35 +401,14 @@ PAGE_TEMPLATE = """
             cursor: pointer;
             width: 100%;
         }}
-        
-        .btn-cyber::before {{
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }}
-        
-        .btn-cyber:hover::before {{
-            left: 100%;
-        }}
-        
         .btn-cyber:hover {{
             transform: scale(1.03);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0,255,255,0.3);
         }}
-        
-        .btn-cyber:active {{
-            transform: scale(0.95);
-        }}
-        
+        .btn-cyber:active {{ transform: scale(0.95); }}
         .btn-back {{
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            background: rgba(0,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.1);
             color: #00ffff;
             padding: 10px 24px;
             border-radius: 8px;
@@ -660,94 +419,64 @@ PAGE_TEMPLATE = """
             letter-spacing: 2px;
             display: inline-block;
         }}
-        
         .btn-back:hover {{
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(0,255,255,0.1);
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0,255,255,0.1);
             transform: translateX(-4px);
         }}
-        
         .input-cyber {{
-            background: rgba(0, 10, 20, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.15);
+            background: rgba(0,10,20,0.6);
+            border: 1px solid rgba(0,255,255,0.15);
             color: #00ffff;
             transition: all 0.3s ease;
             border-radius: 8px;
             padding: 12px 16px;
             width: 100%;
         }}
-        
         .input-cyber:focus {{
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0,255,255,0.1);
             outline: none;
-            background: rgba(0, 10, 20, 0.8);
+            background: rgba(0,10,20,0.8);
         }}
-        
-        .input-cyber::placeholder {{
-            color: rgba(0, 255, 255, 0.3);
-        }}
-        
-        select.input-cyber option {{
-            background: #0a0a1a;
-            color: #00ffff;
-        }}
-        
+        .input-cyber::placeholder {{ color: rgba(0,255,255,0.3); }}
+        select.input-cyber option {{ background: #0a0a1a; color: #00ffff; }}
         .cyber-label {{
             font-family: 'Orbitron', sans-serif;
             font-size: 0.6rem;
             letter-spacing: 2px;
-            color: rgba(0, 255, 255, 0.4);
+            color: rgba(0,255,255,0.4);
             text-transform: uppercase;
         }}
-        
         .fade-cyber {{
             animation: fadeCyber 0.6s ease forwards;
         }}
-        
         @keyframes fadeCyber {{
             from {{ opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(5px); }}
             to {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }}
         }}
-        
         .cyber-title-page {{
             font-family: 'Orbitron', sans-serif;
             font-size: 1.8rem;
             font-weight: 700;
         }}
-        
-        @media (max-width: 640px) {{
-            .cyber-title-page {{ font-size: 1.3rem; }}
-        }}
-        
+        @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1.3rem; }} }}
         ::-webkit-scrollbar {{ width: 4px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{
-            background: linear-gradient(135deg, #00ffff, #0088ff);
-            border-radius: 10px;
-        }}
-        
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #0088ff); border-radius: 10px; }}
         .float-cyber {{
             animation: floatCyber 4s ease-in-out infinite;
         }}
-        
         @keyframes floatCyber {{
-            0%, 100% {{ transform: translateY(0px); }}
+            0%,100% {{ transform: translateY(0px); }}
             50% {{ transform: translateY(-6px); }}
         }}
-        
         .particle {{
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background: #00ffff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
+            position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
+            pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }}
-        
         @keyframes particleFloat {{
             0% {{ transform: translateY(100vh) scale(0); opacity: 0; }}
             10% {{ opacity: 1; }}
@@ -778,7 +507,7 @@ PAGE_TEMPLATE = """
 
             <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.4s;">
                 <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
-                    ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
+                    NEXUS CYBER • DATA IN MEMORY
                 </p>
             </footer>
         </div>
@@ -786,13 +515,14 @@ PAGE_TEMPLATE = """
 
     <script>
         function createParticles() {{
-            const container = document.getElementById('particles');
-            for(let i = 0; i < 20; i++) {{
-                const particle = document.createElement('div');
+            var container = document.getElementById('particles');
+            for(var i = 0; i < 20; i++) {{
+                var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.width = (Math.random() * 3 + 1) + 'px';
-                particle.style.height = particle.style.width;
+                var size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
                 particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
                 particle.style.animationDelay = (Math.random() * 10) + 's';
                 particle.style.opacity = Math.random() * 0.3 + 0.1;
@@ -820,7 +550,7 @@ def ucapan():
             <input type="text" name="nama" placeholder="Nama penerima" class="input-cyber" required>
             <input type="text" name="acara" placeholder="Jenis acara" class="input-cyber" required>
             <textarea name="pesan" rows="3" placeholder="Pesan ucapan..." class="input-cyber" required></textarea>
-            <button type="submit" class="btn-cyber">✨ Buat Kartu</button>
+            <button type="submit" class="btn-cyber">Buat Kartu</button>
         </form>
         <div class="mt-6 space-y-4">
             {% for item in store.ucapan %}
@@ -843,7 +573,7 @@ def pesan():
         <form method="POST" action="/pesan" class="space-y-4">
             <input type="text" name="judul" placeholder="Judul (opsional)" class="input-cyber">
             <textarea name="isi" rows="4" placeholder="Tulis pesan rahasia..." class="input-cyber" required></textarea>
-            <button type="submit" class="btn-cyber">🤫 Kirim Rahasia</button>
+            <button type="submit" class="btn-cyber">Kirim Rahasia</button>
         </form>
         <div class="mt-6 space-y-4">
             {% for item in store.pesan %}
@@ -886,7 +616,7 @@ def qr():
     <div class="glass-cyber rounded-2xl p-6 md:p-8">
         <form method="POST" action="/qr" class="space-y-4">
             <input type="url" name="url" placeholder="Masukkan URL..." class="input-cyber" required>
-            <button type="submit" class="btn-cyber">🔗 Buat QR</button>
+            <button type="submit" class="btn-cyber">Buat QR</button>
         </form>
         {% if session.get('qr_result') %}
         <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
@@ -912,7 +642,7 @@ def keuangan():
             </select>
             <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-cyber" required>
             <input type="text" name="keterangan" placeholder="Keterangan" class="input-cyber">
-            <button type="submit" class="btn-cyber">💰 Tambah Catatan</button>
+            <button type="submit" class="btn-cyber">Tambah Catatan</button>
         </form>
         <div class="mt-6">
             <div class="grid grid-cols-2 gap-4 mb-4">
@@ -929,7 +659,7 @@ def keuangan():
                 {% for item in store.keuangan[-10:]|reverse %}
                 <div class="glass-card-cyber p-3 rounded-xl text-sm flex justify-between items-center">
                     <span>{{ item.jenis }} • {{ item.keterangan }}</span>
-                    <span class="font-bold {% if item.jenis == 'pengeluaran' %}text-pink-400{% else %}text-cyan-400{% endif %}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
+                    <span class="font-bold {{ 'text-pink-400' if item.jenis == 'pengeluaran' else 'text-cyan-400' }}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
                 </div>
                 {% endfor %}
             </div>
@@ -945,7 +675,7 @@ def hitung():
         <form method="POST" action="/hitung" class="space-y-4">
             <input type="text" name="acara" placeholder="Nama acara" class="input-cyber" required>
             <input type="date" name="tanggal" class="input-cyber" required>
-            <button type="submit" class="btn-cyber">⏱️ Hitung Hari</button>
+            <button type="submit" class="btn-cyber">Hitung Hari</button>
         </form>
         <div class="mt-6 space-y-4">
             {% for item in store.hitung %}
@@ -970,7 +700,7 @@ def teks():
                 <option value="esthetic">Estetik (𝓪𝓫𝓬)</option>
                 <option value="upside">Terbalik (ɐqɔ)</option>
             </select>
-            <button type="submit" class="btn-cyber">✨ Ubah Gaya</button>
+            <button type="submit" class="btn-cyber">Ubah Gaya</button>
         </form>
         {% if session.get('styled_text') %}
         <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
@@ -989,7 +719,7 @@ def favorit():
             <input type="text" name="judul" placeholder="Judul" class="input-cyber" required>
             <input type="url" name="url" placeholder="URL (opsional)" class="input-cyber">
             <textarea name="catatan" rows="2" placeholder="Catatan..." class="input-cyber"></textarea>
-            <button type="submit" class="btn-cyber">⭐ Simpan</button>
+            <button type="submit" class="btn-cyber">Simpan</button>
         </form>
         <div class="mt-6 space-y-3">
             {% for item in store.favorit %}
@@ -1013,7 +743,7 @@ def ketik():
         </div>
         <form method="POST" action="/ketik" class="space-y-4">
             <input type="text" name="input_ketik" placeholder="Mulai mengetik..." class="input-cyber" required>
-            <button type="submit" class="btn-cyber">🚀 Kirim & Hitung</button>
+            <button type="submit" class="btn-cyber">Kirim & Hitung</button>
         </form>
         {% if session.get('hasil_ketik') %}
         <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
@@ -1047,7 +777,7 @@ def konversi():
                     <option value="berat">Berat (kg/g)</option>
                 </select>
             </div>
-            <button type="submit" class="btn-cyber">🔄 Konversi</button>
+            <button type="submit" class="btn-cyber">Konversi</button>
         </form>
         {% if session.get('hasil_konversi') %}
         <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
@@ -1086,9 +816,9 @@ def handle_kuis():
     if jawaban == 'nasi goreng':
         skor = session.get('skor_kuis', 0) + 10
         session['skor_kuis'] = skor
-        session['last_answer'] = '✅ Benar! +10 poin'
+        session['last_answer'] = 'Benar! +10 poin'
     else:
-        session['last_answer'] = '❌ Kurang tepat, coba lagi!'
+        session['last_answer'] = 'Kurang tepat, coba lagi!'
     return redirect(url_for('kuis'))
 
 @app.route('/qr', methods=['POST'])
@@ -1096,7 +826,7 @@ def handle_qr():
     url = request.form['url']
     short = hashlib.md5(url.encode()).hexdigest()[:8]
     qr = generate_qr(url)
-    session['qr_result'] = {'short': f'https://short.link/{short}', 'qr': qr}
+    session['qr_result'] = {'short': 'https://short.link/' + short, 'qr': qr}
     return redirect(url_for('qr'))
 
 @app.route('/keuangan', methods=['POST'])
@@ -1141,11 +871,11 @@ def handle_ketik():
     start = time.time()
     input_teks = request.form['input_ketik']
     if len(input_teks) == 0:
-        session['hasil_ketik'] = "Silakan ketik sesuatu!"
+        session['hasil_ketik'] = 'Silakan ketik sesuatu!'
     else:
         elapsed = time.time() - start
         wpm = (len(input_teks.split()) / elapsed) * 60
-        session['hasil_ketik'] = f"{wpm:.1f} kata/menit ({elapsed:.2f} detik)"
+        session['hasil_ketik'] = f'{wpm:.1f} kata/menit ({elapsed:.2f} detik)'
     return redirect(url_for('ketik'))
 
 @app.route('/konversi', methods=['POST'])
@@ -1158,21 +888,21 @@ def handle_konversi():
     kurs = {'usd': 1, 'eur': 0.92, 'idr': 15500}
     if jenis == 'mata_uang':
         hasil = (nilai / kurs[dari]) * kurs[ke]
-        session['hasil_konversi'] = f"{nilai:.2f} {dari.upper()} = {hasil:.2f} {ke.upper()}"
+        session['hasil_konversi'] = f'{nilai:.2f} {dari.upper()} = {hasil:.2f} {ke.upper()}'
     elif jenis == 'panjang':
         if dari == 'm' and ke == 'km':
-            session['hasil_konversi'] = f"{nilai} m = {nilai/1000:.3f} km"
+            session['hasil_konversi'] = f'{nilai} m = {nilai/1000:.3f} km'
         elif dari == 'km' and ke == 'm':
-            session['hasil_konversi'] = f"{nilai} km = {nilai*1000:.0f} m"
+            session['hasil_konversi'] = f'{nilai} km = {nilai*1000:.0f} m'
         else:
-            session['hasil_konversi'] = f"{nilai} {dari} = {nilai} {ke}"
+            session['hasil_konversi'] = f'{nilai} {dari} = {nilai} {ke}'
     elif jenis == 'berat':
         if dari == 'kg' and ke == 'g':
-            session['hasil_konversi'] = f"{nilai} kg = {nilai*1000:.0f} g"
+            session['hasil_konversi'] = f'{nilai} kg = {nilai*1000:.0f} g'
         elif dari == 'g' and ke == 'kg':
-            session['hasil_konversi'] = f"{nilai} g = {nilai/1000:.3f} kg"
+            session['hasil_konversi'] = f'{nilai} g = {nilai/1000:.3f} kg'
         else:
-            session['hasil_konversi'] = f"{nilai} {dari} = {nilai} {ke}"
+            session['hasil_konversi'] = f'{nilai} {dari} = {nilai} {ke}'
     return redirect(url_for('konversi'))
 
 # ==========================================
@@ -1180,4 +910,4 @@ def handle_konversi():
 # ==========================================
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=False)
