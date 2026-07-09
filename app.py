@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v10.0 - WITH WELCOME & NEON
+# VERSION: CYBER v11.0 - WITH SEARCH & RGB NEON
 # ==========================================
 
 import os
@@ -133,9 +133,8 @@ HOME_PAGE = """
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(0,100,255,0.05) 0%, transparent 70%);
+                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }
         @keyframes cyberPulse {
@@ -146,8 +145,8 @@ HOME_PAGE = """
         .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background-image: 
-                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }
@@ -158,7 +157,7 @@ HOME_PAGE = """
         
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }
@@ -167,47 +166,13 @@ HOME_PAGE = """
             100% { transform: translateY(100%); }
         }
         
-        /* ===== NEON GLOW EFFECTS ===== */
-        .neon-glow {
-            animation: neonPulse 1.5s ease-in-out infinite alternate;
-        }
-        @keyframes neonPulse {
-            0% { filter: drop-shadow(0 0 5px rgba(0,255,255,0.3)) drop-shadow(0 0 20px rgba(0,255,255,0.1)); }
-            100% { filter: drop-shadow(0 0 20px rgba(0,255,255,0.6)) drop-shadow(0 0 60px rgba(0,255,255,0.2)); }
-        }
-        
-        .neon-border {
-            border: 1px solid rgba(0,255,255,0.3);
-            box-shadow: 0 0 20px rgba(0,255,255,0.1), inset 0 0 20px rgba(0,255,255,0.05);
-            animation: borderPulse 2s ease-in-out infinite;
-        }
-        @keyframes borderPulse {
-            0%, 100% { border-color: rgba(0,255,255,0.3); box-shadow: 0 0 20px rgba(0,255,255,0.1); }
-            50% { border-color: rgba(255,0,255,0.3); box-shadow: 0 0 40px rgba(255,0,255,0.2); }
-        }
-        
-        .neon-text {
-            color: #00ffff;
-            text-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 30px rgba(0,255,255,0.2), 0 0 60px rgba(0,255,255,0.1);
-        }
-        
         /* ===== GLASS CYBER ===== */
         .glass-cyber {
-            background: rgba(0,20,30,0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,255,255,0.15);
-            box-shadow: 0 0 30px rgba(0,255,255,0.05);
+            background: rgba(0,20,30,0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0,255,255,0.03);
             position: relative; z-index: 1;
-        }
-        .glass-cyber::before {
-            content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
-            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #00ffff, transparent);
-            animation: neonLine 2s ease-in-out infinite;
-            background-size: 200% 100%;
-        }
-        @keyframes neonLine {
-            0%, 100% { background-position: -200% 0; }
-            50% { background-position: 200% 0; }
         }
         
         /* ===== WELCOME SCREEN ===== */
@@ -219,7 +184,7 @@ HOME_PAGE = """
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: welcomeIn 0.8s ease;
+            animation: welcomeIn 0.6s ease;
         }
         @keyframes welcomeIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -231,50 +196,45 @@ HOME_PAGE = """
         }
         @keyframes floatGlow {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-10px); }
         }
         .welcome-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 5rem;
+            font-size: 4.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 60px rgba(0,255,255,0.4));
-            letter-spacing: 10px;
+            filter: drop-shadow(0 0 40px rgba(0,255,255,0.3));
+            letter-spacing: 8px;
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
         @keyframes titleGlow {
-            0% { filter: drop-shadow(0 0 40px rgba(0,255,255,0.3)); }
-            100% { filter: drop-shadow(0 0 80px rgba(0,255,255,0.6)) drop-shadow(0 0 120px rgba(255,0,255,0.3)); }
+            0% { filter: drop-shadow(0 0 30px rgba(0,255,255,0.2)); }
+            100% { filter: drop-shadow(0 0 60px rgba(0,255,255,0.4)) drop-shadow(0 0 80px rgba(255,0,255,0.2)); }
         }
         @media (max-width: 640px) {
-            .welcome-title { font-size: 3rem; letter-spacing: 5px; }
+            .welcome-title { font-size: 2.8rem; letter-spacing: 4px; }
         }
         .welcome-sub {
             color: rgba(0,255,255,0.4);
             font-family: 'Orbitron', sans-serif;
-            letter-spacing: 8px;
-            font-size: 0.9rem;
-            animation: subPulse 1.5s ease-in-out infinite;
-        }
-        @keyframes subPulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
+            letter-spacing: 6px;
+            font-size: 0.8rem;
         }
         .btn-enter {
             background: linear-gradient(135deg, #00ffff, #0088ff);
-            padding: 18px 56px;
-            border-radius: 12px;
+            padding: 14px 48px;
+            border-radius: 10px;
             color: #05050a;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 40px rgba(0,255,255,0.2);
-            letter-spacing: 4px;
+            box-shadow: 0 0 30px rgba(0,255,255,0.15);
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
             position: relative;
@@ -287,7 +247,7 @@ HOME_PAGE = """
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
             transform: rotate(45deg);
             transition: all 0.5s ease;
         }
@@ -295,16 +255,37 @@ HOME_PAGE = """
             left: 100%;
         }
         .btn-enter:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 80px rgba(0,255,255,0.5);
-        }
-        .btn-enter:active {
-            transform: scale(0.95);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0,255,255,0.3);
         }
         
-        /* ===== MENU ===== */
+        /* ===== SEARCH BAR ===== */
+        .search-cyber {
+            background: rgba(0,20,30,0.4);
+            border: 1px solid rgba(0,255,255,0.1);
+            color: #00ffff;
+            border-radius: 10px;
+            padding: 10px 16px;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        .search-cyber:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0,255,255,0.05);
+            outline: none;
+            background: rgba(0,20,30,0.6);
+        }
+        .search-cyber::placeholder {
+            color: rgba(0,255,255,0.3);
+        }
+        
+        /* ===== MENU DENGAN RGB NEON ROTATING ===== */
         .menu-cyber {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 8px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 6px;
         }
         @media (max-width: 640px) {
             .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -312,75 +293,123 @@ HOME_PAGE = """
         @media (max-width: 400px) {
             .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 6px; }
         }
+        
         .menu-item-cyber {
             background: rgba(0,20,30,0.3);
             border: 1px solid rgba(0,255,255,0.08);
             border-radius: 12px;
-            padding: 16px 8px;
+            padding: 14px 6px;
             text-align: center;
             transition: all 0.25s ease;
             text-decoration: none;
-            color: rgba(0,255,255,0.6);
+            color: rgba(0,255,255,0.5);
             cursor: pointer;
             display: block;
             position: relative;
             overflow: hidden;
         }
+        
+        /* ===== RGB NEON ROTATING BORDER ===== */
+        .menu-item-cyber::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: conic-gradient(
+                #00ffff 0deg,
+                #ff00ff 90deg,
+                #ff0080 180deg,
+                #00ffff 270deg,
+                #00ffff 360deg
+            );
+            border-radius: 14px;
+            z-index: -1;
+            animation: rgbRotate 3s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .menu-item-cyber:hover::before {
+            opacity: 1;
+        }
+        
         .menu-item-cyber::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,255,255,0.08), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            transform: scale(0);
-        }
-        .menu-item-cyber:hover::after {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .menu-item-cyber:hover {
-            transform: translateY(-6px) scale(1.05);
-            border-color: rgba(0,255,255,0.4);
-            background: rgba(0,255,255,0.08);
-            box-shadow: 0 0 50px rgba(0,255,255,0.1);
-            color: #00ffff;
-        }
-        .menu-item-cyber:active { transform: scale(0.95); }
-        .menu-icon-cyber { font-size: 2rem; display: block; margin-bottom: 4px; transition: transform 0.25s; }
-        .menu-item-cyber:hover .menu-icon-cyber { transform: scale(1.2) rotate(-5deg); }
-        .menu-label-cyber {
-            font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-            font-family: 'Orbitron', sans-serif; display: block;
-        }
-        @media (max-width: 640px) {
-            .menu-icon-cyber { font-size: 1.5rem; }
-            .menu-label-cyber { font-size: 0.55rem; }
-            .menu-item-cyber { padding: 12px 4px; }
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,20,30,0.3);
+            border-radius: 12px;
+            z-index: -1;
         }
         
+        @keyframes rgbRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .menu-item-cyber:hover {
+            transform: translateY(-4px) scale(1.03);
+            border-color: transparent;
+            color: #00ffff;
+            box-shadow: 0 0 40px rgba(0,255,255,0.05);
+        }
+        
+        .menu-item-cyber:hover .menu-icon-cyber {
+            transform: scale(1.15) rotate(-5deg);
+        }
+        
+        .menu-item-cyber.hidden {
+            display: none;
+        }
+        
+        .menu-icon-cyber {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 3px;
+            transition: transform 0.25s ease;
+        }
+        
+        .menu-label-cyber {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            display: block;
+        }
+        
+        @media (max-width: 640px) {
+            .menu-icon-cyber { font-size: 1.4rem; }
+            .menu-label-cyber { font-size: 0.5rem; }
+            .menu-item-cyber { padding: 10px 4px; }
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 40px rgba(0,255,255,0.3));
-            letter-spacing: 8px;
-            animation: titleGlow 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 30px rgba(0,255,255,0.2));
+            letter-spacing: 6px;
         }
-        @media (max-width: 640px) { .cyber-title { font-size: 2.2rem; letter-spacing: 4px; } }
+        @media (max-width: 640px) {
+            .cyber-title { font-size: 2rem; letter-spacing: 3px; }
+        }
         
         .fade-cyber {
-            animation: fadeCyber 0.5s ease forwards;
+            animation: fadeCyber 0.4s ease forwards;
         }
         @keyframes fadeCyber {
-            from { opacity: 0; transform: translateY(20px) scale(0.97); filter: blur(8px); }
+            from { opacity: 0; transform: translateY(15px) scale(0.97); filter: blur(5px); }
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
         
@@ -389,10 +418,10 @@ HOME_PAGE = """
         }
         @keyframes floatCyber {
             0%,100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-6px); }
         }
         
-        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }
         
@@ -407,6 +436,31 @@ HOME_PAGE = """
             90% { opacity: 1; }
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
+        
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+            margin-right: 4px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        
+        /* ===== NO RESULT ===== */
+        .no-result {
+            color: rgba(0,255,255,0.3);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 20px 0;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -419,17 +473,17 @@ HOME_PAGE = """
     <!-- WELCOME SCREEN -->
     <div id="welcomeScreen" class="welcome-screen">
         <div class="welcome-content px-6">
-            <div class="text-7xl mb-4 neon-glow">⚡</div>
+            <div class="text-6xl mb-3">⚡</div>
             <h1 class="welcome-title">NEXUS</h1>
-            <p class="welcome-sub mb-6">CYBER UTILITY SUITE</p>
-            <p style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.7rem; margin-bottom: 30px;">
-                <span class="inline-block animate-pulse">●</span> SYSTEM READY <span class="inline-block animate-pulse">●</span>
+            <p class="welcome-sub mb-5">CYBER UTILITY SUITE</p>
+            <p style="color: rgba(0,255,255,0.2); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.6rem; margin-bottom: 25px;">
+                <span class="status-dot"></span> SYSTEM READY
             </p>
             <button onclick="enterNexus()" class="btn-enter">
-                ⚡ ENTER NEXUS ⚡
+                ENTER NEXUS
             </button>
-            <p style="color: rgba(0,255,255,0.1); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px; margin-top: 20px;">
-                v10.0 • CYBER EDITION
+            <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
+                v11.0 • CYBER EDITION
             </p>
         </div>
     </div>
@@ -437,36 +491,43 @@ HOME_PAGE = """
     <!-- MAIN CONTENT -->
     <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
         <div class="max-w-4xl w-full">
-            <header class="text-center py-6 fade-cyber">
+            <header class="text-center py-5 fade-cyber">
                 <div class="float-cyber">
-                    <div class="text-5xl mb-2 neon-glow">⚡</div>
+                    <div class="text-4xl mb-1">⚡</div>
                     <h1 class="cyber-title">NEXUS</h1>
                 </div>
-                <p style="color: rgba(0,255,255,0.4); font-family: 'Orbitron', sans-serif; letter-spacing: 4px; font-size: 0.7rem;">
+                <p style="color: rgba(0,255,255,0.35); font-family: 'Orbitron', sans-serif; letter-spacing: 3px; font-size: 0.65rem;">
                     CYBER UTILITY SUITE
                 </p>
-                <p style="color: rgba(0,255,255,0.2); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.6rem; margin-top: 6px;">
-                    <span class="inline-block animate-pulse">●</span> ONLINE <span class="inline-block animate-pulse">●</span>
+                <p style="color: rgba(0,255,255,0.15); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.5rem; margin-top: 4px;">
+                    <span class="status-dot"></span> ONLINE
                 </p>
             </header>
 
-            <nav class="glass-cyber rounded-2xl p-5 md:p-7 fade-cyber" style="animation-delay: 0.15s;">
-                <div class="menu-cyber">
-                    <a href="/ucapan" class="menu-item-cyber"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
-                    <a href="/pesan" class="menu-item-cyber"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
-                    <a href="/kuis" class="menu-item-cyber"><span class="menu-icon-cyber">🧠</span><span class="menu-label-cyber">Kuis</span></a>
-                    <a href="/qr" class="menu-item-cyber"><span class="menu-icon-cyber">📱</span><span class="menu-label-cyber">QR</span></a>
-                    <a href="/keuangan" class="menu-item-cyber"><span class="menu-icon-cyber">💰</span><span class="menu-label-cyber">Keuangan</span></a>
-                    <a href="/hitung" class="menu-item-cyber"><span class="menu-icon-cyber">⏳</span><span class="menu-label-cyber">Hitung</span></a>
-                    <a href="/teks" class="menu-item-cyber"><span class="menu-icon-cyber">✨</span><span class="menu-label-cyber">Teks</span></a>
-                    <a href="/favorit" class="menu-item-cyber"><span class="menu-icon-cyber">⭐</span><span class="menu-label-cyber">Favorit</span></a>
-                    <a href="/ketik" class="menu-item-cyber"><span class="menu-icon-cyber">⌨️</span><span class="menu-label-cyber">Ketik</span></a>
-                    <a href="/konversi" class="menu-item-cyber"><span class="menu-icon-cyber">🔄</span><span class="menu-label-cyber">Konversi</span></a>
+            <!-- SEARCH BAR -->
+            <div class="mb-4 fade-cyber" style="animation-delay: 0.1s;">
+                <input type="text" id="searchMenu" class="search-cyber" placeholder="🔍 Cari menu..." onkeyup="filterMenu()">
+            </div>
+
+            <!-- MENU GRID -->
+            <nav class="glass-cyber rounded-2xl p-4 md:p-6 fade-cyber" style="animation-delay: 0.15s;">
+                <div class="menu-cyber" id="menuGrid">
+                    <a href="/ucapan" class="menu-item-cyber" data-name="ucapan"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
+                    <a href="/pesan" class="menu-item-cyber" data-name="pesan"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
+                    <a href="/kuis" class="menu-item-cyber" data-name="kuis"><span class="menu-icon-cyber">🧠</span><span class="menu-label-cyber">Kuis</span></a>
+                    <a href="/qr" class="menu-item-cyber" data-name="qr"><span class="menu-icon-cyber">📱</span><span class="menu-label-cyber">QR</span></a>
+                    <a href="/keuangan" class="menu-item-cyber" data-name="keuangan"><span class="menu-icon-cyber">💰</span><span class="menu-label-cyber">Keuangan</span></a>
+                    <a href="/hitung" class="menu-item-cyber" data-name="hitung"><span class="menu-icon-cyber">⏳</span><span class="menu-label-cyber">Hitung</span></a>
+                    <a href="/teks" class="menu-item-cyber" data-name="teks"><span class="menu-icon-cyber">✨</span><span class="menu-label-cyber">Teks</span></a>
+                    <a href="/favorit" class="menu-item-cyber" data-name="favorit"><span class="menu-icon-cyber">⭐</span><span class="menu-label-cyber">Favorit</span></a>
+                    <a href="/ketik" class="menu-item-cyber" data-name="ketik"><span class="menu-icon-cyber">⌨️</span><span class="menu-label-cyber">Ketik</span></a>
+                    <a href="/konversi" class="menu-item-cyber" data-name="konversi"><span class="menu-icon-cyber">🔄</span><span class="menu-label-cyber">Konversi</span></a>
                 </div>
+                <div id="noResult" class="no-result">✖ MENU TIDAK DITEMUKAN</div>
             </nav>
 
-            <footer class="text-center py-5 mt-6 fade-cyber" style="animation-delay: 0.3s;">
-                <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+            <footer class="text-center py-4 mt-5 fade-cyber" style="animation-delay: 0.2s;">
+                <p style="color: rgba(0,255,255,0.06); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
                     ⚡ NEXUS CYBER UTILITY • DATA IN MEMORY ⚡
                 </p>
             </footer>
@@ -474,40 +535,64 @@ HOME_PAGE = """
     </div>
 
     <script>
+        // ===== WELCOME SCREEN =====
         function enterNexus() {
             var welcome = document.getElementById('welcomeScreen');
             var main = document.getElementById('mainContent');
             welcome.style.opacity = '0';
-            welcome.style.transition = 'opacity 0.6s ease';
+            welcome.style.transition = 'opacity 0.5s ease';
             setTimeout(function() {
                 welcome.style.display = 'none';
                 main.style.display = 'block';
-                main.style.animation = 'fadeCyber 0.6s ease';
-            }, 600);
-            // Simpan state
+                main.style.animation = 'fadeCyber 0.5s ease';
+            }, 500);
             sessionStorage.setItem('nexus_entered', 'true');
         }
 
-        // Cek jika sudah pernah masuk
-        (function() {
-            if(sessionStorage.getItem('nexus_entered')) {
-                document.getElementById('welcomeScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-            }
-        })();
+        if(sessionStorage.getItem('nexus_entered')) {
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
 
+        // ===== SEARCH MENU =====
+        function filterMenu() {
+            var input = document.getElementById('searchMenu');
+            var filter = input.value.toLowerCase().trim();
+            var items = document.querySelectorAll('.menu-item-cyber');
+            var noResult = document.getElementById('noResult');
+            var found = false;
+
+            items.forEach(function(item) {
+                var name = item.getAttribute('data-name');
+                var label = item.querySelector('.menu-label-cyber').textContent.toLowerCase();
+                if (name.includes(filter) || label.includes(filter) || filter === '') {
+                    item.classList.remove('hidden');
+                    found = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (!found && filter !== '') {
+                noResult.style.display = 'block';
+            } else {
+                noResult.style.display = 'none';
+            }
+        }
+
+        // ===== PARTICLES =====
         function createParticles() {
             var container = document.getElementById('particles');
-            for(var i = 0; i < 30; i++) {
+            for(var i = 0; i < 25; i++) {
                 var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                var size = Math.random() * 3 + 1;
+                var size = Math.random() * 2 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
                 particle.style.animationDelay = (Math.random() * 8) + 's';
-                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.opacity = Math.random() * 0.2 + 0.05;
                 container.appendChild(particle);
             }
         }
@@ -541,8 +626,8 @@ PAGE_TEMPLATE = """
         
         .cyber-bg {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.06) 0%, transparent 50%);
             animation: cyberPulse 4s ease-in-out infinite alternate;
         }}
         @keyframes cyberPulse {{
@@ -551,8 +636,8 @@ PAGE_TEMPLATE = """
         }}
         .cyber-grid {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
             background-size: 40px 40px;
             animation: gridMove 10s linear infinite;
         }}
@@ -562,7 +647,7 @@ PAGE_TEMPLATE = """
         }}
         .scanline {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.01) 2px, rgba(0,255,255,0.01) 4px);
             pointer-events: none;
             animation: scanMove 6s linear infinite;
         }}
@@ -571,56 +656,40 @@ PAGE_TEMPLATE = """
             100% {{ transform: translateY(100%); }}
         }}
         
-        .neon-glow {{
-            animation: neonPulse 1.5s ease-in-out infinite alternate;
-        }}
-        @keyframes neonPulse {{
-            0% {{ filter: drop-shadow(0 0 5px rgba(0,255,255,0.3)); }}
-            100% {{ filter: drop-shadow(0 0 20px rgba(0,255,255,0.6)); }}
-        }}
-        
         .glass-cyber {{
-            background: rgba(0,20,30,0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,255,255,0.15);
-            box-shadow: 0 0 30px rgba(0,255,255,0.05);
+            background: rgba(0,20,30,0.5);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0,255,255,0.03);
             position: relative; z-index: 1;
-        }}
-        .glass-cyber::before {{
-            content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
-            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #00ffff, transparent);
-            animation: neonLine 2s ease-in-out infinite;
-            background-size: 200% 100%;
-        }}
-        @keyframes neonLine {{
-            0%, 100% {{ background-position: -200% 0; }}
-            50% {{ background-position: 200% 0; }}
         }}
         
         .glass-card-cyber {{
-            background: rgba(0,20,30,0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,255,255,0.08);
+            background: rgba(0,20,30,0.35);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,255,255,0.06);
             transition: all 0.25s ease;
             position: relative; z-index: 1;
         }}
         .glass-card-cyber:hover {{
-            transform: translateY(-4px);
-            border-color: rgba(0,255,255,0.3);
-            box-shadow: 0 0 40px rgba(0,255,255,0.05);
+            transform: translateY(-3px);
+            border-color: rgba(0,255,255,0.2);
+            box-shadow: 0 0 30px rgba(0,255,255,0.03);
         }}
+        
         .cyber-text {{
             background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0,255,255,0.3));
+            filter: drop-shadow(0 0 20px rgba(0,255,255,0.2));
         }}
         .cyber-value {{
             font-family: 'Orbitron', sans-serif;
             color: #00ffff;
-            text-shadow: 0 0 20px rgba(0,255,255,0.2);
+            text-shadow: 0 0 20px rgba(0,255,255,0.15);
         }}
+        
         .btn-cyber {{
             background: linear-gradient(135deg, #00ffff, #0088ff);
             color: #05050a;
@@ -629,7 +698,7 @@ PAGE_TEMPLATE = """
             text-transform: uppercase;
             letter-spacing: 2px;
             border: none;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
@@ -639,82 +708,90 @@ PAGE_TEMPLATE = """
         .btn-cyber::before {{
             content: '';
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
             transform: rotate(45deg);
             transition: all 0.5s ease;
         }}
         .btn-cyber:hover::before {{ left: 100%; }}
         .btn-cyber:hover {{
-            transform: scale(1.03);
-            box-shadow: 0 0 40px rgba(0,255,255,0.3);
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0,255,255,0.2);
         }}
         .btn-cyber:active {{ transform: scale(0.95); }}
+        
         .btn-back {{
             background: rgba(0,255,255,0.05);
-            border: 1px solid rgba(0,255,255,0.1);
+            border: 1px solid rgba(0,255,255,0.08);
             color: #00ffff;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 8px;
             transition: all 0.25s ease;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             display: inline-block;
         }}
         .btn-back:hover {{
-            background: rgba(0,255,255,0.1);
+            background: rgba(0,255,255,0.08);
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0,255,255,0.1);
-            transform: translateX(-4px);
+            box-shadow: 0 0 20px rgba(0,255,255,0.05);
+            transform: translateX(-3px);
         }}
+        
         .input-cyber {{
-            background: rgba(0,10,20,0.6);
-            border: 1px solid rgba(0,255,255,0.15);
+            background: rgba(0,10,20,0.5);
+            border: 1px solid rgba(0,255,255,0.1);
             color: #00ffff;
             transition: all 0.25s ease;
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             width: 100%;
         }}
         .input-cyber:focus {{
             border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0,255,255,0.1);
+            box-shadow: 0 0 20px rgba(0,255,255,0.05);
             outline: none;
-            background: rgba(0,10,20,0.8);
+            background: rgba(0,10,20,0.7);
         }}
-        .input-cyber::placeholder {{ color: rgba(0,255,255,0.3); }}
+        .input-cyber::placeholder {{ color: rgba(0,255,255,0.25); }}
         select.input-cyber option {{ background: #0a0a1a; color: #00ffff; }}
+        
         .cyber-label {{
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             letter-spacing: 2px;
-            color: rgba(0,255,255,0.4);
+            color: rgba(0,255,255,0.35);
             text-transform: uppercase;
         }}
+        
         .fade-cyber {{
-            animation: fadeCyber 0.4s ease forwards;
+            animation: fadeCyber 0.35s ease forwards;
         }}
         @keyframes fadeCyber {{
-            from {{ opacity: 0; transform: translateY(15px) scale(0.97); filter: blur(5px); }}
+            from {{ opacity: 0; transform: translateY(12px) scale(0.98); filter: blur(4px); }}
             to {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }}
         }}
+        
         .cyber-title-page {{
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
         }}
-        @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1.3rem; }} }}
-        ::-webkit-scrollbar {{ width: 4px; }}
+        @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1.1rem; }} }}
+        
+        ::-webkit-scrollbar {{ width: 3px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
         ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }}
+        
         .float-cyber {{
             animation: floatCyber 3s ease-in-out infinite;
         }}
         @keyframes floatCyber {{
             0%,100% {{ transform: translateY(0px); }}
-            50% {{ transform: translateY(-6px); }}
+            50% {{ transform: translateY(-4px); }}
         }}
+        
         .particle {{
             position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
             pointer-events: none; z-index: 0;
@@ -726,6 +803,20 @@ PAGE_TEMPLATE = """
             90% {{ opacity: 1; }}
             100% {{ transform: translateY(-10vh) scale(1); opacity: 0; }}
         }}
+        
+        .status-dot {{
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+            margin-right: 3px;
+        }}
+        @keyframes blink {{
+            0%, 100% {{ opacity: 1; }}
+            50% {{ opacity: 0.2; }}
+        }}
     </style>
 </head>
 <body>
@@ -736,10 +827,10 @@ PAGE_TEMPLATE = """
 
     <div class="relative z-10 p-4 md:p-6 min-h-screen">
         <div class="max-w-2xl mx-auto">
-            <div class="flex items-center justify-between mb-5 fade-cyber">
+            <div class="flex items-center justify-between mb-4 fade-cyber">
                 <a href="/" class="btn-back">← KEMBALI</a>
                 <div class="text-right float-cyber">
-                    <span class="text-3xl neon-glow">{icon}</span>
+                    <span class="text-2xl">{icon}</span>
                     <h1 class="cyber-title-page cyber-text">{title}</h1>
                 </div>
             </div>
@@ -748,8 +839,8 @@ PAGE_TEMPLATE = """
                 {content}
             </div>
 
-            <footer class="text-center py-5 mt-6 fade-cyber" style="animation-delay: 0.2s;">
-                <p style="color: rgba(0,255,255,0.06); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+            <footer class="text-center py-4 mt-5 fade-cyber" style="animation-delay: 0.15s;">
+                <p style="color: rgba(0,255,255,0.05); font-size: 0.4rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
                     ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
                 </p>
             </footer>
@@ -759,16 +850,16 @@ PAGE_TEMPLATE = """
     <script>
         function createParticles() {{
             var container = document.getElementById('particles');
-            for(var i = 0; i < 20; i++) {{
+            for(var i = 0; i < 15; i++) {{
                 var particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
-                var size = Math.random() * 3 + 1;
+                var size = Math.random() * 2 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
                 particle.style.animationDelay = (Math.random() * 8) + 's';
-                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.opacity = Math.random() * 0.2 + 0.05;
                 container.appendChild(particle);
             }}
         }}
@@ -801,7 +892,7 @@ def ucapan():
                 <p class="font-semibold text-cyan-300">Untuk: {{ item.nama }}</p>
                 <p class="text-pink-300">Acara: {{ item.acara }}</p>
                 <p class="text-gray-300 italic">"{{ item.pesan }}"</p>
-                <small style="color: rgba(0,255,255,0.3);">{{ item.waktu }}</small>
+                <small style="color: rgba(0,255,255,0.25);">{{ item.waktu }}</small>
             </div>
             {% endfor %}
         </div>
@@ -822,7 +913,7 @@ def pesan():
             {% for item in store.pesan %}
             <div class="glass-card-cyber p-4 rounded-xl border border-pink-500/20">
                 <p class="text-gray-300">{{ item.isi }}</p>
-                <small style="color: rgba(0,255,255,0.3);">#{{ item.id }} • {{ item.waktu }}</small>
+                <small style="color: rgba(0,255,255,0.25);">#{{ item.id }} • {{ item.waktu }}</small>
             </div>
             {% endfor %}
         </div>
@@ -864,7 +955,7 @@ def qr():
         {% if session.get('qr_result') %}
         <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
             <p class="text-gray-300 break-all">Short URL: <a href="{{ session.qr_result.short }}" target="_blank" class="text-cyan-300 hover:underline">{{ session.qr_result.short }}</a></p>
-            <img src="data:image/png;base64,{{ session.qr_result.qr }}" class="mx-auto mt-3 w-48 h-48" alt="QR Code">
+            <img src="data:image/png;base64,{{ session.qr_result.qr }}" class="mx-auto mt-3 w-40 h-40" alt="QR Code">
         </div>
         {% endif %}
     </div>
@@ -890,7 +981,7 @@ def hitung():
             <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
                 <p class="font-semibold">{{ item.acara }}</p>
                 <p class="text-3xl font-bold text-cyan-300 cyber-value">{{ item.sisa_hari }} hari lagi</p>
-                <small style="color: rgba(0,255,255,0.3);">{{ item.tanggal }}</small>
+                <small style="color: rgba(0,255,255,0.25);">{{ item.tanggal }}</small>
             </div>
             {% endfor %}
         </div>
