@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v8.0 - FULLY FIXED
+# VERSION: CYBER v9.0 - FINAL FIXED
 # ==========================================
 
 import os
@@ -64,6 +64,47 @@ def stylize_text(text, style='esthetic'):
         }
         return ''.join(mapping.get(c.lower(), c) for c in text[::-1])
     return text
+
+# ==========================================
+# TEMPLATE CONTENT (tanpa f-string)
+# ==========================================
+def get_keuangan_content():
+    total_pengeluaran = sum(item['jumlah'] for item in data_store['keuangan'] if item['jenis'] == 'pengeluaran')
+    total_simpanan = sum(item['jumlah'] for item in data_store['keuangan'] if item['jenis'] == 'simpanan')
+    
+    return """
+    <div class="glass-cyber rounded-2xl p-6 md:p-8">
+        <form method="POST" action="/keuangan" class="space-y-4">
+            <select name="jenis" class="input-cyber">
+                <option value="pengeluaran">Pengeluaran</option>
+                <option value="simpanan">Simpanan</option>
+            </select>
+            <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-cyber" required>
+            <input type="text" name="keterangan" placeholder="Keterangan" class="input-cyber">
+            <button type="submit" class="btn-cyber">Tambah Catatan</button>
+        </form>
+        <div class="mt-6">
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="glass-card-cyber p-4 rounded-xl text-center">
+                    <p class="cyber-label">Pengeluaran</p>
+                    <p class="text-2xl font-bold text-pink-400 cyber-value">Rp """ + f"{total_pengeluaran:,.0f}" + """</p>
+                </div>
+                <div class="glass-card-cyber p-4 rounded-xl text-center">
+                    <p class="cyber-label">Simpanan</p>
+                    <p class="text-2xl font-bold text-cyan-400 cyber-value">Rp """ + f"{total_simpanan:,.0f}" + """</p>
+                </div>
+            </div>
+            <div class="space-y-2 max-h-60 overflow-y-auto">
+                {% for item in store.keuangan[-10:]|reverse %}
+                <div class="glass-card-cyber p-3 rounded-xl text-sm flex justify-between items-center">
+                    <span>{{ item.jenis }} • {{ item.keterangan }}</span>
+                    <span class="font-bold {% if item.jenis == 'pengeluaran' %}text-pink-400{% else %}text-cyan-400{% endif %}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    """
 
 # ==========================================
 # HOME PAGE (MENU UTAMA)
@@ -630,42 +671,7 @@ def qr():
 
 @app.route('/keuangan')
 def keuangan():
-    total_pengeluaran = sum(item['jumlah'] for item in data_store['keuangan'] if item['jenis'] == 'pengeluaran')
-    total_simpanan = sum(item['jumlah'] for item in data_store['keuangan'] if item['jenis'] == 'simpanan')
-    
-    content = f"""
-    <div class="glass-cyber rounded-2xl p-6 md:p-8">
-        <form method="POST" action="/keuangan" class="space-y-4">
-            <select name="jenis" class="input-cyber">
-                <option value="pengeluaran">Pengeluaran</option>
-                <option value="simpanan">Simpanan</option>
-            </select>
-            <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-cyber" required>
-            <input type="text" name="keterangan" placeholder="Keterangan" class="input-cyber">
-            <button type="submit" class="btn-cyber">Tambah Catatan</button>
-        </form>
-        <div class="mt-6">
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="glass-card-cyber p-4 rounded-xl text-center">
-                    <p class="cyber-label">Pengeluaran</p>
-                    <p class="text-2xl font-bold text-pink-400 cyber-value">Rp {total_pengeluaran:,.0f}</p>
-                </div>
-                <div class="glass-card-cyber p-4 rounded-xl text-center">
-                    <p class="cyber-label">Simpanan</p>
-                    <p class="text-2xl font-bold text-cyan-400 cyber-value">Rp {total_simpanan:,.0f}</p>
-                </div>
-            </div>
-            <div class="space-y-2 max-h-60 overflow-y-auto">
-                {% for item in store.keuangan[-10:]|reverse %}
-                <div class="glass-card-cyber p-3 rounded-xl text-sm flex justify-between items-center">
-                    <span>{{ item.jenis }} • {{ item.keterangan }}</span>
-                    <span class="font-bold {{ 'text-pink-400' if item.jenis == 'pengeluaran' else 'text-cyan-400' }}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    """
+    content = get_keuangan_content()
     return render_template_string(PAGE_TEMPLATE.format(title='Catatan Keuangan', icon='💰', content=content), store=data_store)
 
 @app.route('/hitung')
