@@ -1,8 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS UTILITY SUITE 
 # FILE: app.py
-# TECH: Flask + Tailwind CSS
-# VERSION: Premium Edition ✨
+# VERSION: PREMIUM v3.0
 # ==========================================
 
 import os
@@ -18,394 +17,11 @@ import datetime
 import time
 from flask import Flask, render_template_string, request, redirect, url_for, session, jsonify
 
-# ---------- INISIALISASI FLASK ----------
 app = Flask(__name__)
-app.secret_key = 'nexus-s3cr3t-k3y-2024'
-
-# ---------- HTML TEMPLATE UTAMA ----------
-BASE_TEMPLATE = """
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS • Utility Suite</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
-        
-        * { font-family: 'Inter', sans-serif; }
-        
-        body {
-            background: #0a0a0f;
-            min-height: 100vh;
-            color: #e0e0ff;
-            overflow-x: hidden;
-        }
-        
-        /* Animasi background */
-        .bg-animate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 50%, rgba(255, 80, 200, 0.08) 0%, transparent 50%);
-            z-index: 0;
-            animation: pulseBg 8s ease-in-out infinite alternate;
-        }
-        
-        @keyframes pulseBg {
-            0% { opacity: 0.5; transform: scale(1); }
-            100% { opacity: 1; transform: scale(1.05); }
-        }
-        
-        .glass-premium {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            border-color: rgba(168, 85, 247, 0.3);
-            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.15);
-        }
-        
-        .gradient-nexus {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .gradient-btn {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .gradient-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }
-        
-        .gradient-btn:hover::before {
-            left: 100%;
-        }
-        
-        .gradient-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
-        }
-        
-        .input-nexus {
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #e0e0ff;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            padding: 12px 16px;
-        }
-        
-        .input-nexus:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
-            outline: none;
-            background: rgba(0,0,0,0.6);
-        }
-        
-        /* Welcome Screen */
-        .welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: #0a0a0f;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: welcomeFade 0.8s ease;
-        }
-        
-        @keyframes welcomeFade {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .welcome-content {
-            text-align: center;
-            animation: floatGlow 3s ease-in-out infinite;
-        }
-        
-        @keyframes floatGlow {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .nexus-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #a855f7, #ec4899, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 60px rgba(168, 85, 247, 0.3);
-            letter-spacing: 4px;
-        }
-        
-        .sub-glow {
-            color: #a0a0c0;
-            font-weight: 300;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-        }
-        
-        .btn-enter {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
-            padding: 16px 48px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
-            letter-spacing: 2px;
-        }
-        
-        .btn-enter:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
-        }
-        
-        /* Menu Grid Premium */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 12px;
-            padding: 8px;
-        }
-        
-        .menu-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 16px 8px;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
-            transition: all 0.5s ease;
-        }
-        
-        .menu-item:hover::before {
-            left: 100%;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-4px) scale(1.02);
-            border-color: rgba(168, 85, 247, 0.3);
-            background: rgba(168, 85, 247, 0.05);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.1);
-        }
-        
-        .menu-item.active {
-            border-color: #a855f7;
-            background: rgba(168, 85, 247, 0.08);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
-        }
-        
-        .menu-icon {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-        
-        .menu-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #a0a0c0;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.02);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
-            border-radius: 10px;
-        }
-        
-        .fade-in {
-            animation: fadeSlide 0.6s ease forwards;
-        }
-        
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 640px) {
-            .nexus-title { font-size: 2.5rem; }
-            .sub-glow { font-size: 0.7rem; letter-spacing: 4px; }
-            .menu-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-            .menu-item { padding: 12px 4px; }
-            .menu-icon { font-size: 1.5rem; }
-            .menu-label { font-size: 0.6rem; }
-        }
-    </style>
-</head>
-<body>
-    <!-- Background Animation -->
-    <div class="bg-animate"></div>
-
-    <!-- WELCOME SCREEN -->
-    <div id="welcomeScreen" class="welcome-screen">
-        <div class="welcome-content px-6">
-            <div class="mb-4 text-6xl">🚀</div>
-            <h1 class="nexus-title mb-2">NEXUS</h1>
-            <p class="sub-glow text-sm md:text-base mb-8">Utility Suite • Premium</p>
-            <p class="text-gray-400 mb-8 max-w-md mx-auto text-sm">
-                Selamat datang di pusat kendali 10 fitur canggih dalam satu genggaman
-            </p>
-            <button onclick="enterNexus()" class="btn-enter">
-                ✦ LANJUTKAN ✦
-            </button>
-            <p class="text-gray-600 text-xs mt-4">v2.0 • Made with ❤️</p>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6">
-        <div class="max-w-6xl mx-auto">
-            <!-- Header -->
-            <header class="text-center py-8 fade-in">
-                <h1 class="text-3xl md:text-5xl font-bold gradient-nexus mb-2 font-['Orbitron'] tracking-wider">
-                    ⚡ NEXUS
-                </h1>
-                <p class="text-gray-400 text-sm md:text-base tracking-widest">Utility Suite • 10 Fitur Premium</p>
-            </header>
-
-            <!-- Menu Grid Premium -->
-            <nav class="glass-premium rounded-2xl p-4 md:p-6 mb-8 fade-in">
-                <div class="menu-grid">
-                    {% set menu_items = [
-                        ('ucapan', '🎉', 'Ucapan'),
-                        ('pesan', '💌', 'Pesan'),
-                        ('kuis', '🧠', 'Kuis'),
-                        ('qr', '📱', 'QR & Link'),
-                        ('keuangan', '💰', 'Keuangan'),
-                        ('hitung', '⏳', 'Hitung'),
-                        ('teks', '✨', 'Teks'),
-                        ('favorit', '⭐', 'Favorit'),
-                        ('ketik', '⌨️', 'Ketik'),
-                        ('konversi', '🔄', 'Konversi')
-                    ] %}
-                    {% for id, icon, label in menu_items %}
-                        <a href="#{{ id }}" 
-                           class="menu-item {% if active == id %}active{% endif %}"
-                           onclick="setActive('{{ id }}')">
-                            <span class="menu-icon">{{ icon }}</span>
-                            <span class="menu-label">{{ label }}</span>
-                        </a>
-                    {% endfor %}
-                </div>
-            </nav>
-
-            <!-- Konten Fitur -->
-            <div class="space-y-8 fade-in">
-                {% block content %}{% endblock %}
-            </div>
-
-            <!-- Footer -->
-            <footer class="text-center text-gray-500 text-xs py-8 mt-12 border-t border-purple-900/20">
-                NEXUS Utility Suite • All data stored in memory • Made with ❤️
-            </footer>
-        </div>
-    </div>
-
-    <script>
-        // Welcome Screen
-        function enterNexus() {
-            const welcome = document.getElementById('welcomeScreen');
-            const main = document.getElementById('mainContent');
-            welcome.style.opacity = '0';
-            welcome.style.transition = 'opacity 0.8s ease';
-            setTimeout(() => {
-                welcome.style.display = 'none';
-                main.style.display = 'block';
-                main.style.animation = 'fadeSlide 0.8s ease';
-            }, 800);
-        }
-
-        // Set Active Menu
-        function setActive(id) {
-            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-            document.querySelector(`.menu-item[href="#${id}"]`)?.classList.add('active');
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('.menu-item').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if(target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        // Auto close welcome after 3s if user doesn't click
-        setTimeout(() => {
-            if(document.getElementById('welcomeScreen').style.display !== 'none') {
-                // Just a gentle reminder
-            }
-        }, 3000);
-    </script>
-</body>
-</html>
-"""
+app.secret_key = 'nexus-premium-secret-key-2024'
 
 # ==========================================
-# DATA PENYIMPANAN SEMENTARA
+# DATA STORE
 # ==========================================
 data_store = {
     'ucapan': [],
@@ -414,7 +30,6 @@ data_store = {
     'qr': [],
     'keuangan': [],
     'favorit': [],
-    'bacaan': [],
     'hitung': [],
     'teks': [],
     'ketik': [],
@@ -455,26 +70,440 @@ def stylize_text(text, style='esthetic'):
     return text
 
 # ==========================================
-# ROUTE UTAMA
+# TEMPLATE UTAMA (DENGAN NAVIGASI PAGE)
 # ==========================================
-@app.route('/', defaults={'active': 'ucapan'})
-@app.route('/<active>')
-def index(active):
-    return render_template_string(BASE_TEMPLATE + get_content(active), active=active, store=data_store)
+BASE_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS • Utility Suite Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        
+        * { 
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #0a0a12;
+            min-height: 100vh;
+            color: #e8e8ff;
+            overflow-x: hidden;
+        }
+        
+        /* Background Animasi */
+        .bg-nexus {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 80, 200, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+            z-index: 0;
+            animation: pulseBg 10s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulseBg {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        /* Glassmorphism Premium */
+        .glass-premium {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(168, 85, 247, 0.25);
+            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.1);
+        }
+        
+        /* Gradient Text */
+        .gradient-nexus {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Gradient Button */
+        .btn-gradient {
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-gradient:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+        
+        /* Input Styling */
+        .input-nexus {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #e8e8ff;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: 100%;
+        }
+        
+        .input-nexus:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+            outline: none;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .input-nexus::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        
+        /* ==========================================
+           MENU NAVIGASI PREMIUM (PAGE-BASED)
+           ========================================== */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 8px;
+        }
+        
+        @media (max-width: 640px) {
+            .menu-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+                padding: 4px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .menu-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+        }
+        
+        .menu-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 14px 8px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            text-decoration: none;
+            color: #a0a0c0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .menu-item:hover::before {
+            left: 100%;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-4px) scale(1.03);
+            border-color: rgba(168, 85, 247, 0.3);
+            background: rgba(168, 85, 247, 0.08);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
+            color: #e8e8ff;
+        }
+        
+        .menu-item.active {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.12);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
+            color: #ffffff;
+        }
+        
+        .menu-item.active .menu-icon {
+            transform: scale(1.1);
+        }
+        
+        .menu-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 640px) {
+            .menu-icon { font-size: 1.4rem; }
+            .menu-label { font-size: 0.55rem; }
+            .menu-item { padding: 10px 4px; }
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #0a0a12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .welcome-content {
+            text-align: center;
+            animation: floatGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        
+        .nexus-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a855f7, #ec4899, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(168, 85, 247, 0.3);
+            letter-spacing: 6px;
+        }
+        
+        @media (max-width: 640px) {
+            .nexus-title { font-size: 2.8rem; letter-spacing: 3px; }
+        }
+        
+        .sub-glow {
+            color: #8080aa;
+            font-weight: 300;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        
+        .btn-enter {
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+            padding: 16px 48px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+            letter-spacing: 3px;
+        }
+        
+        .btn-enter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #7c3aed, #db2777);
+            border-radius: 10px;
+        }
+        
+        .fade-slide {
+            animation: fadeSlide 0.6s ease forwards;
+        }
+        
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Badge notifikasi */
+        .badge-count {
+            background: linear-gradient(135deg, #ec4899, #a855f7);
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-nexus"></div>
 
-def get_content(active):
+    <!-- WELCOME SCREEN -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-content px-6">
+            <div class="text-7xl mb-4">🚀</div>
+            <h1 class="nexus-title">NEXUS</h1>
+            <p class="sub-glow mb-6">Utility Suite • Premium</p>
+            <p class="text-gray-400 mb-8 max-w-md mx-auto text-sm">
+                Pusat kendali 10 fitur canggih dalam satu platform
+            </p>
+            <button onclick="enterNexus()" class="btn-enter">
+                ✦ LANJUTKAN ✦
+            </button>
+            <p class="text-gray-600 text-xs mt-4">v3.0 • Made with ❤️</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6">
+        <div class="max-w-6xl mx-auto">
+            <!-- HEADER -->
+            <header class="text-center py-6 fade-slide">
+                <h1 class="text-3xl md:text-5xl font-bold gradient-nexus font-['Orbitron'] tracking-wider">
+                    ⚡ NEXUS
+                </h1>
+                <p class="text-gray-400 text-sm md:text-base tracking-widest mt-1">10 Fitur Premium • Satu Platform</p>
+            </header>
+
+            <!-- MENU NAVIGASI (PAGE-BASED) -->
+            <nav class="glass-premium rounded-2xl p-4 md:p-6 mb-8 fade-slide">
+                <div class="menu-container">
+                    {% set menu_items = [
+                        ('ucapan', '🎉', 'Ucapan'),
+                        ('pesan', '💌', 'Pesan'),
+                        ('kuis', '🧠', 'Kuis'),
+                        ('qr', '📱', 'QR'),
+                        ('keuangan', '💰', 'Keuangan'),
+                        ('hitung', '⏳', 'Hitung'),
+                        ('teks', '✨', 'Teks'),
+                        ('favorit', '⭐', 'Favorit'),
+                        ('ketik', '⌨️', 'Ketik'),
+                        ('konversi', '🔄', 'Konversi')
+                    ] %}
+                    {% for id, icon, label in menu_items %}
+                        <a href="/{{ id }}" 
+                           class="menu-item {% if active == id %}active{% endif %}"
+                           onclick="setActive('{{ id }}')">
+                            <span class="menu-icon">{{ icon }}</span>
+                            <span class="menu-label">{{ label }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            </nav>
+
+            <!-- KONTEN FITUR -->
+            <div class="fade-slide">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="text-center text-gray-600 text-xs py-8 mt-12 border-t border-purple-900/20">
+                NEXUS Utility Suite • Data tersimpan di memori • Made with ❤️
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Welcome Screen
+        function enterNexus() {
+            const welcome = document.getElementById('welcomeScreen');
+            const main = document.getElementById('mainContent');
+            welcome.style.opacity = '0';
+            welcome.style.transition = 'opacity 0.8s ease';
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                main.style.display = 'block';
+                main.style.animation = 'fadeSlide 0.8s ease';
+            }, 800);
+        }
+
+        // Set Active Menu (highlight)
+        function setActive(id) {
+            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
+            const activeEl = document.querySelector(`.menu-item[href="/${id}"]`);
+            if(activeEl) activeEl.classList.add('active');
+        }
+
+        // Auto detect active from URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const path = window.location.pathname;
+            const activeId = path.replace('/', '') || 'ucapan';
+            setActive(activeId);
+        });
+    </script>
+</body>
+</html>
+"""
+
+# ==========================================
+# ROUTE UNTUK SETIAP HALAMAN (PAGE-BASED)
+# ==========================================
+@app.route('/')
+def index():
+    return redirect(url_for('page', page='ucapan'))
+
+@app.route('/<page>')
+def page(page):
+    # Validasi page
+    valid_pages = ['ucapan', 'pesan', 'kuis', 'qr', 'keuangan', 'hitung', 'teks', 'favorit', 'ketik', 'konversi']
+    if page not in valid_pages:
+        page = 'ucapan'
+    
     contents = {
         'ucapan': """
-        <section id="ucapan" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🎉</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Pembuat Kartu Ucapan & Undangan</h2>
             </div>
             <form method="POST" action="/ucapan" class="space-y-4">
-                <input type="text" name="nama" placeholder="Nama penerima" class="w-full input-nexus" required>
-                <input type="text" name="acara" placeholder="Jenis acara (ulang tahun, pernikahan, dll)" class="w-full input-nexus" required>
-                <textarea name="pesan" rows="3" placeholder="Pesan ucapan..." class="w-full input-nexus" required></textarea>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">✨ Buat Kartu</button>
+                <input type="text" name="nama" placeholder="Nama penerima" class="input-nexus" required>
+                <input type="text" name="acara" placeholder="Jenis acara" class="input-nexus" required>
+                <textarea name="pesan" rows="3" placeholder="Pesan ucapan..." class="input-nexus" required></textarea>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">✨ Buat Kartu</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.ucapan %}
@@ -489,15 +518,15 @@ def get_content(active):
         </section>
         """,
         'pesan': """
-        <section id="pesan" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">💌</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Kotak Pesan Rahasia Anonim</h2>
             </div>
             <form method="POST" action="/pesan" class="space-y-4">
-                <input type="text" name="judul" placeholder="Judul pesan (opsional)" class="w-full input-nexus">
-                <textarea name="isi" rows="4" placeholder="Tulis pesan rahasia di sini..." class="w-full input-nexus" required></textarea>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">🤫 Kirim Rahasia</button>
+                <input type="text" name="judul" placeholder="Judul (opsional)" class="input-nexus">
+                <textarea name="isi" rows="4" placeholder="Tulis pesan rahasia..." class="input-nexus" required></textarea>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🤫 Kirim Rahasia</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.pesan %}
@@ -510,7 +539,7 @@ def get_content(active):
         </section>
         """,
         'kuis': """
-        <section id="kuis" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🧠</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Kuis "Seberapa Kenal Kamu?"</h2>
@@ -519,11 +548,11 @@ def get_content(active):
                 <div class="glass-card p-4 rounded-xl border border-purple-500/20">
                     <p class="text-gray-300">Pertanyaan: Apa makanan favorit saya?</p>
                 </div>
-                <input type="text" name="jawaban" placeholder="Jawaban..." class="w-full input-nexus" required>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">Kirim Jawaban</button>
+                <input type="text" name="jawaban" placeholder="Jawaban..." class="input-nexus" required>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">Kirim Jawaban</button>
             </form>
             <div class="mt-6">
-                <p class="text-gray-400">Skor Anda: <span class="text-purple-300 font-bold text-xl">{{ session.get('skor_kuis', 0) }}</span></p>
+                <p class="text-gray-400">Skor Anda: <span class="text-purple-300 font-bold text-2xl">{{ session.get('skor_kuis', 0) }}</span></p>
                 {% if session.get('last_answer') %}
                 <div class="glass-card p-4 rounded-xl mt-3 border border-purple-500/20">
                     <p class="text-gray-300">{{ session.get('last_answer') }}</p>
@@ -533,14 +562,14 @@ def get_content(active):
         </section>
         """,
         'qr': """
-        <section id="qr" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">📱</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Pembuat QR & Pemendek Tautan</h2>
             </div>
             <form method="POST" action="/qr" class="space-y-4">
-                <input type="url" name="url" placeholder="Masukkan URL panjang..." class="w-full input-nexus" required>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">🔗 Buat QR & Shorten</button>
+                <input type="url" name="url" placeholder="Masukkan URL..." class="input-nexus" required>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🔗 Buat QR</button>
             </form>
             {% if session.get('qr_result') %}
             <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
@@ -551,19 +580,19 @@ def get_content(active):
         </section>
         """,
         'keuangan': """
-        <section id="keuangan" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">💰</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Catatan Pengeluaran & Simpanan</h2>
             </div>
             <form method="POST" action="/keuangan" class="space-y-4">
-                <select name="jenis" class="w-full input-nexus">
+                <select name="jenis" class="input-nexus">
                     <option value="pengeluaran">Pengeluaran</option>
                     <option value="simpanan">Simpanan</option>
                 </select>
-                <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="w-full input-nexus" required>
-                <input type="text" name="keterangan" placeholder="Keterangan" class="w-full input-nexus">
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">Tambah Catatan</button>
+                <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-nexus" required>
+                <input type="text" name="keterangan" placeholder="Keterangan" class="input-nexus">
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">Tambah Catatan</button>
             </form>
             <div class="mt-6">
                 <div class="grid grid-cols-2 gap-4 mb-4">
@@ -588,15 +617,15 @@ def get_content(active):
         </section>
         """,
         'hitung': """
-        <section id="hitung" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⏳</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Penghitung Sisa Hari</h2>
             </div>
             <form method="POST" action="/hitung" class="space-y-4">
-                <input type="text" name="acara" placeholder="Nama acara" class="w-full input-nexus" required>
-                <input type="date" name="tanggal" class="w-full input-nexus" required>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">⏱️ Hitung Hari</button>
+                <input type="text" name="acara" placeholder="Nama acara" class="input-nexus" required>
+                <input type="date" name="tanggal" class="input-nexus" required>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">⏱️ Hitung Hari</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.hitung %}
@@ -610,18 +639,18 @@ def get_content(active):
         </section>
         """,
         'teks': """
-        <section id="teks" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">✨</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Pengubah Teks Gaya Unik</h2>
             </div>
             <form method="POST" action="/teks" class="space-y-4">
-                <input type="text" name="teks" placeholder="Masukkan teks..." class="w-full input-nexus" required>
-                <select name="gaya" class="w-full input-nexus">
+                <input type="text" name="teks" placeholder="Masukkan teks..." class="input-nexus" required>
+                <select name="gaya" class="input-nexus">
                     <option value="esthetic">Estetik (𝓪𝓫𝓬)</option>
                     <option value="upside">Terbalik (ɐqɔ)</option>
                 </select>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">✨ Ubah Gaya</button>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">✨ Ubah Gaya</button>
             </form>
             {% if session.get('styled_text') %}
             <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
@@ -631,16 +660,16 @@ def get_content(active):
         </section>
         """,
         'favorit': """
-        <section id="favorit" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⭐</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Penyimpanan Favorit & Bacaan Nanti</h2>
             </div>
             <form method="POST" action="/favorit" class="space-y-4">
-                <input type="text" name="judul" placeholder="Judul" class="w-full input-nexus" required>
-                <input type="url" name="url" placeholder="URL (opsional)" class="w-full input-nexus">
-                <textarea name="catatan" rows="2" placeholder="Catatan..." class="w-full input-nexus"></textarea>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">⭐ Simpan</button>
+                <input type="text" name="judul" placeholder="Judul" class="input-nexus" required>
+                <input type="url" name="url" placeholder="URL (opsional)" class="input-nexus">
+                <textarea name="catatan" rows="2" placeholder="Catatan..." class="input-nexus"></textarea>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">⭐ Simpan</button>
             </form>
             <div class="mt-6 space-y-3">
                 {% for item in store.favorit %}
@@ -654,17 +683,17 @@ def get_content(active):
         </section>
         """,
         'ketik': """
-        <section id="ketik" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⌨️</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Pengecekan Kecepatan Ketik</h2>
             </div>
             <div class="glass-card p-4 rounded-xl mb-4 border border-purple-500/20">
-                <p class="text-gray-300 text-sm" id="teks_ketik">Ketik kalimat ini secepat mungkin untuk mengukur kecepatan mengetik Anda.</p>
+                <p class="text-gray-300 text-sm">Ketik kalimat ini secepat mungkin untuk mengukur kecepatan mengetik Anda.</p>
             </div>
             <form method="POST" action="/ketik" class="space-y-4">
-                <input type="text" name="input_ketik" placeholder="Mulai mengetik..." class="w-full input-nexus" required>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">🚀 Kirim & Hitung</button>
+                <input type="text" name="input_ketik" placeholder="Mulai mengetik..." class="input-nexus" required>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🚀 Kirim & Hitung</button>
             </form>
             {% if session.get('hasil_ketik') %}
             <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20">
@@ -674,31 +703,31 @@ def get_content(active):
         </section>
         """,
         'konversi': """
-        <section id="konversi" class="glass-card rounded-2xl p-6 md:p-8 fade-in">
+        <section class="glass-card rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🔄</span>
                 <h2 class="text-2xl font-bold gradient-nexus">Konversi Mata Uang & Satuan</h2>
             </div>
             <form method="POST" action="/konversi" class="space-y-4">
                 <div class="grid grid-cols-2 gap-3">
-                    <input type="number" name="nilai" placeholder="Nilai" class="w-full input-nexus" required>
-                    <select name="dari" class="w-full input-nexus">
+                    <input type="number" name="nilai" placeholder="Nilai" class="input-nexus" required>
+                    <select name="dari" class="input-nexus">
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                         <option value="idr">IDR</option>
                     </select>
-                    <select name="ke" class="w-full input-nexus">
+                    <select name="ke" class="input-nexus">
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                         <option value="idr">IDR</option>
                     </select>
-                    <select name="jenis_konversi" class="w-full input-nexus">
+                    <select name="jenis_konversi" class="input-nexus">
                         <option value="mata_uang">Mata Uang</option>
                         <option value="panjang">Panjang (m/km)</option>
                         <option value="berat">Berat (kg/g)</option>
                     </select>
                 </div>
-                <button type="submit" class="gradient-btn w-full py-3 rounded-xl font-semibold text-white">🔄 Konversi</button>
+                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🔄 Konversi</button>
             </form>
             {% if session.get('hasil_konversi') %}
             <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
@@ -708,10 +737,14 @@ def get_content(active):
         </section>
         """
     }
-    return contents.get(active, contents['ucapan'])
+    
+    return render_template_string(BASE_TEMPLATE + contents.get(page, ''), 
+                                   active=page, 
+                                   store=data_store,
+                                   session=session)
 
 # ==========================================
-# ROUTE HANDLER UNTUK SETIAP FITUR
+# ROUTE HANDLER POST
 # ==========================================
 @app.route('/ucapan', methods=['POST'])
 def handle_ucapan():
@@ -721,7 +754,7 @@ def handle_ucapan():
         'pesan': request.form['pesan'],
         'waktu': datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
     })
-    return redirect(url_for('index', active='ucapan'))
+    return redirect(url_for('page', page='ucapan'))
 
 @app.route('/pesan', methods=['POST'])
 def handle_pesan():
@@ -730,7 +763,7 @@ def handle_pesan():
         'isi': request.form['isi'],
         'waktu': datetime.datetime.now().strftime('%d/%m/%Y %H:%M')
     })
-    return redirect(url_for('index', active='pesan'))
+    return redirect(url_for('page', page='pesan'))
 
 @app.route('/kuis', methods=['POST'])
 def handle_kuis():
@@ -741,7 +774,7 @@ def handle_kuis():
         session['last_answer'] = '✅ Benar! +10 poin'
     else:
         session['last_answer'] = '❌ Kurang tepat, coba lagi!'
-    return redirect(url_for('index', active='kuis'))
+    return redirect(url_for('page', page='kuis'))
 
 @app.route('/qr', methods=['POST'])
 def handle_qr():
@@ -749,7 +782,7 @@ def handle_qr():
     short = hashlib.md5(url.encode()).hexdigest()[:8]
     qr = generate_qr(url)
     session['qr_result'] = {'short': f'https://short.link/{short}', 'qr': qr}
-    return redirect(url_for('index', active='qr'))
+    return redirect(url_for('page', page='qr'))
 
 @app.route('/keuangan', methods=['POST'])
 def handle_keuangan():
@@ -759,7 +792,7 @@ def handle_keuangan():
         'keterangan': request.form['keterangan'] or '-',
         'waktu': datetime.datetime.now().strftime('%d/%m')
     })
-    return redirect(url_for('index', active='keuangan'))
+    return redirect(url_for('page', page='keuangan'))
 
 @app.route('/hitung', methods=['POST'])
 def handle_hitung():
@@ -770,14 +803,14 @@ def handle_hitung():
         'tanggal': request.form['tanggal'],
         'sisa_hari': max(0, sisa)
     })
-    return redirect(url_for('index', active='hitung'))
+    return redirect(url_for('page', page='hitung'))
 
 @app.route('/teks', methods=['POST'])
 def handle_teks():
     teks = request.form['teks']
     gaya = request.form['gaya']
     session['styled_text'] = stylize_text(teks, gaya)
-    return redirect(url_for('index', active='teks'))
+    return redirect(url_for('page', page='teks'))
 
 @app.route('/favorit', methods=['POST'])
 def handle_favorit():
@@ -786,20 +819,19 @@ def handle_favorit():
         'url': request.form['url'],
         'catatan': request.form['catatan']
     })
-    return redirect(url_for('index', active='favorit'))
+    return redirect(url_for('page', page='favorit'))
 
 @app.route('/ketik', methods=['POST'])
 def handle_ketik():
     start = time.time()
     input_teks = request.form['input_ketik']
-    target = "Ketik kalimat ini secepat mungkin untuk mengukur kecepatan mengetik Anda."
     if len(input_teks) == 0:
         session['hasil_ketik'] = "Silakan ketik sesuatu!"
     else:
         elapsed = time.time() - start
         wpm = (len(input_teks.split()) / elapsed) * 60
         session['hasil_ketik'] = f"{wpm:.1f} kata/menit ({elapsed:.2f} detik)"
-    return redirect(url_for('index', active='ketik'))
+    return redirect(url_for('page', page='ketik'))
 
 @app.route('/konversi', methods=['POST'])
 def handle_konversi():
@@ -826,7 +858,7 @@ def handle_konversi():
             session['hasil_konversi'] = f"{nilai} g = {nilai/1000:.3f} kg"
         else:
             session['hasil_konversi'] = f"{nilai} {dari} = {nilai} {ke}"
-    return redirect(url_for('index', active='konversi'))
+    return redirect(url_for('page', page='konversi'))
 
 # ==========================================
 # JALANKAN APLIKASI
