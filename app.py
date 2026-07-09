@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v12.0 - RUNNING NEON BORDER
+# VERSION: CYBER v13.0 - RUNNING NEON BORDER FIX
 # ==========================================
 
 import os
@@ -280,18 +280,18 @@ HOME_PAGE = """
             color: rgba(0,255,255,0.3);
         }
         
-        /* ===== MENU DENGAN RUNNING NEON BORDER ===== */
+        /* ===== MENU DENGAN RUNNING NEON BORDER (KAYA LOADING) ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
-            padding: 6px;
+            gap: 14px;
+            padding: 8px;
         }
         @media (max-width: 640px) {
-            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .menu-cyber { grid-template-columns: repeat(4, 1fr); gap: 12px; }
         }
         @media (max-width: 400px) {
-            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .menu-cyber { grid-template-columns: repeat(3, 1fr); gap: 10px; }
         }
         
         .menu-item-cyber {
@@ -305,34 +305,34 @@ HOME_PAGE = """
             cursor: pointer;
             display: block;
             position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0,255,255,0.08);
+            border: 2px solid transparent;
         }
         
         /* ===== RUNNING NEON BORDER ===== */
         .menu-item-cyber::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
+            inset: -3px;
+            border-radius: 14px;
+            padding: 3px;
             background: conic-gradient(
                 from 0deg,
-                #00ffff,
-                #ff00ff,
-                #ff0080,
-                #ff00ff,
-                #00ffff,
-                #00ffff
+                #a855f7,
+                #d946ef,
+                #ec4899,
+                #a855f7,
+                #d946ef,
+                #ec4899,
+                #a855f7
             );
-            border-radius: 14px;
-            z-index: -1;
-            animation: borderRotate 3s linear infinite;
-            background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderSpin 2s linear infinite;
+            z-index: 0;
         }
         
-        @keyframes borderRotate {
+        @keyframes borderSpin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -340,28 +340,30 @@ HOME_PAGE = """
         .menu-item-cyber::after {
             content: '';
             position: absolute;
-            top: 1px;
-            left: 1px;
-            right: 1px;
-            bottom: 1px;
-            background: rgba(0,20,30,0.6);
+            inset: 2px;
+            background: rgba(0,20,30,0.4);
             border-radius: 11px;
-            z-index: -1;
+            z-index: 0;
             transition: background 0.3s ease;
         }
         
         .menu-item-cyber:hover::after {
-            background: rgba(0,40,60,0.6);
+            background: rgba(0,40,60,0.5);
         }
         
         .menu-item-cyber:hover {
             transform: translateY(-4px) scale(1.03);
             color: #00ffff;
-            box-shadow: 0 0 30px rgba(0,255,255,0.05);
+            box-shadow: 0 0 30px rgba(168,85,247,0.15);
         }
         
         .menu-item-cyber:hover .menu-icon-cyber {
             transform: scale(1.15) rotate(-5deg);
+        }
+        
+        .menu-item-cyber * {
+            position: relative;
+            z-index: 1;
         }
         
         .menu-item-cyber.hidden {
@@ -424,10 +426,10 @@ HOME_PAGE = """
         
         ::-webkit-scrollbar { width: 3px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #a855f7, #ec4899); border-radius: 10px; }
         
         .particle {
-            position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #a855f7; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }
@@ -483,7 +485,7 @@ HOME_PAGE = """
                 ENTER NEXUS
             </button>
             <p style="color: rgba(0,255,255,0.08); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-top: 16px;">
-                v12.0 • CYBER EDITION
+                v13.0 • CYBER EDITION
             </p>
         </div>
     </div>
@@ -782,7 +784,7 @@ PAGE_TEMPLATE = """
         
         ::-webkit-scrollbar {{ width: 3px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #a855f7, #ec4899); border-radius: 10px; }}
         
         .float-cyber {{
             animation: floatCyber 3s ease-in-out infinite;
@@ -793,7 +795,7 @@ PAGE_TEMPLATE = """
         }}
         
         .particle {{
-            position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
+            position: fixed; width: 2px; height: 2px; background: #a855f7; border-radius: 50%;
             pointer-events: none; z-index: 0;
             animation: particleFloat linear infinite;
         }}
