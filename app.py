@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: CYBER v9.0 - FINAL FIXED
+# VERSION: CYBER v10.0 - WITH WELCOME & NEON
 # ==========================================
 
 import os
@@ -107,7 +107,7 @@ def get_keuangan_content():
     """
 
 # ==========================================
-# HOME PAGE (MENU UTAMA)
+# HOME PAGE (MENU UTAMA) + WELCOME SCREEN
 # ==========================================
 HOME_PAGE = """
 <!DOCTYPE html>
@@ -128,38 +128,70 @@ HOME_PAGE = """
         }
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
         
+        /* ===== CYBER BACKGROUND ===== */
         .cyber-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%);
-            animation: cyberPulse 6s ease-in-out infinite alternate;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0,100,255,0.05) 0%, transparent 70%);
+            animation: cyberPulse 4s ease-in-out infinite alternate;
         }
         @keyframes cyberPulse {
             0% { opacity: 0.6; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.05); }
         }
+        
         .cyber-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
-            background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 15s linear infinite;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 10s linear infinite;
         }
         @keyframes gridMove {
             0% { transform: translate(0,0); }
-            100% { transform: translate(50px,50px); }
+            100% { transform: translate(40px,40px); }
         }
+        
         .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
             pointer-events: none;
-            animation: scanMove 8s linear infinite;
+            animation: scanMove 6s linear infinite;
         }
         @keyframes scanMove {
             0% { transform: translateY(0); }
             100% { transform: translateY(100%); }
         }
+        
+        /* ===== NEON GLOW EFFECTS ===== */
+        .neon-glow {
+            animation: neonPulse 1.5s ease-in-out infinite alternate;
+        }
+        @keyframes neonPulse {
+            0% { filter: drop-shadow(0 0 5px rgba(0,255,255,0.3)) drop-shadow(0 0 20px rgba(0,255,255,0.1)); }
+            100% { filter: drop-shadow(0 0 20px rgba(0,255,255,0.6)) drop-shadow(0 0 60px rgba(0,255,255,0.2)); }
+        }
+        
+        .neon-border {
+            border: 1px solid rgba(0,255,255,0.3);
+            box-shadow: 0 0 20px rgba(0,255,255,0.1), inset 0 0 20px rgba(0,255,255,0.05);
+            animation: borderPulse 2s ease-in-out infinite;
+        }
+        @keyframes borderPulse {
+            0%, 100% { border-color: rgba(0,255,255,0.3); box-shadow: 0 0 20px rgba(0,255,255,0.1); }
+            50% { border-color: rgba(255,0,255,0.3); box-shadow: 0 0 40px rgba(255,0,255,0.2); }
+        }
+        
+        .neon-text {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0,255,255,0.5), 0 0 30px rgba(0,255,255,0.2), 0 0 60px rgba(0,255,255,0.1);
+        }
+        
+        /* ===== GLASS CYBER ===== */
         .glass-cyber {
             background: rgba(0,20,30,0.6);
             backdrop-filter: blur(20px);
@@ -169,20 +201,108 @@ HOME_PAGE = """
         }
         .glass-cyber::before {
             content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: neonLine 3s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #00ffff, transparent);
+            animation: neonLine 2s ease-in-out infinite;
+            background-size: 200% 100%;
         }
         @keyframes neonLine {
-            0%,100% { opacity: 0.2; }
-            50% { opacity: 1; }
+            0%, 100% { background-position: -200% 0; }
+            50% { background-position: 200% 0; }
         }
-        .cyber-text {
-            background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
+        
+        /* ===== WELCOME SCREEN ===== */
+        .welcome-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            background: #05050a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: welcomeIn 0.8s ease;
+        }
+        @keyframes welcomeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .welcome-content {
+            text-align: center;
+            animation: floatGlow 3s ease-in-out infinite;
+        }
+        @keyframes floatGlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 20px rgba(0,255,255,0.3));
+            filter: drop-shadow(0 0 60px rgba(0,255,255,0.4));
+            letter-spacing: 10px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 40px rgba(0,255,255,0.3)); }
+            100% { filter: drop-shadow(0 0 80px rgba(0,255,255,0.6)) drop-shadow(0 0 120px rgba(255,0,255,0.3)); }
+        }
+        @media (max-width: 640px) {
+            .welcome-title { font-size: 3rem; letter-spacing: 5px; }
+        }
+        .welcome-sub {
+            color: rgba(0,255,255,0.4);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 8px;
+            font-size: 0.9rem;
+            animation: subPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes subPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        .btn-enter {
+            background: linear-gradient(135deg, #00ffff, #0088ff);
+            padding: 18px 56px;
+            border-radius: 12px;
+            color: #05050a;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(0,255,255,0.2);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-enter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        .btn-enter:hover::before {
+            left: 100%;
+        }
+        .btn-enter:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 80px rgba(0,255,255,0.5);
+        }
+        .btn-enter:active {
+            transform: scale(0.95);
+        }
+        
+        /* ===== MENU ===== */
         .menu-cyber {
             display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; padding: 8px;
         }
@@ -198,21 +318,39 @@ HOME_PAGE = """
             border-radius: 12px;
             padding: 16px 8px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             text-decoration: none;
             color: rgba(0,255,255,0.6);
             cursor: pointer;
             display: block;
+            position: relative;
+            overflow: hidden;
+        }
+        .menu-item-cyber::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,255,255,0.08), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: scale(0);
+        }
+        .menu-item-cyber:hover::after {
+            opacity: 1;
+            transform: scale(1);
         }
         .menu-item-cyber:hover {
             transform: translateY(-6px) scale(1.05);
             border-color: rgba(0,255,255,0.4);
             background: rgba(0,255,255,0.08);
-            box-shadow: 0 0 40px rgba(0,255,255,0.1);
+            box-shadow: 0 0 50px rgba(0,255,255,0.1);
             color: #00ffff;
         }
         .menu-item-cyber:active { transform: scale(0.95); }
-        .menu-icon-cyber { font-size: 2rem; display: block; margin-bottom: 4px; transition: transform 0.3s; }
+        .menu-icon-cyber { font-size: 2rem; display: block; margin-bottom: 4px; transition: transform 0.25s; }
         .menu-item-cyber:hover .menu-icon-cyber { transform: scale(1.2) rotate(-5deg); }
         .menu-label-cyber {
             font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
@@ -223,9 +361,10 @@ HOME_PAGE = """
             .menu-label-cyber { font-size: 0.55rem; }
             .menu-item-cyber { padding: 12px 4px; }
         }
+        
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, #00ffff, #ff00ff, #00ffff);
             -webkit-background-clip: text;
@@ -233,30 +372,30 @@ HOME_PAGE = """
             background-clip: text;
             filter: drop-shadow(0 0 40px rgba(0,255,255,0.3));
             letter-spacing: 8px;
-            animation: titleGlow 3s ease-in-out infinite;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
-        @keyframes titleGlow {
-            0%,100% { filter: drop-shadow(0 0 40px rgba(0,255,255,0.3)); }
-            50% { filter: drop-shadow(0 0 80px rgba(0,255,255,0.6)); }
-        }
-        @media (max-width: 640px) { .cyber-title { font-size: 2.5rem; letter-spacing: 4px; } }
+        @media (max-width: 640px) { .cyber-title { font-size: 2.2rem; letter-spacing: 4px; } }
+        
         .fade-cyber {
-            animation: fadeCyber 0.8s ease forwards;
+            animation: fadeCyber 0.5s ease forwards;
         }
         @keyframes fadeCyber {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
+            from { opacity: 0; transform: translateY(20px) scale(0.97); filter: blur(8px); }
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
+        
         .float-cyber {
-            animation: floatCyber 4s ease-in-out infinite;
+            animation: floatCyber 3s ease-in-out infinite;
         }
         @keyframes floatCyber {
             0%,100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
+        
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #0088ff); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }
+        
         .particle {
             position: fixed; width: 2px; height: 2px; background: #00ffff; border-radius: 50%;
             pointer-events: none; z-index: 0;
@@ -271,27 +410,47 @@ HOME_PAGE = """
     </style>
 </head>
 <body>
+    <!-- CYBER BACKGROUND -->
     <div class="cyber-bg"></div>
     <div class="cyber-grid"></div>
     <div class="scanline"></div>
     <div id="particles"></div>
 
-    <div class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
+    <!-- WELCOME SCREEN -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-content px-6">
+            <div class="text-7xl mb-4 neon-glow">⚡</div>
+            <h1 class="welcome-title">NEXUS</h1>
+            <p class="welcome-sub mb-6">CYBER UTILITY SUITE</p>
+            <p style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.7rem; margin-bottom: 30px;">
+                <span class="inline-block animate-pulse">●</span> SYSTEM READY <span class="inline-block animate-pulse">●</span>
+            </p>
+            <button onclick="enterNexus()" class="btn-enter">
+                ⚡ ENTER NEXUS ⚡
+            </button>
+            <p style="color: rgba(0,255,255,0.1); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px; margin-top: 20px;">
+                v10.0 • CYBER EDITION
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
         <div class="max-w-4xl w-full">
-            <header class="text-center py-8 fade-cyber">
+            <header class="text-center py-6 fade-cyber">
                 <div class="float-cyber">
-                    <div class="text-6xl mb-2">⚡</div>
+                    <div class="text-5xl mb-2 neon-glow">⚡</div>
                     <h1 class="cyber-title">NEXUS</h1>
                 </div>
-                <p style="color: rgba(0,255,255,0.4); font-family: 'Orbitron', sans-serif; letter-spacing: 4px; font-size: 0.8rem;">
+                <p style="color: rgba(0,255,255,0.4); font-family: 'Orbitron', sans-serif; letter-spacing: 4px; font-size: 0.7rem;">
                     CYBER UTILITY SUITE
                 </p>
-                <p style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.7rem; margin-top: 8px;">
-                    SYSTEM ONLINE
+                <p style="color: rgba(0,255,255,0.2); font-family: 'Orbitron', sans-serif; letter-spacing: 2px; font-size: 0.6rem; margin-top: 6px;">
+                    <span class="inline-block animate-pulse">●</span> ONLINE <span class="inline-block animate-pulse">●</span>
                 </p>
             </header>
 
-            <nav class="glass-cyber rounded-2xl p-6 md:p-8 fade-cyber" style="animation-delay: 0.3s;">
+            <nav class="glass-cyber rounded-2xl p-5 md:p-7 fade-cyber" style="animation-delay: 0.15s;">
                 <div class="menu-cyber">
                     <a href="/ucapan" class="menu-item-cyber"><span class="menu-icon-cyber">🎉</span><span class="menu-label-cyber">Ucapan</span></a>
                     <a href="/pesan" class="menu-item-cyber"><span class="menu-icon-cyber">💌</span><span class="menu-label-cyber">Pesan</span></a>
@@ -306,15 +465,37 @@ HOME_PAGE = """
                 </div>
             </nav>
 
-            <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.6s;">
-                <p style="color: rgba(0,255,255,0.12); font-size: 0.55rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
-                    NEXUS CYBER UTILITY • DATA IN MEMORY
+            <footer class="text-center py-5 mt-6 fade-cyber" style="animation-delay: 0.3s;">
+                <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+                    ⚡ NEXUS CYBER UTILITY • DATA IN MEMORY ⚡
                 </p>
             </footer>
         </div>
     </div>
 
     <script>
+        function enterNexus() {
+            var welcome = document.getElementById('welcomeScreen');
+            var main = document.getElementById('mainContent');
+            welcome.style.opacity = '0';
+            welcome.style.transition = 'opacity 0.6s ease';
+            setTimeout(function() {
+                welcome.style.display = 'none';
+                main.style.display = 'block';
+                main.style.animation = 'fadeCyber 0.6s ease';
+            }, 600);
+            // Simpan state
+            sessionStorage.setItem('nexus_entered', 'true');
+        }
+
+        // Cek jika sudah pernah masuk
+        (function() {
+            if(sessionStorage.getItem('nexus_entered')) {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
+        })();
+
         function createParticles() {
             var container = document.getElementById('particles');
             for(var i = 0; i < 30; i++) {
@@ -324,8 +505,8 @@ HOME_PAGE = """
                 var size = Math.random() * 3 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
+                particle.style.animationDelay = (Math.random() * 8) + 's';
                 particle.style.opacity = Math.random() * 0.3 + 0.1;
                 container.appendChild(particle);
             }
@@ -362,7 +543,7 @@ PAGE_TEMPLATE = """
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: radial-gradient(circle at 20% 30%, rgba(0,255,255,0.08) 0%, transparent 50%),
                         radial-gradient(circle at 80% 70%, rgba(255,0,255,0.08) 0%, transparent 50%);
-            animation: cyberPulse 6s ease-in-out infinite alternate;
+            animation: cyberPulse 4s ease-in-out infinite alternate;
         }}
         @keyframes cyberPulse {{
             0% {{ opacity: 0.6; transform: scale(1); }}
@@ -372,23 +553,32 @@ PAGE_TEMPLATE = """
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background-image: linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
                               linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 15s linear infinite;
+            background-size: 40px 40px;
+            animation: gridMove 10s linear infinite;
         }}
         @keyframes gridMove {{
             0% {{ transform: translate(0,0); }}
-            100% {{ transform: translate(50px,50px); }}
+            100% {{ transform: translate(40px,40px); }}
         }}
         .scanline {{
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
             pointer-events: none;
-            animation: scanMove 8s linear infinite;
+            animation: scanMove 6s linear infinite;
         }}
         @keyframes scanMove {{
             0% {{ transform: translateY(0); }}
             100% {{ transform: translateY(100%); }}
         }}
+        
+        .neon-glow {{
+            animation: neonPulse 1.5s ease-in-out infinite alternate;
+        }}
+        @keyframes neonPulse {{
+            0% {{ filter: drop-shadow(0 0 5px rgba(0,255,255,0.3)); }}
+            100% {{ filter: drop-shadow(0 0 20px rgba(0,255,255,0.6)); }}
+        }}
+        
         .glass-cyber {{
             background: rgba(0,20,30,0.6);
             backdrop-filter: blur(20px);
@@ -398,18 +588,20 @@ PAGE_TEMPLATE = """
         }}
         .glass-cyber::before {{
             content: ''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: neonLine 3s ease-in-out infinite;
+            background: linear-gradient(90deg, transparent, #00ffff, #ff00ff, #00ffff, transparent);
+            animation: neonLine 2s ease-in-out infinite;
+            background-size: 200% 100%;
         }}
         @keyframes neonLine {{
-            0%,100% {{ opacity: 0.2; }}
-            50% {{ opacity: 1; }}
+            0%, 100% {{ background-position: -200% 0; }}
+            50% {{ background-position: 200% 0; }}
         }}
+        
         .glass-card-cyber {{
             background: rgba(0,20,30,0.4);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(0,255,255,0.08);
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             position: relative; z-index: 1;
         }}
         .glass-card-cyber:hover {{
@@ -433,7 +625,7 @@ PAGE_TEMPLATE = """
             background: linear-gradient(135deg, #00ffff, #0088ff);
             color: #05050a;
             font-weight: 700;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
             border: none;
@@ -441,7 +633,17 @@ PAGE_TEMPLATE = """
             border-radius: 8px;
             cursor: pointer;
             width: 100%;
+            position: relative;
+            overflow: hidden;
         }}
+        .btn-cyber::before {{
+            content: '';
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }}
+        .btn-cyber:hover::before {{ left: 100%; }}
         .btn-cyber:hover {{
             transform: scale(1.03);
             box-shadow: 0 0 40px rgba(0,255,255,0.3);
@@ -453,7 +655,7 @@ PAGE_TEMPLATE = """
             color: #00ffff;
             padding: 10px 24px;
             border-radius: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.7rem;
@@ -470,7 +672,7 @@ PAGE_TEMPLATE = """
             background: rgba(0,10,20,0.6);
             border: 1px solid rgba(0,255,255,0.15);
             color: #00ffff;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
             border-radius: 8px;
             padding: 12px 16px;
             width: 100%;
@@ -491,10 +693,10 @@ PAGE_TEMPLATE = """
             text-transform: uppercase;
         }}
         .fade-cyber {{
-            animation: fadeCyber 0.6s ease forwards;
+            animation: fadeCyber 0.4s ease forwards;
         }}
         @keyframes fadeCyber {{
-            from {{ opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(5px); }}
+            from {{ opacity: 0; transform: translateY(15px) scale(0.97); filter: blur(5px); }}
             to {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }}
         }}
         .cyber-title-page {{
@@ -505,9 +707,9 @@ PAGE_TEMPLATE = """
         @media (max-width: 640px) {{ .cyber-title-page {{ font-size: 1.3rem; }} }}
         ::-webkit-scrollbar {{ width: 4px; }}
         ::-webkit-scrollbar-track {{ background: rgba(0,255,255,0.02); }}
-        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #0088ff); border-radius: 10px; }}
+        ::-webkit-scrollbar-thumb {{ background: linear-gradient(135deg, #00ffff, #ff00ff); border-radius: 10px; }}
         .float-cyber {{
-            animation: floatCyber 4s ease-in-out infinite;
+            animation: floatCyber 3s ease-in-out infinite;
         }}
         @keyframes floatCyber {{
             0%,100% {{ transform: translateY(0px); }}
@@ -534,21 +736,21 @@ PAGE_TEMPLATE = """
 
     <div class="relative z-10 p-4 md:p-6 min-h-screen">
         <div class="max-w-2xl mx-auto">
-            <div class="flex items-center justify-between mb-6 fade-cyber">
+            <div class="flex items-center justify-between mb-5 fade-cyber">
                 <a href="/" class="btn-back">← KEMBALI</a>
                 <div class="text-right float-cyber">
-                    <span class="text-3xl">{icon}</span>
+                    <span class="text-3xl neon-glow">{icon}</span>
                     <h1 class="cyber-title-page cyber-text">{title}</h1>
                 </div>
             </div>
 
-            <div class="fade-cyber" style="animation-delay: 0.2s;">
+            <div class="fade-cyber" style="animation-delay: 0.1s;">
                 {content}
             </div>
 
-            <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.4s;">
-                <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
-                    NEXUS CYBER • DATA IN MEMORY
+            <footer class="text-center py-5 mt-6 fade-cyber" style="animation-delay: 0.2s;">
+                <p style="color: rgba(0,255,255,0.06); font-size: 0.45rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+                    ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
                 </p>
             </footer>
         </div>
@@ -564,8 +766,8 @@ PAGE_TEMPLATE = """
                 var size = Math.random() * 3 + 1;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
-                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
+                particle.style.animationDelay = (Math.random() * 8) + 's';
                 particle.style.opacity = Math.random() * 0.3 + 0.1;
                 container.appendChild(particle);
             }}
