@@ -1,7 +1,7 @@
 # ==========================================
 # PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: FULL PAGE v5.0
+# VERSION: CYBER v6.0 - FIXED
 # ==========================================
 
 import os
@@ -97,6 +97,7 @@ HOME_PAGE = """
             overflow-x: hidden;
         }
         
+        /* ===== CYBER BACKGROUND ===== */
         .cyber-bg {
             position: fixed;
             top: 0;
@@ -105,14 +106,14 @@ HOME_PAGE = """
             height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.03) 0%, transparent 70%);
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
             animation: cyberPulse 6s ease-in-out infinite alternate;
         }
         
         @keyframes cyberPulse {
-            0% { opacity: 0.5; transform: scale(1); }
+            0% { opacity: 0.6; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.05); }
         }
         
@@ -124,10 +125,10 @@ HOME_PAGE = """
             height: 100%;
             z-index: 0;
             background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+            animation: gridMove 15s linear infinite;
         }
         
         @keyframes gridMove {
@@ -146,11 +147,11 @@ HOME_PAGE = """
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(0, 255, 255, 0.01) 2px,
-                rgba(0, 255, 255, 0.01) 4px
+                rgba(0, 255, 255, 0.02) 2px,
+                rgba(0, 255, 255, 0.02) 4px
             );
             pointer-events: none;
-            animation: scanMove 10s linear infinite;
+            animation: scanMove 8s linear infinite;
         }
         
         @keyframes scanMove {
@@ -158,6 +159,7 @@ HOME_PAGE = """
             100% { transform: translateY(100%); }
         }
         
+        /* ===== GLASS CYBER ===== */
         .glass-cyber {
             background: rgba(0, 20, 30, 0.6);
             backdrop-filter: blur(20px);
@@ -180,8 +182,8 @@ HOME_PAGE = """
         }
         
         @keyframes neonLine {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.2; transform: scaleX(0.8); }
+            50% { opacity: 1; transform: scaleX(1); }
         }
         
         .cyber-text {
@@ -192,6 +194,7 @@ HOME_PAGE = """
             filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
         }
         
+        /* ===== MENU ===== */
         .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -219,41 +222,54 @@ HOME_PAGE = """
             border-radius: 12px;
             padding: 16px 8px;
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-decoration: none;
             color: rgba(0, 255, 255, 0.6);
             position: relative;
             overflow: hidden;
             cursor: pointer;
+            display: block;
         }
         
         .menu-item-cyber::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
-            transition: all 0.5s ease;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            transform: scale(0);
         }
         
         .menu-item-cyber:hover::before {
-            left: 100%;
+            opacity: 1;
+            transform: scale(1);
         }
         
         .menu-item-cyber:hover {
-            transform: translateY(-4px) scale(1.03);
-            border-color: rgba(0, 255, 255, 0.3);
-            background: rgba(0, 255, 255, 0.05);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+            transform: translateY(-6px) scale(1.05);
+            border-color: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 255, 255, 0.08);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.1), inset 0 0 40px rgba(0, 255, 255, 0.05);
             color: #00ffff;
+        }
+        
+        .menu-item-cyber:active {
+            transform: scale(0.95);
         }
         
         .menu-icon-cyber {
             font-size: 2rem;
             display: block;
             margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item-cyber:hover .menu-icon-cyber {
+            transform: scale(1.2) rotate(-5deg);
         }
         
         .menu-label-cyber {
@@ -262,6 +278,7 @@ HOME_PAGE = """
             letter-spacing: 1px;
             text-transform: uppercase;
             font-family: 'Orbitron', sans-serif;
+            display: block;
         }
         
         @media (max-width: 640px) {
@@ -270,6 +287,7 @@ HOME_PAGE = """
             .menu-item-cyber { padding: 12px 4px; }
         }
         
+        /* ===== TITLE ===== */
         .cyber-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
@@ -280,19 +298,16 @@ HOME_PAGE = """
             background-clip: text;
             filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.3));
             letter-spacing: 8px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.3)); }
+            50% { filter: drop-shadow(0 0 80px rgba(0, 255, 255, 0.6)); }
         }
         
         @media (max-width: 640px) {
             .cyber-title { font-size: 2.5rem; letter-spacing: 4px; }
-        }
-        
-        .fade-cyber {
-            animation: fadeCyber 0.8s ease forwards;
-        }
-        
-        @keyframes fadeCyber {
-            from { opacity: 0; transform: translateY(30px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         
         .cyber-sub {
@@ -300,6 +315,41 @@ HOME_PAGE = """
             font-family: 'Orbitron', sans-serif;
             letter-spacing: 4px;
             font-size: 0.8rem;
+            animation: subPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes subPulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        .fade-cyber {
+            animation: fadeCyber 0.8s ease forwards;
+        }
+        
+        @keyframes fadeCyber {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+        
+        .float-cyber {
+            animation: floatCyber 4s ease-in-out infinite;
+        }
+        
+        @keyframes floatCyber {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glitch-text {
+            animation: glitchText 3s infinite;
+        }
+        
+        @keyframes glitchText {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
         }
         
         ::-webkit-scrollbar { width: 4px; }
@@ -308,22 +358,50 @@ HOME_PAGE = """
             background: linear-gradient(135deg, #00ffff, #0088ff);
             border-radius: 10px;
         }
+        
+        /* Particle effect */
+        .particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: #00ffff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: particleFloat linear infinite;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
     </style>
 </head>
 <body>
+    <!-- CYBER BACKGROUND -->
     <div class="cyber-bg"></div>
     <div class="cyber-grid"></div>
     <div class="scanline"></div>
+    
+    <!-- PARTICLES -->
+    <div id="particles"></div>
 
     <div class="relative z-10 p-4 md:p-6 min-h-screen flex items-center justify-center">
         <div class="max-w-4xl w-full">
             <header class="text-center py-8 fade-cyber">
-                <h1 class="cyber-title">⚡ NEXUS</h1>
+                <div class="float-cyber">
+                    <div class="text-6xl mb-2 glitch-text">⚡</div>
+                    <h1 class="cyber-title">NEXUS</h1>
+                </div>
                 <p class="cyber-sub mt-2">CYBER UTILITY SUITE</p>
-                <p class="text-gray-500 text-sm mt-4" style="color: rgba(0,255,255,0.3);">Pilih fitur di bawah ini</p>
+                <p class="text-sm mt-4" style="color: rgba(0,255,255,0.3); font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
+                    <span class="inline-block animate-pulse">●</span> SYSTEM ONLINE <span class="inline-block animate-pulse">●</span>
+                </p>
             </header>
 
-            <nav class="glass-cyber rounded-2xl p-6 md:p-8 fade-cyber">
+            <nav class="glass-cyber rounded-2xl p-6 md:p-8 fade-cyber" style="animation-delay: 0.3s;">
                 <div class="menu-cyber">
                     <a href="/ucapan" class="menu-item-cyber">
                         <span class="menu-icon-cyber">🎉</span>
@@ -368,13 +446,42 @@ HOME_PAGE = """
                 </div>
             </nav>
 
-            <footer class="text-center py-6 mt-8">
-                <p style="color: rgba(0,255,255,0.15); font-size: 0.6rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
-                    NEXUS CYBER UTILITY • DATA IN MEMORY • MADE WITH ❤️
+            <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.6s;">
+                <p style="color: rgba(0,255,255,0.12); font-size: 0.55rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+                    ⚡ NEXUS CYBER UTILITY • DATA IN MEMORY • MADE WITH ❤️ ⚡
                 </p>
             </footer>
         </div>
     </div>
+
+    <script>
+        // ===== PARTICLES =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for(let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ===== GLITCH EFFECT ON MENU =====
+        document.querySelectorAll('.menu-item-cyber').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.animation = 'glitchText 0.3s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 300);
+            });
+        });
+    </script>
 </body>
 </html>
 """
@@ -382,8 +489,7 @@ HOME_PAGE = """
 # ==========================================
 # TEMPLATE FULL PAGE UNTUK SETIAP FITUR
 # ==========================================
-def get_page_template(title, icon, content):
-    return f"""
+PAGE_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -416,13 +522,13 @@ def get_page_template(title, icon, content):
             height: 100%;
             z-index: 0;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.08) 0%, transparent 50%);
             animation: cyberPulse 6s ease-in-out infinite alternate;
         }}
         
         @keyframes cyberPulse {{
-            0% {{ opacity: 0.5; transform: scale(1); }}
+            0% {{ opacity: 0.6; transform: scale(1); }}
             100% {{ opacity: 1; transform: scale(1.05); }}
         }}
         
@@ -434,10 +540,10 @@ def get_page_template(title, icon, content):
             height: 100%;
             z-index: 0;
             background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+            animation: gridMove 15s linear infinite;
         }}
         
         @keyframes gridMove {{
@@ -456,11 +562,11 @@ def get_page_template(title, icon, content):
                 0deg,
                 transparent,
                 transparent 2px,
-                rgba(0, 255, 255, 0.01) 2px,
-                rgba(0, 255, 255, 0.01) 4px
+                rgba(0, 255, 255, 0.02) 2px,
+                rgba(0, 255, 255, 0.02) 4px
             );
             pointer-events: none;
-            animation: scanMove 10s linear infinite;
+            animation: scanMove 8s linear infinite;
         }}
         
         @keyframes scanMove {{
@@ -490,7 +596,7 @@ def get_page_template(title, icon, content):
         }}
         
         @keyframes neonLine {{
-            0%, 100% {{ opacity: 0.3; }}
+            0%, 100% {{ opacity: 0.2; }}
             50% {{ opacity: 1; }}
         }}
         
@@ -547,7 +653,7 @@ def get_page_template(title, icon, content):
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
             transform: rotate(45deg);
             transition: all 0.5s ease;
         }}
@@ -561,6 +667,10 @@ def get_page_template(title, icon, content):
             box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
         }}
         
+        .btn-cyber:active {{
+            transform: scale(0.95);
+        }}
+        
         .btn-back {{
             background: rgba(0, 255, 255, 0.05);
             border: 1px solid rgba(0, 255, 255, 0.1);
@@ -572,12 +682,14 @@ def get_page_template(title, icon, content):
             font-family: 'Orbitron', sans-serif;
             font-size: 0.7rem;
             letter-spacing: 2px;
+            display: inline-block;
         }}
         
         .btn-back:hover {{
             background: rgba(0, 255, 255, 0.1);
             border-color: #00ffff;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+            transform: translateX(-4px);
         }}
         
         .input-cyber {{
@@ -619,8 +731,18 @@ def get_page_template(title, icon, content):
         }}
         
         @keyframes fadeCyber {{
-            from {{ opacity: 0; transform: translateY(20px); filter: blur(5px); }}
-            to {{ opacity: 1; transform: translateY(0); filter: blur(0); }}
+            from {{ opacity: 0; transform: translateY(20px) scale(0.95); filter: blur(5px); }}
+            to {{ opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }}
+        }}
+        
+        .cyber-title-page {{
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }}
+        
+        @media (max-width: 640px) {{
+            .cyber-title-page {{ font-size: 1.3rem; }}
         }}
         
         ::-webkit-scrollbar {{ width: 4px; }}
@@ -630,14 +752,13 @@ def get_page_template(title, icon, content):
             border-radius: 10px;
         }}
         
-        .cyber-title-page {{
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
+        .float-cyber {{
+            animation: floatCyber 4s ease-in-out infinite;
         }}
         
-        @media (max-width: 640px) {{
-            .cyber-title-page {{ font-size: 1.5rem; }}
+        @keyframes floatCyber {{
+            0%, 100% {{ transform: translateY(0px); }}
+            50% {{ transform: translateY(-6px); }}
         }}
     </style>
 </head>
@@ -651,21 +772,21 @@ def get_page_template(title, icon, content):
             <!-- BACK BUTTON & HEADER -->
             <div class="flex items-center justify-between mb-6 fade-cyber">
                 <a href="/" class="btn-back">← KEMBALI</a>
-                <div class="text-right">
-                    <span class="text-2xl">{icon}</span>
+                <div class="text-right float-cyber">
+                    <span class="text-3xl">{icon}</span>
                     <h1 class="cyber-title-page cyber-text">{title}</h1>
                 </div>
             </div>
 
             <!-- KONTEN -->
-            <div class="fade-cyber">
+            <div class="fade-cyber" style="animation-delay: 0.2s;">
                 {content}
             </div>
 
             <!-- FOOTER -->
-            <footer class="text-center py-6 mt-8">
-                <p style="color: rgba(0,255,255,0.1); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
-                    NEXUS CYBER UTILITY • DATA IN MEMORY
+            <footer class="text-center py-6 mt-8 fade-cyber" style="animation-delay: 0.4s;">
+                <p style="color: rgba(0,255,255,0.08); font-size: 0.5rem; font-family: 'Orbitron', sans-serif; letter-spacing: 3px;">
+                    ⚡ NEXUS CYBER • DATA IN MEMORY ⚡
                 </p>
             </footer>
         </div>
@@ -703,7 +824,7 @@ def ucapan():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Kartu Ucapan', '🎉', content), store=data_store)
+    return render_template_string(PAGE_TEMPLATE.format(title='Kartu Ucapan', icon='🎉', content=content), store=data_store)
 
 @app.route('/pesan')
 def pesan():
@@ -724,7 +845,7 @@ def pesan():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Pesan Rahasia', '💌', content), store=data_store)
+    return render_template_string(PAGE_TEMPLATE.format(title='Pesan Rahasia', icon='💌', content=content), store=data_store)
 
 @app.route('/kuis')
 def kuis():
@@ -747,7 +868,7 @@ def kuis():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Kuis', '🧠', content), session=session)
+    return render_template_string(PAGE_TEMPLATE.format(title='Kuis', icon='🧠', content=content), session=session)
 
 @app.route('/qr')
 def qr():
@@ -765,7 +886,7 @@ def qr():
         {% endif %}
     </div>
     """
-    return render_template_string(get_page_template('QR & Short URL', '📱', content), session=session)
+    return render_template_string(PAGE_TEMPLATE.format(title='QR & Short URL', icon='📱', content=content), session=session)
 
 @app.route('/keuangan')
 def keuangan():
@@ -805,7 +926,7 @@ def keuangan():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Catatan Keuangan', '💰', content), store=data_store)
+    return render_template_string(PAGE_TEMPLATE.format(title='Catatan Keuangan', icon='💰', content=content), store=data_store)
 
 @app.route('/hitung')
 def hitung():
@@ -827,7 +948,7 @@ def hitung():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Penghitung Hari', '⏳', content), store=data_store)
+    return render_template_string(PAGE_TEMPLATE.format(title='Penghitung Hari', icon='⏳', content=content), store=data_store)
 
 @app.route('/teks')
 def teks():
@@ -848,7 +969,7 @@ def teks():
         {% endif %}
     </div>
     """
-    return render_template_string(get_page_template('Pengubah Teks', '✨', content), session=session)
+    return render_template_string(PAGE_TEMPLATE.format(title='Pengubah Teks', icon='✨', content=content), session=session)
 
 @app.route('/favorit')
 def favorit():
@@ -871,7 +992,7 @@ def favorit():
         </div>
     </div>
     """
-    return render_template_string(get_page_template('Favorit & Bacaan', '⭐', content), store=data_store)
+    return render_template_string(PAGE_TEMPLATE.format(title='Favorit & Bacaan', icon='⭐', content=content), store=data_store)
 
 @app.route('/ketik')
 def ketik():
@@ -891,7 +1012,7 @@ def ketik():
         {% endif %}
     </div>
     """
-    return render_template_string(get_page_template('Kecepatan Ketik', '⌨️', content), session=session)
+    return render_template_string(PAGE_TEMPLATE.format(title='Kecepatan Ketik', icon='⌨️', content=content), session=session)
 
 @app.route('/konversi')
 def konversi():
@@ -925,7 +1046,7 @@ def konversi():
         {% endif %}
     </div>
     """
-    return render_template_string(get_page_template('Konversi', '🔄', content), session=session)
+    return render_template_string(PAGE_TEMPLATE.format(title='Konversi', icon='🔄', content=content), session=session)
 
 # ==========================================
 # ROUTE HANDLER POST
@@ -1049,4 +1170,4 @@ def handle_konversi():
 # ==========================================
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
