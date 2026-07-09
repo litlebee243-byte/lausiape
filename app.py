@@ -1,7 +1,7 @@
 # ==========================================
-# PROJECT: NEXUS UTILITY SUITE 
+# PROJECT: NEXUS CYBER UTILITY SUITE 
 # FILE: app.py
-# VERSION: PREMIUM v3.0
+# VERSION: CYBER v4.0
 # ==========================================
 
 import os
@@ -18,7 +18,7 @@ import time
 from flask import Flask, render_template_string, request, redirect, url_for, session, jsonify
 
 app = Flask(__name__)
-app.secret_key = 'nexus-premium-secret-key-2024'
+app.secret_key = 'nexus-cyber-secret-key-2024'
 
 # ==========================================
 # DATA STORE
@@ -70,7 +70,7 @@ def stylize_text(text, style='esthetic'):
     return text
 
 # ==========================================
-# TEMPLATE UTAMA (DENGAN NAVIGASI PAGE)
+# TEMPLATE CYBERPUNK
 # ==========================================
 BASE_TEMPLATE = """
 <!DOCTYPE html>
@@ -78,339 +78,471 @@ BASE_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS • Utility Suite Premium</title>
+    <title>NEXUS • Cyber Utility Suite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
         
         * { 
-            font-family: 'Inter', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
         body {
-            background: #0a0a12;
+            background: #05050a;
             min-height: 100vh;
-            color: #e8e8ff;
+            color: #00ffff;
             overflow-x: hidden;
         }
         
-        /* Background Animasi */
-        .bg-nexus {
+        /* CYBERPUNK BACKGROUND */
+        .cyber-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(255, 80, 200, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
             z-index: 0;
-            animation: pulseBg 10s ease-in-out infinite alternate;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 100, 255, 0.03) 0%, transparent 70%);
+            animation: cyberPulse 6s ease-in-out infinite alternate;
         }
         
-        @keyframes pulseBg {
-            0% { opacity: 0.6; transform: scale(1); }
+        @keyframes cyberPulse {
+            0% { opacity: 0.5; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.05); }
         }
         
-        /* Glassmorphism Premium */
-        .glass-premium {
-            background: rgba(255, 255, 255, 0.03);
+        /* Grid Overlay Cyber */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.01) 2px,
+                rgba(0, 255, 255, 0.01) 4px
+            );
+            pointer-events: none;
+            animation: scanMove 10s linear infinite;
+        }
+        
+        @keyframes scanMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+        
+        /* GLASS CYBER */
+        .glass-cyber {
+            background: rgba(0, 20, 30, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05), inset 0 0 30px rgba(0, 255, 255, 0.02);
+            position: relative;
+            z-index: 1;
         }
         
-        .glass-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+        .glass-cyber::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            animation: neonLine 3s ease-in-out infinite;
+        }
+        
+        @keyframes neonLine {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .glass-card-cyber {
+            background: rgba(0, 20, 30, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.08);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 1;
         }
         
-        .glass-card:hover {
+        .glass-card-cyber:hover {
             transform: translateY(-4px);
-            border-color: rgba(168, 85, 247, 0.25);
-            box-shadow: 0 12px 40px rgba(168, 85, 247, 0.1);
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.05);
         }
         
-        /* Gradient Text */
-        .gradient-nexus {
-            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f472b6 100%);
+        /* CYBER GRADIENT TEXT */
+        .cyber-text {
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
         }
         
-        /* Gradient Button */
-        .btn-gradient {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
+        .cyber-text-glow {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.3), 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+        
+        /* CYBER BUTTON */
+        .btn-cyber {
+            background: linear-gradient(135deg, #00ffff, #0088ff);
+            color: #05050a;
+            font-weight: 700;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
         }
         
-        .btn-gradient:hover {
+        .btn-cyber::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        
+        .btn-cyber:hover::before {
+            left: 100%;
+        }
+        
+        .btn-cyber:hover {
             transform: scale(1.03);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
         }
         
-        /* Input Styling */
-        .input-nexus {
-            background: rgba(0,0,0,0.4);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #e8e8ff;
+        /* CYBER INPUT */
+        .input-cyber {
+            background: rgba(0, 10, 20, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            color: #00ffff;
             transition: all 0.3s ease;
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 12px 16px;
             width: 100%;
         }
         
-        .input-nexus:focus {
-            border-color: #a855f7;
-            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.15);
+        .input-cyber:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
             outline: none;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 10, 20, 0.8);
         }
         
-        .input-nexus::placeholder {
-            color: rgba(255,255,255,0.3);
+        .input-cyber::placeholder {
+            color: rgba(0, 255, 255, 0.3);
+        }
+        
+        select.input-cyber option {
+            background: #0a0a1a;
+            color: #00ffff;
         }
         
         /* ==========================================
-           MENU NAVIGASI PREMIUM (PAGE-BASED)
+           MENU NAVIGASI CYBER
            ========================================== */
-        .menu-container {
+        .menu-cyber {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            padding: 8px;
+            gap: 8px;
+            padding: 6px;
         }
         
         @media (max-width: 640px) {
-            .menu-container {
+            .menu-cyber {
                 grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-                padding: 4px;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .menu-container {
-                grid-template-columns: repeat(3, 1fr);
                 gap: 6px;
             }
         }
         
-        .menu-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 14px 8px;
+        @media (max-width: 400px) {
+            .menu-cyber {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+            }
+        }
+        
+        .menu-item-cyber {
+            background: rgba(0, 20, 30, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px 6px;
             text-align: center;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             text-decoration: none;
-            color: #a0a0c0;
+            color: rgba(0, 255, 255, 0.6);
             position: relative;
             overflow: hidden;
         }
         
-        .menu-item::before {
+        .menu-item-cyber::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.05), transparent);
             transition: all 0.5s ease;
         }
         
-        .menu-item:hover::before {
+        .menu-item-cyber:hover::before {
             left: 100%;
         }
         
-        .menu-item:hover {
+        .menu-item-cyber:hover {
             transform: translateY(-4px) scale(1.03);
-            border-color: rgba(168, 85, 247, 0.3);
-            background: rgba(168, 85, 247, 0.08);
-            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
-            color: #e8e8ff;
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+            color: #00ffff;
         }
         
-        .menu-item.active {
-            border-color: #a855f7;
-            background: rgba(168, 85, 247, 0.12);
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.1);
-            color: #ffffff;
+        .menu-item-cyber.active {
+            border-color: #00ffff;
+            background: rgba(0, 255, 255, 0.08);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+            color: #00ffff;
         }
         
-        .menu-item.active .menu-icon {
+        .menu-item-cyber.active .menu-icon-cyber {
             transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.3));
         }
         
-        .menu-icon {
+        .menu-icon-cyber {
             font-size: 1.8rem;
             display: block;
-            margin-bottom: 4px;
-            transition: transform 0.3s ease;
+            margin-bottom: 2px;
+            transition: all 0.3s ease;
         }
         
-        .menu-label {
-            font-size: 0.65rem;
+        .menu-label-cyber {
+            font-size: 0.6rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
         }
         
         @media (max-width: 640px) {
-            .menu-icon { font-size: 1.4rem; }
-            .menu-label { font-size: 0.55rem; }
-            .menu-item { padding: 10px 4px; }
+            .menu-icon-cyber { font-size: 1.4rem; }
+            .menu-label-cyber { font-size: 0.5rem; }
+            .menu-item-cyber { padding: 8px 4px; }
         }
         
-        /* Welcome Screen */
-        .welcome-screen {
+        /* WELCOME SCREEN CYBER */
+        .welcome-cyber {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: #0a0a12;
+            background: #05050a;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.8s ease;
+            animation: cyberIn 1s ease;
         }
         
-        @keyframes fadeIn {
+        @keyframes cyberIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
         
-        .welcome-content {
+        .welcome-content-cyber {
             text-align: center;
-            animation: floatGlow 4s ease-in-out infinite;
+            animation: cyberFloat 4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
         
-        @keyframes floatGlow {
+        @keyframes cyberFloat {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-10px); }
         }
         
-        .nexus-title {
+        .cyber-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: 5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #a855f7, #ec4899, #f472b6);
+            background: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #00ffff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 60px rgba(168, 85, 247, 0.3);
-            letter-spacing: 6px;
+            text-shadow: none;
+            filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.3));
+            letter-spacing: 8px;
         }
         
         @media (max-width: 640px) {
-            .nexus-title { font-size: 2.8rem; letter-spacing: 3px; }
+            .cyber-title { font-size: 3rem; letter-spacing: 4px; }
         }
         
-        .sub-glow {
-            color: #8080aa;
+        .cyber-sub {
+            color: rgba(0, 255, 255, 0.5);
             font-weight: 300;
-            letter-spacing: 10px;
+            letter-spacing: 12px;
             text-transform: uppercase;
             font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        .btn-enter {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
+        .btn-enter-cyber {
+            background: linear-gradient(135deg, #00ffff, #0088ff);
             padding: 16px 48px;
-            border-radius: 50px;
-            color: white;
+            border-radius: 8px;
+            color: #05050a;
             font-weight: 700;
             font-size: 1.1rem;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
-            letter-spacing: 3px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        .btn-enter:hover {
+        .btn-enter-cyber:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
         }
         
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        /* TYPOGRAPHY CYBER */
+        .cyber-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: rgba(0, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+        
+        .cyber-value {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(0,255,255,0.02); }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #7c3aed, #db2777);
+            background: linear-gradient(135deg, #00ffff, #0088ff);
             border-radius: 10px;
         }
         
-        .fade-slide {
-            animation: fadeSlide 0.6s ease forwards;
+        .fade-cyber {
+            animation: fadeCyber 0.6s ease forwards;
         }
         
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeCyber {
+            from { opacity: 0; transform: translateY(20px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         
-        /* Badge notifikasi */
-        .badge-count {
-            background: linear-gradient(135deg, #ec4899, #a855f7);
-            color: white;
-            font-size: 0.6rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            margin-left: 4px;
+        /* CYBER DIVIDER */
+        .cyber-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            margin: 20px 0;
+        }
+        
+        /* GLITCH EFFECT */
+        .glitch {
+            animation: glitch 3s infinite;
+        }
+        
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
         }
     </style>
 </head>
 <body>
-    <!-- Background -->
-    <div class="bg-nexus"></div>
+    <!-- CYBER BACKGROUND -->
+    <div class="cyber-bg"></div>
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
 
-    <!-- WELCOME SCREEN -->
-    <div id="welcomeScreen" class="welcome-screen">
-        <div class="welcome-content px-6">
-            <div class="text-7xl mb-4">🚀</div>
-            <h1 class="nexus-title">NEXUS</h1>
-            <p class="sub-glow mb-6">Utility Suite • Premium</p>
-            <p class="text-gray-400 mb-8 max-w-md mx-auto text-sm">
-                Pusat kendali 10 fitur canggih dalam satu platform
+    <!-- WELCOME SCREEN CYBER -->
+    <div id="welcomeScreen" class="welcome-cyber">
+        <div class="welcome-content-cyber px-6">
+            <div class="text-7xl mb-4 glitch">⚡</div>
+            <h1 class="cyber-title">NEXUS</h1>
+            <p class="cyber-sub mb-6">Utility Suite • Cyber</p>
+            <p class="text-gray-400 mb-8 max-w-md mx-auto text-sm" style="color: rgba(0,255,255,0.4);">
+                <span class="cyber-label">>> SYSTEM READY <<</span><br>
+                10 fitur canggih dalam satu platform
             </p>
-            <button onclick="enterNexus()" class="btn-enter">
-                ✦ LANJUTKAN ✦
+            <button onclick="enterNexus()" class="btn-enter-cyber">
+                ⚡ ENTER NEXUS ⚡
             </button>
-            <p class="text-gray-600 text-xs mt-4">v3.0 • Made with ❤️</p>
+            <p class="text-gray-600 text-xs mt-4" style="color: rgba(0,255,255,0.2);">v4.0 • CYBER EDITION</p>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <div id="mainContent" style="display: none;" class="relative z-10 p-4 md:p-6">
         <div class="max-w-6xl mx-auto">
-            <!-- HEADER -->
-            <header class="text-center py-6 fade-slide">
-                <h1 class="text-3xl md:text-5xl font-bold gradient-nexus font-['Orbitron'] tracking-wider">
+            <!-- HEADER CYBER -->
+            <header class="text-center py-6 fade-cyber">
+                <h1 class="text-3xl md:text-5xl font-bold cyber-text font-['Orbitron'] tracking-wider">
                     ⚡ NEXUS
                 </h1>
-                <p class="text-gray-400 text-sm md:text-base tracking-widest mt-1">10 Fitur Premium • Satu Platform</p>
+                <p class="text-sm md:text-base tracking-widest mt-1" style="color: rgba(0,255,255,0.4); font-family: 'Orbitron', sans-serif; letter-spacing: 4px;">
+                    10 FITUR PREMIUM • SISTEM AKTIF
+                </p>
             </header>
 
-            <!-- MENU NAVIGASI (PAGE-BASED) -->
-            <nav class="glass-premium rounded-2xl p-4 md:p-6 mb-8 fade-slide">
-                <div class="menu-container">
+            <!-- MENU CYBER -->
+            <nav class="glass-cyber rounded-2xl p-4 md:p-6 mb-8 fade-cyber">
+                <div class="menu-cyber">
                     {% set menu_items = [
                         ('ucapan', '🎉', 'Ucapan'),
                         ('pesan', '💌', 'Pesan'),
@@ -425,29 +557,30 @@ BASE_TEMPLATE = """
                     ] %}
                     {% for id, icon, label in menu_items %}
                         <a href="/{{ id }}" 
-                           class="menu-item {% if active == id %}active{% endif %}"
+                           class="menu-item-cyber {% if active == id %}active{% endif %}"
                            onclick="setActive('{{ id }}')">
-                            <span class="menu-icon">{{ icon }}</span>
-                            <span class="menu-label">{{ label }}</span>
+                            <span class="menu-icon-cyber">{{ icon }}</span>
+                            <span class="menu-label-cyber">{{ label }}</span>
                         </a>
                     {% endfor %}
                 </div>
             </nav>
 
             <!-- KONTEN FITUR -->
-            <div class="fade-slide">
+            <div class="fade-cyber">
                 {% block content %}{% endblock %}
             </div>
 
-            <!-- FOOTER -->
-            <footer class="text-center text-gray-600 text-xs py-8 mt-12 border-t border-purple-900/20">
-                NEXUS Utility Suite • Data tersimpan di memori • Made with ❤️
+            <!-- FOOTER CYBER -->
+            <footer class="text-center py-8 mt-12 border-t" style="border-color: rgba(0,255,255,0.05);">
+                <p style="color: rgba(0,255,255,0.2); font-size: 0.7rem; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">
+                    NEXUS CYBER UTILITY • DATA IN MEMORY • MADE WITH ❤️
+                </p>
             </footer>
         </div>
     </div>
 
     <script>
-        // Welcome Screen
         function enterNexus() {
             const welcome = document.getElementById('welcomeScreen');
             const main = document.getElementById('mainContent');
@@ -456,30 +589,50 @@ BASE_TEMPLATE = """
             setTimeout(() => {
                 welcome.style.display = 'none';
                 main.style.display = 'block';
-                main.style.animation = 'fadeSlide 0.8s ease';
+                main.style.animation = 'fadeCyber 0.8s ease';
             }, 800);
         }
 
-        // Set Active Menu (highlight)
         function setActive(id) {
-            document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('active'));
-            const activeEl = document.querySelector(`.menu-item[href="/${id}"]`);
+            document.querySelectorAll('.menu-item-cyber').forEach(el => el.classList.remove('active'));
+            const activeEl = document.querySelector(`.menu-item-cyber[href="/${id}"]`);
             if(activeEl) activeEl.classList.add('active');
         }
 
-        // Auto detect active from URL
         document.addEventListener('DOMContentLoaded', function() {
             const path = window.location.pathname;
             const activeId = path.replace('/', '') || 'ucapan';
             setActive(activeId);
+            
+            // Cek apakah welcome sudah pernah ditampilkan
+            if(!sessionStorage.getItem('nexus_entered')) {
+                // Tampilkan welcome
+            } else {
+                document.getElementById('welcomeScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+            }
         });
+
+        // Tandai sudah masuk
+        function enterNexus() {
+            sessionStorage.setItem('nexus_entered', 'true');
+            const welcome = document.getElementById('welcomeScreen');
+            const main = document.getElementById('mainContent');
+            welcome.style.opacity = '0';
+            welcome.style.transition = 'opacity 0.8s ease';
+            setTimeout(() => {
+                welcome.style.display = 'none';
+                main.style.display = 'block';
+                main.style.animation = 'fadeCyber 0.8s ease';
+            }, 800);
+        }
     </script>
 </body>
 </html>
 """
 
 # ==========================================
-# ROUTE UNTUK SETIAP HALAMAN (PAGE-BASED)
+# ROUTE UNTUK SETIAP HALAMAN
 # ==========================================
 @app.route('/')
 def index():
@@ -487,74 +640,73 @@ def index():
 
 @app.route('/<page>')
 def page(page):
-    # Validasi page
     valid_pages = ['ucapan', 'pesan', 'kuis', 'qr', 'keuangan', 'hitung', 'teks', 'favorit', 'ketik', 'konversi']
     if page not in valid_pages:
         page = 'ucapan'
     
     contents = {
         'ucapan': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🎉</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Pembuat Kartu Ucapan & Undangan</h2>
+                <h2 class="text-2xl font-bold cyber-text">Pembuat Kartu Ucapan</h2>
             </div>
             <form method="POST" action="/ucapan" class="space-y-4">
-                <input type="text" name="nama" placeholder="Nama penerima" class="input-nexus" required>
-                <input type="text" name="acara" placeholder="Jenis acara" class="input-nexus" required>
-                <textarea name="pesan" rows="3" placeholder="Pesan ucapan..." class="input-nexus" required></textarea>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">✨ Buat Kartu</button>
+                <input type="text" name="nama" placeholder="Nama penerima" class="input-cyber" required>
+                <input type="text" name="acara" placeholder="Jenis acara" class="input-cyber" required>
+                <textarea name="pesan" rows="3" placeholder="Pesan ucapan..." class="input-cyber" required></textarea>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">✨ Buat Kartu</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.ucapan %}
-                <div class="glass-card p-4 rounded-xl border border-purple-500/20">
-                    <p class="font-semibold text-purple-300">Untuk: {{ item.nama }}</p>
+                <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
+                    <p class="font-semibold text-cyan-300">Untuk: {{ item.nama }}</p>
                     <p class="text-pink-300">Acara: {{ item.acara }}</p>
                     <p class="text-gray-300 italic">"{{ item.pesan }}"</p>
-                    <small class="text-gray-500">{{ item.waktu }}</small>
+                    <small style="color: rgba(0,255,255,0.3);">{{ item.waktu }}</small>
                 </div>
                 {% endfor %}
             </div>
         </section>
         """,
         'pesan': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">💌</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Kotak Pesan Rahasia Anonim</h2>
+                <h2 class="text-2xl font-bold cyber-text">Kotak Pesan Rahasia</h2>
             </div>
             <form method="POST" action="/pesan" class="space-y-4">
-                <input type="text" name="judul" placeholder="Judul (opsional)" class="input-nexus">
-                <textarea name="isi" rows="4" placeholder="Tulis pesan rahasia..." class="input-nexus" required></textarea>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🤫 Kirim Rahasia</button>
+                <input type="text" name="judul" placeholder="Judul (opsional)" class="input-cyber">
+                <textarea name="isi" rows="4" placeholder="Tulis pesan rahasia..." class="input-cyber" required></textarea>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">🤫 Kirim Rahasia</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.pesan %}
-                <div class="glass-card p-4 rounded-xl border border-pink-500/20">
+                <div class="glass-card-cyber p-4 rounded-xl border border-pink-500/20">
                     <p class="text-gray-300">{{ item.isi }}</p>
-                    <small class="text-gray-500">#{{ item.id }} • {{ item.waktu }}</small>
+                    <small style="color: rgba(0,255,255,0.3);">#{{ item.id }} • {{ item.waktu }}</small>
                 </div>
                 {% endfor %}
             </div>
         </section>
         """,
         'kuis': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🧠</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Kuis "Seberapa Kenal Kamu?"</h2>
+                <h2 class="text-2xl font-bold cyber-text">Kuis "Seberapa Kenal Kamu?"</h2>
             </div>
             <form method="POST" action="/kuis" class="space-y-4">
-                <div class="glass-card p-4 rounded-xl border border-purple-500/20">
+                <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
                     <p class="text-gray-300">Pertanyaan: Apa makanan favorit saya?</p>
                 </div>
-                <input type="text" name="jawaban" placeholder="Jawaban..." class="input-nexus" required>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">Kirim Jawaban</button>
+                <input type="text" name="jawaban" placeholder="Jawaban..." class="input-cyber" required>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">Kirim Jawaban</button>
             </form>
             <div class="mt-6">
-                <p class="text-gray-400">Skor Anda: <span class="text-purple-300 font-bold text-2xl">{{ session.get('skor_kuis', 0) }}</span></p>
+                <p class="text-gray-400">Skor Anda: <span class="text-cyan-300 font-bold text-2xl cyber-value">{{ session.get('skor_kuis', 0) }}</span></p>
                 {% if session.get('last_answer') %}
-                <div class="glass-card p-4 rounded-xl mt-3 border border-purple-500/20">
+                <div class="glass-card-cyber p-4 rounded-xl mt-3 border border-cyan-500/20">
                     <p class="text-gray-300">{{ session.get('last_answer') }}</p>
                 </div>
                 {% endif %}
@@ -562,54 +714,54 @@ def page(page):
         </section>
         """,
         'qr': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">📱</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Pembuat QR & Pemendek Tautan</h2>
+                <h2 class="text-2xl font-bold cyber-text">Pembuat QR & Short URL</h2>
             </div>
             <form method="POST" action="/qr" class="space-y-4">
-                <input type="url" name="url" placeholder="Masukkan URL..." class="input-nexus" required>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🔗 Buat QR</button>
+                <input type="url" name="url" placeholder="Masukkan URL..." class="input-cyber" required>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">🔗 Buat QR</button>
             </form>
             {% if session.get('qr_result') %}
-            <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
-                <p class="text-gray-300 break-all">Short URL: <a href="{{ session.qr_result.short }}" target="_blank" class="text-purple-300 hover:underline">{{ session.qr_result.short }}</a></p>
+            <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
+                <p class="text-gray-300 break-all">Short URL: <a href="{{ session.qr_result.short }}" target="_blank" class="text-cyan-300 hover:underline">{{ session.qr_result.short }}</a></p>
                 <img src="data:image/png;base64,{{ session.qr_result.qr }}" class="mx-auto mt-3 w-48 h-48" alt="QR Code">
             </div>
             {% endif %}
         </section>
         """,
         'keuangan': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">💰</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Catatan Pengeluaran & Simpanan</h2>
+                <h2 class="text-2xl font-bold cyber-text">Catatan Keuangan</h2>
             </div>
             <form method="POST" action="/keuangan" class="space-y-4">
-                <select name="jenis" class="input-nexus">
+                <select name="jenis" class="input-cyber">
                     <option value="pengeluaran">Pengeluaran</option>
                     <option value="simpanan">Simpanan</option>
                 </select>
-                <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-nexus" required>
-                <input type="text" name="keterangan" placeholder="Keterangan" class="input-nexus">
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">Tambah Catatan</button>
+                <input type="number" name="jumlah" placeholder="Jumlah (Rp)" class="input-cyber" required>
+                <input type="text" name="keterangan" placeholder="Keterangan" class="input-cyber">
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">Tambah Catatan</button>
             </form>
             <div class="mt-6">
                 <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-sm">Total Pengeluaran</p>
-                        <p class="text-2xl font-bold text-pink-400">Rp {{ "%.0f"|format(store.keuangan|selectattr('jenis', 'eq', 'pengeluaran')|map(attribute='jumlah')|sum) }}</p>
+                    <div class="glass-card-cyber p-4 rounded-xl text-center">
+                        <p class="text-gray-400 text-sm cyber-label">Pengeluaran</p>
+                        <p class="text-2xl font-bold text-pink-400 cyber-value">Rp {{ "%.0f"|format(store.keuangan|selectattr('jenis', 'eq', 'pengeluaran')|map(attribute='jumlah')|sum) }}</p>
                     </div>
-                    <div class="glass-card p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-sm">Total Simpanan</p>
-                        <p class="text-2xl font-bold text-purple-400">Rp {{ "%.0f"|format(store.keuangan|selectattr('jenis', 'eq', 'simpanan')|map(attribute='jumlah')|sum) }}</p>
+                    <div class="glass-card-cyber p-4 rounded-xl text-center">
+                        <p class="text-gray-400 text-sm cyber-label">Simpanan</p>
+                        <p class="text-2xl font-bold text-cyan-400 cyber-value">Rp {{ "%.0f"|format(store.keuangan|selectattr('jenis', 'eq', 'simpanan')|map(attribute='jumlah')|sum) }}</p>
                     </div>
                 </div>
                 <div class="space-y-2 max-h-60 overflow-y-auto">
                     {% for item in store.keuangan[-10:]|reverse %}
-                    <div class="glass-card p-3 rounded-xl text-sm flex justify-between items-center">
+                    <div class="glass-card-cyber p-3 rounded-xl text-sm flex justify-between items-center">
                         <span>{{ item.jenis }} • {{ item.keterangan }}</span>
-                        <span class="font-bold {% if item.jenis == 'pengeluaran' %}text-pink-400{% else %}text-purple-400{% endif %}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
+                        <span class="font-bold {% if item.jenis == 'pengeluaran' %}text-pink-400{% else %}text-cyan-400{% endif %}">Rp {{ "%.0f"|format(item.jumlah) }}</span>
                     </div>
                     {% endfor %}
                 </div>
@@ -617,65 +769,65 @@ def page(page):
         </section>
         """,
         'hitung': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⏳</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Penghitung Sisa Hari</h2>
+                <h2 class="text-2xl font-bold cyber-text">Penghitung Sisa Hari</h2>
             </div>
             <form method="POST" action="/hitung" class="space-y-4">
-                <input type="text" name="acara" placeholder="Nama acara" class="input-nexus" required>
-                <input type="date" name="tanggal" class="input-nexus" required>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">⏱️ Hitung Hari</button>
+                <input type="text" name="acara" placeholder="Nama acara" class="input-cyber" required>
+                <input type="date" name="tanggal" class="input-cyber" required>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">⏱️ Hitung Hari</button>
             </form>
             <div class="mt-6 space-y-4">
                 {% for item in store.hitung %}
-                <div class="glass-card p-4 rounded-xl border border-purple-500/20">
+                <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
                     <p class="font-semibold">{{ item.acara }}</p>
-                    <p class="text-3xl font-bold text-purple-300">{{ item.sisa_hari }} hari lagi</p>
-                    <small class="text-gray-500">{{ item.tanggal }}</small>
+                    <p class="text-3xl font-bold text-cyan-300 cyber-value">{{ item.sisa_hari }} hari lagi</p>
+                    <small style="color: rgba(0,255,255,0.3);">{{ item.tanggal }}</small>
                 </div>
                 {% endfor %}
             </div>
         </section>
         """,
         'teks': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">✨</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Pengubah Teks Gaya Unik</h2>
+                <h2 class="text-2xl font-bold cyber-text">Pengubah Teks Gaya Unik</h2>
             </div>
             <form method="POST" action="/teks" class="space-y-4">
-                <input type="text" name="teks" placeholder="Masukkan teks..." class="input-nexus" required>
-                <select name="gaya" class="input-nexus">
+                <input type="text" name="teks" placeholder="Masukkan teks..." class="input-cyber" required>
+                <select name="gaya" class="input-cyber">
                     <option value="esthetic">Estetik (𝓪𝓫𝓬)</option>
                     <option value="upside">Terbalik (ɐqɔ)</option>
                 </select>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">✨ Ubah Gaya</button>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">✨ Ubah Gaya</button>
             </form>
             {% if session.get('styled_text') %}
-            <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
-                <p class="text-2xl">{{ session.styled_text }}</p>
+            <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
+                <p class="text-2xl" style="color: #00ffff;">{{ session.styled_text }}</p>
             </div>
             {% endif %}
         </section>
         """,
         'favorit': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⭐</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Penyimpanan Favorit & Bacaan Nanti</h2>
+                <h2 class="text-2xl font-bold cyber-text">Penyimpanan Favorit</h2>
             </div>
             <form method="POST" action="/favorit" class="space-y-4">
-                <input type="text" name="judul" placeholder="Judul" class="input-nexus" required>
-                <input type="url" name="url" placeholder="URL (opsional)" class="input-nexus">
-                <textarea name="catatan" rows="2" placeholder="Catatan..." class="input-nexus"></textarea>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">⭐ Simpan</button>
+                <input type="text" name="judul" placeholder="Judul" class="input-cyber" required>
+                <input type="url" name="url" placeholder="URL (opsional)" class="input-cyber">
+                <textarea name="catatan" rows="2" placeholder="Catatan..." class="input-cyber"></textarea>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">⭐ Simpan</button>
             </form>
             <div class="mt-6 space-y-3">
                 {% for item in store.favorit %}
-                <div class="glass-card p-4 rounded-xl border border-purple-500/20">
+                <div class="glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
                     <p class="font-semibold">{{ item.judul }}</p>
-                    {% if item.url %}<a href="{{ item.url }}" target="_blank" class="text-purple-300 text-sm hover:underline">{{ item.url }}</a>{% endif %}
+                    {% if item.url %}<a href="{{ item.url }}" target="_blank" class="text-cyan-300 text-sm hover:underline">{{ item.url }}</a>{% endif %}
                     <p class="text-gray-400 text-sm">{{ item.catatan }}</p>
                 </div>
                 {% endfor %}
@@ -683,55 +835,55 @@ def page(page):
         </section>
         """,
         'ketik': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">⌨️</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Pengecekan Kecepatan Ketik</h2>
+                <h2 class="text-2xl font-bold cyber-text">Pengecekan Kecepatan Ketik</h2>
             </div>
-            <div class="glass-card p-4 rounded-xl mb-4 border border-purple-500/20">
+            <div class="glass-card-cyber p-4 rounded-xl mb-4 border border-cyan-500/20">
                 <p class="text-gray-300 text-sm">Ketik kalimat ini secepat mungkin untuk mengukur kecepatan mengetik Anda.</p>
             </div>
             <form method="POST" action="/ketik" class="space-y-4">
-                <input type="text" name="input_ketik" placeholder="Mulai mengetik..." class="input-nexus" required>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🚀 Kirim & Hitung</button>
+                <input type="text" name="input_ketik" placeholder="Mulai mengetik..." class="input-cyber" required>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">🚀 Kirim & Hitung</button>
             </form>
             {% if session.get('hasil_ketik') %}
-            <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20">
-                <p class="text-gray-300">Kecepatan: <span class="text-purple-300 font-bold text-xl">{{ session.hasil_ketik }}</span></p>
+            <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20">
+                <p class="text-gray-300">Kecepatan: <span class="text-cyan-300 font-bold text-xl cyber-value">{{ session.hasil_ketik }}</span></p>
             </div>
             {% endif %}
         </section>
         """,
         'konversi': """
-        <section class="glass-card rounded-2xl p-6 md:p-8">
+        <section class="glass-card-cyber rounded-2xl p-6 md:p-8">
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-3xl">🔄</span>
-                <h2 class="text-2xl font-bold gradient-nexus">Konversi Mata Uang & Satuan</h2>
+                <h2 class="text-2xl font-bold cyber-text">Konversi Mata Uang & Satuan</h2>
             </div>
             <form method="POST" action="/konversi" class="space-y-4">
                 <div class="grid grid-cols-2 gap-3">
-                    <input type="number" name="nilai" placeholder="Nilai" class="input-nexus" required>
-                    <select name="dari" class="input-nexus">
+                    <input type="number" name="nilai" placeholder="Nilai" class="input-cyber" required>
+                    <select name="dari" class="input-cyber">
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                         <option value="idr">IDR</option>
                     </select>
-                    <select name="ke" class="input-nexus">
+                    <select name="ke" class="input-cyber">
                         <option value="usd">USD</option>
                         <option value="eur">EUR</option>
                         <option value="idr">IDR</option>
                     </select>
-                    <select name="jenis_konversi" class="input-nexus">
+                    <select name="jenis_konversi" class="input-cyber">
                         <option value="mata_uang">Mata Uang</option>
                         <option value="panjang">Panjang (m/km)</option>
                         <option value="berat">Berat (kg/g)</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-gradient w-full py-3 rounded-xl font-semibold text-white">🔄 Konversi</button>
+                <button type="submit" class="btn-cyber w-full py-3 rounded-xl font-semibold">🔄 Konversi</button>
             </form>
             {% if session.get('hasil_konversi') %}
-            <div class="mt-6 glass-card p-4 rounded-xl border border-purple-500/20 text-center">
-                <p class="text-gray-300">Hasil: <span class="text-purple-300 font-bold text-xl">{{ session.hasil_konversi }}</span></p>
+            <div class="mt-6 glass-card-cyber p-4 rounded-xl border border-cyan-500/20 text-center">
+                <p class="text-gray-300">Hasil: <span class="text-cyan-300 font-bold text-xl cyber-value">{{ session.hasil_konversi }}</span></p>
             </div>
             {% endif %}
         </section>
